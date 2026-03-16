@@ -121,6 +121,8 @@
 \newcommand{\oo}{\infty}
 \newcommand{\longto}{\longrightarrow}
 \newcommand{\embbed}{\hookrightarrow}
+\newcommand{\acts}{\curvearrowright}
+\newcommand{\actsby}[1]{\stackrel{#1}{\acts}}
 \renewcommand{\c}{\cdot}
 \renewcommand{\bar}{\overline}
 \newcommand{\normal}{\trianglelefteqslant}
@@ -132,11 +134,14 @@
 \newcommand{\id}{\mathrm{id}}
 \newcommand{\im}{\mathrm{im}\,}
 \newcommand{\op}{\mathrm{op}}
+\newcommand{\orb}{\mathrm{orb}}
 \newcommand{\GL}{\mathrm{GL}}
 \newcommand{\SL}{\mathrm{SL}}
 \newcommand{\Sym}{\mathrm{Sym}}
 \newcommand{\Aut}{\mathrm{Aut}}
 \newcommand{\Inn}{\mathrm{Inn}}
+\newcommand{\Hom}{\mathrm{Hom}}
+\newcommand{\stab}{\mathrm{stab}}
 
 %different bracket types
 \newcommand{\abs}[1]{\left| #1 \right|}
@@ -423,7 +428,7 @@
 %% demostrar cosas
 
 \begin{exercise}
-  Mostrar que $(\Q,+) \not\cong (\Q^2,+)$ y $(\Z,+) \not\cong (\Z^2,+)$
+  Mostrar que $(\Q,+) \not\simeq (\Q^2,+)$ y $(\Z,+) \not\simeq (\Z^2,+)$
 \end{exercise}
 
 \newpage
@@ -431,15 +436,15 @@
 
 \begin{proposition}
   Dados $X$ e $Y$ conjuntos, entonces
-  \[\Sym(X) \cong \Sym(Y) \iff |X| = |Y|\]
+  \[\Sym(X) \simeq \Sym(Y) \iff |X| = |Y|\]
 \end{proposition}
 \begin{proof}
   \
   \begin{itemize}
     \item \boxed{\impliedby} Supongamos que $|X| = |Y|$. Entonces existe $f \colon X \to Y$ biyectiva. Definimos $$\phi \colon \Sym(X) \to \Sym(Y)$$ dada por $\phi(\sigma) = f \circ \sigma \circ f^{-1}$ para todo $\sigma \in \Sym(X)$.
+    \item \boxed{\implies} Mostrar que los isomorfismos preservan clases de conjugación. La clase no trivial más pequeña nos da la biyección $X \to Y$. %% Demostrar!!!!!
   \end{itemize}
 \end{proof}
-%% demostrar la otra implicancia
 
 \begin{notation}
   \begin{align*}
@@ -605,8 +610,236 @@
   \[(k + n\Z) + (k'+n\Z) = (k+k' \pmod n + n\Z)\]
 \end{example}
 
+\fecha{Clase 3. Lunes 16 de Marzo}
 
-%\fecha{Clase 3.}
+\begin{definition}
+  Dado $K \normal G$, el \wea{grupo cociente} es
+  \[\frac{G}{K} = \{gK \colon g \in G\}\]
+  con la operación
+  \[(gK) \c (hK) = ghK.\]
+\end{definition}
+
+\begin{proposition}
+  Sea $\phi \colon G \to H$ homomorfismo de grupos. Entonces $\ker(\phi) \normal G$.
+\end{proposition}
+\begin{proof}
+  Sea $g \in \ker(\phi)$ y $h \in G$, entonces
+  \[\phi(hgh^{-1}) = \phi(h) \phi(g) \phi(h)^{-1} = \phi(h) \c e_H \c \phi(h)^{-1} = \phi(h) \phi(h)^{-1} = e_H\]
+  y entonces $hgh^{-1} \in \ker(\phi)$, para todo $g \in \ker(\phi)$ y todo $h \in G$. Por lo tanto $\ker(\phi) \normal G$.
+\end{proof}
+
+\begin{proposition}
+  Sea $K \normal G$. Consideremos la proyección canónica $$\phi \colon G \to \frac GK$$ dada por $\phi(g) = gK$. Entonces $\phi$ es un epimorfismo y $\ker(\phi) = K$.
+\end{proposition}
+
+\begin{obs}
+  Tenemos una correspondencia entre subgrupos normales y núcleos de homomorfismos. %% Escribir mejor
+\end{obs}
+
+\begin{theorem}[\wea{Primer Teorema del Isomorfismo}]
+  Sean $G,H$ grupos y $\phi \colon G \to H$ homomorfismo. Entonces
+  \[\im(\phi) \simeq \frac{G}{\ker(\phi)}.\]
+\end{theorem}
+\begin{proof}
+  Sea $K = \ker(\phi)$. Definimos $$\psi \colon \frac G K \to \im(\phi)$$ dada por $\psi(gK) = \phi(g)$. Veamos que $\psi$ es un isomorfismo.
+  \begin{itemize}
+    \item \wea{Bien definido:} Sean $g,h \in G$ tal que $gK = hK$. Luego
+    $$gh^{-1} \in K = \ker(\phi)$$
+    $$\implies \phi(gh^{-1}) = 1_H$$
+    $$\implies \psi(gK) = \phi(g) = \phi(gh^{-1}) \phi(h) = \phi(h) = \psi(hK).$$
+    Por lo tanto $\psi$ está bien definida.
+    \item \wea{Homomorfismo:} Sean $g,h \in G$, entonces
+    \[\psi((gK)(hK)) = \psi(ghK) = \phi(gh) = \phi(g) \phi(h) = \psi(gK) \psi(hK).\]
+    \item \wea{Inyectivo:} Sea $g \in G$ tal que $gK \in \ker(\psi)$, entonces
+    \[1_H = \psi(gK) = \phi(g) \implies g \in \ker(\phi) = K \implies gK = 1_{g/K}.\]
+    Por lo tanto $\ker(\psi) = 1$, y entonces $\psi$ es inyectivo.
+    \item \wea{Sobreyectivo:} Trivial. %% demostrar
+  \end{itemize}
+\end{proof}
+
+\begin{corollary}
+  Si $\phi \colon G \to H$ es epimorfismo, entonces $$H \simeq \rac{G}{\ker(\phi)}.$$
+\end{corollary}
+
+\begin{example}
+  Sean $m,n$ enteros positivos. Pruebe que $\exists \phi \colon \zmz n \to \zmz m$ epimorfismo si y solo si $m$ divide a $n$.
+\end{example}
+\begin{proof}\
+  \begin{itemize}
+    \item[\boxed{\implies}] Supongamos que existe un epimorfismo $\phi \colon \zmz n \to \zmz m$, entonces
+    \[\znz m \simeq \frac{\zmz n}{\ker(\phi)}\]
+    \[\implies m
+    = \abs{\znz m}
+    = \abs{ \frac{\zmz n}{\ker(\phi)} }
+    = \frac{n}{\abs{\ker(\phi)}}\]
+    y entonces $n \mid m$.
+
+    \item[\boxed{\impliedby}] Ejercicio. %% demostrar
+  \end{itemize}
+\end{proof}
+
+\begin{obs}
+  En notación moderna, el Primer Teorema de Isomorfismo se escribe: Existe la secuencia exacta corta
+  \[1 \to N \to G \to H \to 1.\] %% mostrar que esto equivale al 1er teo de isom
+\end{obs}
+
+\begin{definition}
+  Sean $H,N \leqslant G$, definimos
+  \[HN = \{g \in G \colon \exists h \in H, \exists n \in N, g = hn\}.\]
+\end{definition}
+
+\begin{proposition}
+  $HN \leqslant G \iff H \normal G \ \lor\ N \normal G$.
+\end{proposition}
+\begin{proof}
+  \
+  \begin{itemize}
+    \item[\boxed{\impliedby}]
+    Supongamos que $N \normal G$. Sean $h,h' \in H$ y $n,n' \in N$. Entonces
+    \[(h'n') \c (hn)^{-1}
+    = h' n' n^{-1} h^{-1}
+    = \underbrace{h' h^{-1}}_{\in H} \underbrace{h n' n^{-1} h^{-1}}_{\in N} \in HN.\]
+    \item[\boxed{\implies}] Pendiente %% buscar contraejemplo.
+  \end{itemize}
+\end{proof}
+
+\begin{theorem}
+  [\wea{Segundo Teorema del Isomorfismo}]
+  Sea $G$ grupo, $N \normal G$ y $H \leqslant G$. Entonces
+  \[\frac{H}{H \cap N} \simeq \frac{HN}{N}.\]
+\end{theorem}
+\begin{proof}
+  Primero notemos que $H \cap N \normal H$ y que $N \normal HN$. %% demostrar
+  Definimos $$\phi \colon H \to \frac{HN}{N}$$ mediante $$\phi(h) = hN.$$
+  \begin{itemize}
+    \item \wea{$\phi$ es homomorfismo:} Sean $h,h' \in H$, entonces $$\phi(hh') = hh'N = (hN)(h'N) = \phi(h) \phi(h').$$
+    \item \wea{Sobreyectivo:} Trivial. %% demostrar
+  \end{itemize}
+  Luego $\phi$ es un epimorfismo, y entonces $$\frac{H}{\ker(\phi)} \simeq \frac{HN}{N}.$$ Notemos que
+  \begin{align*}
+    \ker(\phi) &= \{h \in H \colon \phi(h) = N\} \\
+    &= \{h \in H \colon hN = N\} \\
+    &= H \cap N.
+  \end{align*}
+  Entonces $$\frac{H}{H \cap N} = \frac{H}{\ker(\phi)} \simeq \frac{HN}{N}.$$
+\end{proof}
+
+\begin{obs}
+  En notación moderna: Tenemos las dos secuencias exactas
+  \[\begin{tikzcd}
+	&& N \\
+	1 & {H \cap N} && HN & G \\
+	&& H
+	\arrow[from=1-3, to=2-4]
+	\arrow[from=2-1, to=2-2]
+	\arrow[from=2-2, to=1-3]
+	\arrow[from=2-2, to=3-3]
+	\arrow[from=2-4, to=2-5]
+	\arrow[from=3-3, to=2-4]
+  \end{tikzcd}\]
+\end{obs}
+
+\begin{example}
+  Sea $G$ grupo, $H \leqslant G$, $N \normal G$.
+  \begin{enumerate}[(1)]
+    \item Suponga que $H \cap N = \{1_H\}$ y que $\forall h \in H$, $hnh^{-1} = n$. $$\implies HN \simeq H \times N.$$ En este caso $$H \simeq \frac{H \times N}{\{1_H\} \times N}.$$
+    \item Supongamos que $H \normal G, N \normal G, H \cap N = \{1_G\}$. $$\implies HN \simeq H \times N.$$
+  \end{enumerate}
+\end{example}
+
+\begin{theorem}
+  [\wea{Tercer Teorema del Isomorfismo}]
+  Sea $G$ grupo y $H,N \normal G$ tales que $N \leqslant H \leqslant G$.
+  \[\implies \frac{G}{H} \simeq \frac{G/N}{H/N}.\]
+\end{theorem}
+\begin{proof}
+  Definimos $$\phi \colon \frac GN \to \frac GH$$ dado por $$\phi(gN) = gH.$$ Veamos que es epimorfismo.
+  \begin{itemize}
+    \item \wea{Bien definido:} Sean $g,g' \in G$ tales que $gN = g'N$. Entonces $g'g^{-1} \in N \subset H$, y luego $g'g^{-1} \in H$ y por lo tanto $$\phi(g'N) = g'H = g'g^{-1}gH = (g'g^{-1}H)(gH) = gH = \phi(gN).$$
+    \item \wea{Homomorfismo:} Trivial %% demostrar
+    \item \wea{Sobreyectivo:} Trivial %% demostrar
+  \end{itemize}
+  Por Primer Teorema del Isomorfismo, basta verificar que $$\ker(\phi) = \frac HN.$$
+  \begin{align*}
+    \ker(\phi) &= \{gN \colon \phi(gN) = 1_{G/H} = H\} \\
+    &= \{gN 'colon gH = H\} \\
+    &= \{gN \colon g \in H\} \\
+    &= \frac HN.
+  \end{align*}
+\end{proof}
+
+\begin{definition}
+  Un grupo $G$ se dice \wea{simple} si los únicos subgrupos normales son $\{1_G\}$ y $G$.
+\end{definition}
+
+\begin{exercise}
+  Pruebe que si $p$ es primo, entonces $\zmz p$ es simple.
+\end{exercise}
+
+\newpage
+\subsection{Acciones de Grupo}
+
+\begin{definition}
+  Sea $X$ un conjunto y $G$ un grupo. Una \wea{acción (izquierda) de $G$ en $X$} es una función $$\alpha \colon G \times X \to X$$ tal que
+  \begin{enumerate}[(1)]
+    \item $\alpha(1_G,x) = x, \quad \forall x \in X$;
+    \item $\alpha(gh,x) = \alpha(g, \alpha(h,x)), \quad \forall g,h\in G, \forall x \in X$.
+  \end{enumerate}
+\end{definition}
+
+\begin{notation}
+  Una acción $\alpha$ de $G$ en $X$ se denota por $$G \actsby{\alpha} X$$ y $$\alpha(g,x) = g \c x = g \c_\alpha x.$$
+\end{notation}
+
+\begin{example}
+  $\GL_n(\Z) \actsby\alpha \Z^n$ mediante $\alpha(A,x) = Ax$.
+\end{example}
+
+\begin{example}
+  $\GL_n(\Z) \acts \R^n/\Z^n$ por multiplicación.
+\end{example}
+
+\begin{example}
+  $\Sym(X) \actsby\alpha X$ por $\alpha(\sigma,x) = \sigma(x)$.
+\end{example}
+
+\begin{proposition}
+  Sea $G$ grupo, entonces $\Aut(G) \acts G$ mediante $\phi \c g = \phi(g)$.
+\end{proposition}
+
+\begin{example}
+  $G \actsby\alpha G$ por conjugación: $$g \c_\alpha h = ghg^{-1}.$$
+\end{example}
+
+\begin{example}
+  $G \actsby\alpha G$ por traslación izquierda: $$g \c_\alpha h = gh.$$
+\end{example}
+
+\begin{obs}
+  Hay una correspondencia
+  \[
+  \set{\text{Acciones $G \acts X$}} \leftrightarrow \Hom(G,\Sym(X))
+  \]
+  Dada una acción $G \actsby\alpha X$, definimos $\phi_\alpha(g) = \alpha(g,\c) \in \Hom(G,\Sym(X))$.
+\end{obs}
+
+\begin{definition}
+  Sea $G \acts X$ una acción de grupo.
+  \begin{itemize}
+    \item La \wea{órbita de $x \in X$} es $$\orb_G(x) = \{g \c x \colon g \in G\}.$$
+    \item El \wea{estabilizador de $x \in X$} es $$\stab_G(x) = \{g \in G \colon g \c x = x\}.$$
+  \end{itemize}
+\end{definition}
+
+\begin{obs}
+  $\stab_G(x) \leqslant G$. No es necesariamente un subgrupo normal. %% buscar contraejemplo
+\end{obs}
+
+\begin{proposition}
+  Dada una acción de grupo $G \acts X$, para todo $x \in X$ tenemos que
+  $$\bigcap_{x \in X} \stab_G(x) \normal G.$$
+\end{proposition}
+
 %\fecha{Clase 4.}
 %\fecha{Clase 5.}
 %\fecha{Clase 6.}
