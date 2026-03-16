@@ -123,7 +123,7 @@
 \newcommand{\embbed}{\hookrightarrow}
 \renewcommand{\c}{\cdot}
 \renewcommand{\bar}{\overline}
-\newcommand{\normal}{\unlhd}
+\newcommand{\normal}{\trianglelefteqslant}
 \renewcommand{\tilde}{\widetilde}
 \renewcommand{\hat}{\widehat}
 
@@ -165,6 +165,44 @@
 \newcommand{\wea}[1]{\textcolor{BlueViolet}{\textbf{\emph{#1}}}}
 \newcommand{\fecha}[1]{\begin{flushright} \underline{#1} \end{flushright}}
 \newcommand{\dem}[1]{\textbf{Demostración (#1)}}
+
+\makeatletter
+\providecommand*{\cupdot}{%
+  \mathbin{%
+    \mathpalette\@cupdot{}%
+  }%
+}
+\newcommand*{\@cupdot}[2]{%
+  \ooalign{%
+    $\m@th#1\cup$\cr
+    \sbox0{$#1\cup$}%
+    \dimen@=\ht0 %
+    \sbox0{$\m@th#1\cdot$}%
+    \advance\dimen@ by -\ht0 %
+    \dimen@=.5\dimen@
+    \hidewidth\raise\dimen@\box0\hidewidth
+  }%
+}
+
+\providecommand*{\bigcupdot}{%
+  \mathop{%
+    \vphantom{\bigcup}%
+    \mathpalette\@bigcupdot{}%
+  }%
+}
+\newcommand*{\@bigcupdot}[2]{%
+  \ooalign{%
+    $\m@th#1\bigcup$\cr
+    \sbox0{$#1\bigcup$}%
+    \dimen@=\ht0 %
+    \advance\dimen@ by -\dp0 %
+    \sbox0{\scalebox{2}{$\m@th#1\cdot$}}%
+    \advance\dimen@ by -\ht0 %
+    \dimen@=.5\dimen@
+    \hidewidth\raise\dimen@\box0\hidewidth
+  }%
+}
+\makeatother
 
 %title
 \title{MPG3100 -- Álgebra I}
@@ -281,7 +319,6 @@
   \end{itemize}
 \end{proof}
 
-%% demostrar
 \begin{exercise}
   Un homomorfismo $\phi \colon G \to H$ es inyectivo si y solo si $\abs{\ker(\phi)} = 1$.
 \end{exercise}
@@ -537,12 +574,12 @@
 
 \begin{obs}
   Supongamos que $H \leqslant G$ y $\abs{H} < \oo$, entonces $\forall g \in G$, $|gH| = |H|$. Si $G$ es finito, entonces
-  \[G = \bigcup_{g \in L} gH \implies \abs{G} = \abs{L} \c \abs{H}.\]%% agregar punto dentro del bigcup
+  \[G = \bigcupdot_{g \in L} gH \implies \abs{G} = \abs{L} \c \abs{H}.\]
 \end{obs}
 
 \begin{definition}
   Decimos que $L \subset G$ es un \wea{conjunto de representantes izquierdos} (\wea{derechos}) de $H \leqslant G$ si
-  \[G = \bigcup_{g \in L} gH = \bigcup_{g \in L} Hg.\]%% agregar punto dentro de los bigcups
+  \[G = \bigcupdot_{g \in L} gH = \bigcupdot_{g \in L} Hg.\]
 \end{definition}
 
 \begin{theorem}
@@ -551,26 +588,22 @@
 \end{theorem}
 
 \begin{definition}
-  Un subgrupo $G \leqslant G$ se dice \wea{normal} y se denota $H \lhd G$ si $\forall h \in H$ y $g \in G$,
+  Un subgrupo $G \leqslant G$ se dice \wea{normal} y se denota $H \normal G$ si $\forall h \in H$ y $g \in G$,
   \[ghg^{-1} \in H.\]
 \end{definition}
 
 \begin{proposition}
-  $H \lhd G \iff \forall g \in G, \ gH = Hg$.
+  $H \normal G \iff \forall g \in G, \ gH = Hg$.
 \end{proposition}
 
 \begin{obs}
-  Si $G$ es abeliano, entonces $H \leqslant G \implies H \lhd G$.
+  Si $G$ es abeliano, entonces $H \leqslant G \implies H \normal G$.
 \end{obs}
 
 \begin{example}
   Todos los subgrupos de $(\Z,+)$ son de la forma $n\Z$ con $n \geq 1$. Como $\Z$ es abeliano, estos son subgrupos normales. Las clases laterales son de la forma $k + n\Z$ con $k \in \{0,\dots,n-1\}$. Notemos que
   \[(k + n\Z) + (k'+n\Z) = (k+k' \pmod n + n\Z)\]
 \end{example}
-
-
-
-%% cambiar todos los lhd por parecido a leqslant
 
 
 %\fecha{Clase 3.}
