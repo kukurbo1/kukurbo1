@@ -126,7 +126,6 @@
 \newcommand{\isom}{\cong}
 \newcommand{\longto}{\longrightarrow}
 \newcommand{\embbed}{\hookrightarrow}
-\renewcommand{\-}{\setminus}
 
 \renewcommand{\bar}{\overline}
 \newcommand{\sgn}{\mathrm{sgn}}
@@ -185,14 +184,14 @@
   Dado un conjunto $X$, un conjunto
   \[\tau \subseteq \P(X) = \{\O \colon \O \subseteq X\}\]
   se dice \wea{topología en $X$} si
-  \begin{enumerate}
+  \begin{enumerate}[(1)]
     \item $\varnothing, X \in \tau$;
     \item Si $\O_1, \O_2 \in \tau \implies \O_1 \cap \O_2 \in \tau$;
     \item $\{\O_\a\}_{\a\in I} \subseteq \tau \implies \bigcup_{\a \in I} \O_\a \in \tau$.
   \end{enumerate}
 \end{definition}
 
-\begin{notation}
+\begin{notation}\
   \begin{itemize}
     \item Si $\O \in \t$, $\O$ se llama \wea{abierto}.
     \item $(X,\tau)$ es un \wea{espacio topológico}.
@@ -200,8 +199,8 @@
   \end{itemize}
 \end{notation}
 
-\begin{example}
-  \begin{enumerate}
+\begin{example}\
+  \begin{enumerate}[(1)]
     \item Para cualquier conjunto $X$ se tiene que $\t = \{\varnothing,X\}$ es una topología de $X$ (\wea{topología trivial}).
     \item $\t = \P(X)$ es la \wea{topología discreta}.
     \item Si $(X,d)$ es un espacio métrico, una topología es
@@ -213,7 +212,7 @@
 \begin{proposition}
   $E \ubseteq X$ es abierto si y solo si $\forall a \in E$, $\exists \O_a$ vecindad de $a$ tal que $\O_a \subseteq E$.
 \end{proposition}
-\begin{proof}
+\begin{proof}\
   \begin{itemize}
     \item \boxed\implies
     Si $a \in E$ y $E$ es abierto, entonces $E$ es vecindad de $a$ y $E \subseteq E$. \checkmark
@@ -253,7 +252,7 @@
     Si $a \in E$, entonces $\forall \O_a$ vecindad de $a$ se tiene que $$a \in \O_a \cap E$$ y entonces $E \subseteq \bar E$. Veamos ahora que $\bar E \subseteq E$.
 
     Sea $a \in \bar E$, entonces para toda vecindad $\O_a$ se tiene que
-    \[\O_a \cap E \neq \varnothing. \tag{*}\]
+    \[\O_a \cap E \neq \varnothing. \tag{$\ast$}\]
     Supongamos que $a \in \bar E \setminus E$, entonces $a \in X \setminus E$. Como $X \setminus E$ es abierto, existe $\O_*$ vecindad de $a$ tal que $\O_* \subseteq X \setminus E$. Entonces $\O_* \cap E = \varnothing$, lo que contradice $(*)$.
     Concluimos que $\bar E \setminus E = \varnothing$.
   \end{itemize}
@@ -352,24 +351,7 @@
   \[\{\O_1 \times \O_2 \colon \O_1 \subseteq \t_X, \O_2 \subseteq \t_Y\}\]
   es una base para una topología en $X \times Y$.
 \end{example}
-\begin{proof}
-  \begin{itemize}
-    \item Primero notemos que $X \in \t_X$ e $Y \in \t_Y$, por lo que $X \times Y \in \B$.
-    \item Tomemos $\O_1 \times S_1$ y $\O_2 \times S_2$ con $\O_i \in \t_X$, $S_i \in \t_Y$.
-    \begin{align*}
-      (x,y) &\in (\O_1 \times S_1) \cap (\O_2 \times S_2) \\
-      &= \{(x \in \O_1 \land y \in S_1) \land (x \in \O_2 \land y \in S_2)\} \\
-      &= (\O_1 \cap \O_2) \times (S_1 \cap S_2)
-    \end{align*}
-    \[\implies x \in \O_1 \cap \O_2 \quad\land\quad y \in S_1 \cap S_2\]
-    \[\implies x \in \O_1 \land y \in S_1 \land x \in \O_2 \land y \in S_2\]
-    \[\implies (x,y) \in (\O_1 \times S_1) \cup (\O_2 \times S_2)\]
-    \[\implies \]
-  \end{itemize}
-\end{proof}
-%% terminar demostración
 
-\fecha{Clase 2. Miércoles 11 de Marzo}
 \begin{definition}
   La topología dada por la base anterior se llama \wea{topología producto}.
 \end{definition}
@@ -378,11 +360,9 @@
   La topología producto en $\R \times \R$ es igual a la topología en $\R^2$ dada por la norma usual.
 \end{example}
 
-%% Agregar comando \mathbb{S}
-%% Ver que pasa con \-
-
+\fecha{Clase 2. Miércoles 11 de Marzo}
 \begin{exercise}
-  Sea $(X;d)$ espacio métrico. Muestre que $x \in \bar{E}$ si y solo si $\exists (x_n)_{n\in\N} \subseteq E$ tal que
+  Sea $(X,d)$ espacio métrico. Muestre que $x \in \bar{E}$ si y solo si $\exists (x_n)_{n\in\N} \subseteq E$ tal que
   \[\lim_{n\to\oo} x_n = x.\]
 \end{exercise}
 
@@ -405,25 +385,30 @@
   Sea $(X,\t)$ espacio topológico. Decimos que $X$ es:
   \begin{enumerate}[(1)]
     \item \wea{Tychonoff} si $\forall u,v \in X$, existen abiertos $\O_u, \O_v \in \t$ tales que
-    \[u \in \O_u \setminus \O_v, \quad v \in \O_v \setminus \O_u.\]
+    \[u \in \O_u \setminus \O_v \quad\land\quad
+    v \in \O_v \setminus \O_u.\]
 
     \item \wea{Hausdorff} si $\forall u,v \in X$, existen $\O_u, \O_v \in \t$ tales que
-    \[u \in \O_u, \quad v \in \O_v, \quad \O_u \cap \O_v = \varnothing.\]
+    \[u \in \O_u \quad\land\quad
+    v \in \O_v \quad\land\quad
+    \O_u \cap \O_v = \varnothing.\]
 
     \item \wea{Regular} si $X$ es Tychonoff y además para $F \subseteq X$ cerrado y $u \in X \setminus F$ existen $\O, \O_u \in \t$ tales que
-    \[F \subseteq \O, \quad
-    u \in \O_u, \quad
+    \[F \subseteq \O \quad\land\quad
+    u \in \O_u \quad\land\quad
     \O \cap \O_u = \varnothing.\]
 
     \item \wea{Normal} si $X$ es Tychonoff y si $F_1, F_2 \subseteq X$ son cerrados entonces existen $\O_1,\O_2 \in \t$ tales que
-    \[F_1 \subseteq \O_1, \quad F_2 \subseteq \O_2, \quad \O_1 \cap \O_2 = \varnothing.\]
+    \[F_1 \subseteq \O_1 \quad\land\quad
+    F_2 \subseteq \O_2 \quad\land\quad
+    \O_1 \cap \O_2 = \varnothing.\]
   \end{enumerate}
 \end{definition}
 
 \begin{proposition}
   $(X,\t)$ es Tychonoff si y solo si $\{v\}$ es cerrado para cualquier $v \in X$.
 \end{proposition}
-\begin{proof}
+\begin{proof}\
   \begin{itemize}
     \item \boxed{\implies} Supongamos que $(X,\t)$ es Tychonoff.
     Sea $v \in X$, y sea $u \in X \setminus \{v\}$. Luego existe $\O_u \in \t$ tal que $u \in \O_u$ y $v \notin \O_u$. Luego $u \in \O_u \subseteq X \setminus \{v\}$, y como $u$ es arbitrario, $X \setminus \{v\}$ es abierto. Luego $\{v\}$ es cerrado.
@@ -479,11 +464,11 @@
   Sea $X$ Tychonoff. $X$ es normal si y solo si $\forall F \subseteq X$ cerrado y $U$ vecindad abierta de $F$, existe $\O$ abierto tal que
   \[F \subseteq \O \subseteq \bar\O \subseteq U.\]
 \end{theorem}
-\begin{proof}
+\begin{proof}\
   \begin{itemize}
     \item \boxed{\implies} Sea $F$ cerrado y $U$ abierto con $F \subseteq U$. Consideremos $F_2 = X \setminus U$. Tenemos que $F_2$ es cerrado y $F \cap F_2 = \varnothing$. Luego como $X$ es normal, existen $\O_1,\O_2 \in \t$ tales que
     \[F \subseteq \O_1, \quad F_2 \subseteq \O_2, \quad \O_1 \cap \O_2 = \varnothing.\]
-    Veamos que$\O_1$ cumple. Ta tenemos que $F \subseteq \O_1$, además $\O_1 \cap \O_2 = \varnothing$ y $\O_2 \supseteq X \setminus U$. Por lo tanto $X \setminus \O_2 \subseteq U$. Además $\O_1 \subseteq X \setminus \O_2$
+    Veamos que $\O_1$ cumple. Ta tenemos que $F \subseteq \O_1$, además $\O_1 \cap \O_2 = \varnothing$ y $\O_2 \supseteq X \setminus U$. Por lo tanto $X \setminus \O_2 \subseteq U$. Además $\O_1 \subseteq X \setminus \O_2$
     \[\implies \bar{\O_1} \subseteq \bar{X \setminus \O_2} = X \setminus \O_2 \subseteq U.\]
     Por lo tanto $F \subseteq \O_1 \subseteq \bar{\O_1} \subseteq U$.
 
