@@ -1,0 +1,703 @@
+\documentclass{article}
+%packages
+\usepackage{fullpage}
+\usepackage{xspace}
+\usepackage{graphicx,color}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{amsmath, amsthm, amscd, amsfonts, amssymb}
+\usepackage{graphicx}
+\usepackage{stmaryrd}
+\usepackage{quiver}
+\usepackage{float}
+\usepackage{mathtools}
+\usepackage{mathrsfs}
+\usepackage{multicol}
+\usepackage{tikz-cd}
+\usepackage[shortlabels]{enumitem}
+\usepackage{stackrel}
+\usepackage{cancel}
+\usepackage[framemethod = TikZ]{mdframed}
+
+%theorems
+\newtheorem{theorem}{Teorema}[section]
+
+\newtheorem{algorithm}{Algorithm}
+\newtheorem{axiom}{Axioma}
+\newtheorem{case}{Case}
+\newtheorem{claim}{Afirmación}
+\newtheorem{conclusion}{Conclusión}
+\newtheorem{condition}{Condition}
+\newtheorem{conjecture}[theorem]{Conjetura}
+\newtheorem{corollary}[theorem]{Corolario}
+\newtheorem{criterion}{Criterion}
+\newtheorem{proposition}[theorem]{Proposición}
+\newtheorem{lemma}[theorem]{Lema}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definición}
+
+\newtheorem{exercise}{Ejercicio}
+
+\newtheorem*{notation}{Notación}
+\newtheorem{problem}{Problema}[section]
+\newtheorem*{obs}{Observación}
+\newtheorem*{addendum}{Addendum}
+
+\newtheorem*{tarea}{\wea{Tarea}}
+
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem*{solution}{\textbf{Solución}}
+\newtheorem{summary}{Summary}
+\newtheorem{example}[theorem]{\textbf{Ejemplo}}
+
+\numberwithin{equation}{section}
+
+\renewcommand*{\proofname}{\textbf{Demostración}}
+
+\surroundwithmdframed[
+  topline=false,
+  rightline=false,
+  bottomline=false,
+  leftmargin=\parindent,
+  skipabove=\medskipamount,
+  skipbelow=\medskipamount
+]{proof}
+
+\surroundwithmdframed[
+  topline=false,
+  rightline=false,
+  bottomline=false,
+  leftmargin=\parindent,
+  skipabove=\medskipamount,
+  skipbelow=\medskipamount
+]{solution}
+
+%commands
+\newcommand{\A}{\mathbb{A}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\D}{\mathbb{D}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\N}{\mathbb{N}}
+\renewcommand{\O}{\mathcal{O}}
+\renewcommand{\P}{\mathcal{P}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\renewcommand{\S}{\mathbb{S}}
+\newcommand{\U}{\mathcal{U}}
+\newcommand{\Z}{\mathbb{Z}}
+
+\newcommand{\Acal}{\mathcal{A}}
+\newcommand{\Bcal}{\mathcal{B}}
+\newcommand{\Ccal}{\mathcal{C}}
+\newcommand{\Dcal}{\mathcal{D}}
+\newcommand{\Ecal}{\mathcal{E}}
+\newcommand{\Fcal}{\mathcal{F}}
+\newcommand{\Gcal}{\mathcal{G}}
+\newcommand{\Hcal}{\mathcal{H}}
+\newcommand{\Ical}{\mathcal{I}}
+\newcommand{\Jcal}{\mathcal{J}}
+\newcommand{\Kcal}{\mathcal{K}}
+\newcommand{\Lcal}{\mathcal{L}}
+\newcommand{\Mcal}{\mathcal{M}}
+\newcommand{\Ncal}{\mathcal{N}}
+\newcommand{\Qcal}{\mathcal{Q}}
+\newcommand{\Rcal}{\mathcal{R}}
+\newcommand{\Scal}{\mathcal{S}}
+\newcommand{\Tcal}{\mathcal{T}}
+\newcommand{\Ucal}{\mathcal{U}}
+\newcommand{\Vcal}{\mathcal{V}}
+\newcommand{\Wcal}{\mathcal{W}}
+\newcommand{\Xcal}{\mathcal{X}}
+\newcommand{\Ycal}{\mathcal{Y}}
+\newcommand{\Zcal}{\mathcal{Z}}
+
+\renewcommand{\a}{\alpha}
+\renewcommand{\b}{\beta}
+\renewcommand{\d}{\delta}
+\newcommand{\e}{\varepsilon}
+\renewcommand{\t}{\tau}
+
+\newcommand{\vphi}{\varphi}
+\newcommand{\oo}{\infty}
+\newcommand{\isom}{\cong}
+\newcommand{\longto}{\longrightarrow}
+\newcommand{\embbed}{\hookrightarrow}
+
+\renewcommand{\bar}{\overline}
+\newcommand{\sgn}{\mathrm{sgn}}
+\newcommand{\id}{\mathrm{id}}
+\newcommand{\im}{\mathrm{im}\,}
+\newcommand{\dist}{\mathrm{dist}}
+
+\newcommand{\normal}{\unlhd}
+
+\renewcommand{\tilde}{\widetilde}
+\renewcommand{\hat}{\widehat}
+
+\newcommand{\abs}[1]{\left| #1 \right|}
+\newcommand{\norm}[1]{\left\lVert #1 \right\rVert}
+\newcommand{\br}[1]{\left( #1 \right)}
+\newcommand{\set}[1]{\left\{ #1 \right\}}
+\newcommand{\cor}[1]{\left[ #1 \right]}
+\newcommand{\gen}[1]{\left\langle #1 \right\rangle}
+\newcommand{\matr}[1]{\begin{pmatrix}#1\end{pmatrix}}
+
+\newcommand{\znz}[1]{\frac{\Z}{#1 \Z}}
+\newcommand{\zmz}[1]{\Z/ #1 \Z}
+
+% Por si me equivoco al escribir
+\newcommand{\rac}[2]{\frac{#1}{#2}}
+\newcommand{\olon}{\colon}
+\newcommand{\ubseteq}{\subseteq}
+\newcommand{\ubset}{\subset}
+\newcommand{\irc}{\circ}
+\renewcommand{\o}{\to}
+
+\newcommand{\ds}{\displaystyle}
+
+\renewcommand*\contentsname{Contenidos}
+
+\newcommand{\wea}[1]{\textcolor{BlueViolet}{\textbf{\emph{#1}}}}
+\newcommand{\fecha}[1]{\begin{flushright} \underline{#1} \end{flushright}}
+
+\newcommand{\dem}[1]{\textbf{Demostración (#1)}}
+
+%title
+\title{MPG3200 -- Análisis I}
+\author{Felipe Inostroza \\ Prof. Mariel Sáez}
+\date{Primer Semestre 2026}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+\newpage
+\fecha{Clase 1. Lunes 9 de Marzo}
+\section{Topología}
+\subsection{Topologías y espacios métricos}
+
+\begin{definition}
+  Dado un conjunto $X$, un conjunto
+  \[\tau \subseteq \P(X) = \{\O \colon \O \subseteq X\}\]
+  se dice \wea{topología en $X$} si
+  \begin{enumerate}[(1)]
+    \item $\varnothing, X \in \tau$;
+    \item Si $\O_1, \O_2 \in \tau \implies \O_1 \cap \O_2 \in \tau$;
+    \item $\{\O_\a\}_{\a\in I} \subseteq \tau \implies \bigcup_{\a \in I} \O_\a \in \tau$.
+  \end{enumerate}
+\end{definition}
+
+\begin{notation}\
+  \begin{itemize}
+    \item Si $\O \in \t$, $\O$ se llama \wea{abierto}.
+    \item $(X,\tau)$ es un \wea{espacio topológico}.
+    \item Si $a \in X$ y $\O \in \t$ tal que $a \in \O$, $\O$ se llama \wea{vecindad de $a$}.
+  \end{itemize}
+\end{notation}
+
+\begin{example}\
+  \begin{enumerate}[(1)]
+    \item Para cualquier conjunto $X$ se tiene que $\t = \{\varnothing,X\}$ es una topología de $X$ (\wea{topología trivial}).
+    \item $\t = \P(X)$ es la \wea{topología discreta}.
+    \item Si $(X,d)$ es un espacio métrico, una topología es
+    \[\t = \{\O \subseteq X \colon \forall a \in \O, \exists r > 0 \colon B_r(A) \subseteq \O\}.\]
+    Esto incluye $\R^n$, espacios normados, espacios de Hilbert, etc.
+  \end{enumerate}
+\end{example}
+
+\begin{proposition}
+  $E \ubseteq X$ es abierto si y solo si $\forall a \in E$, $\exists \O_a$ vecindad de $a$ tal que $\O_a \subseteq E$.
+\end{proposition}
+\begin{proof}\
+  \begin{itemize}
+    \item \boxed\implies
+    Si $a \in E$ y $E$ es abierto, entonces $E$ es vecindad de $a$ y $E \subseteq E$. \checkmark
+    \item \boxed\impliedby
+    Por demostrar: $E$ abierto.
+    Si $a \in E$, por hipótesis $\exists \O_a$ tal que $a \in \O_a \subseteq E$, y por lo tanto
+    \[\bigcup_{a \in E} \O_a \subseteq E \subseteq \bigcup_{a \in E} \O_a.\]
+    Por lo tanto $E = \bigcup_{a \in E} \O_a$, y al ser unión de abiertos, tenemos que $E$ es abierto.
+  \end{itemize}
+\end{proof}
+
+\begin{definition}
+  La \wea{clausura} de un conjunto $E$ está dada por
+  \[\bar{E} = \{a \in X \colon \forall \O_a \ni a, \ \O_a \cap E \neq \varnothing\}.\]
+\end{definition}
+
+\begin{definition}
+  $E$ es cerrado si y solo si $\bar{E} = E$.
+\end{definition}
+
+\begin{proposition}
+  $E$ es cerrado si y solo si $X \setminus E$ es abierto.
+\end{proposition}
+\begin{proof}
+  \
+  \begin{itemize}
+    \item \boxed{\implies} Sea $a \in X \setminus E$. Si $\forall \O_a$ vecindad de $a$
+    \begin{align*}
+      \O_a \not\subseteq X \setminus E
+      &\iff \exists b \in \O_a \cap E \\
+      &\iff \O_a \cap E \neq \varnothing \\
+      &\iff a \in \bar E = E.
+    \end{align*}
+    Pero esto contradice que $a \in X \setminus E$. Entonces existe $\O_a$ tal que $\O_a \subseteq X \setminus E$, por lo que $X \setminus E$ es abierto.
+
+    \item \boxed{\impliedby} Por demostrar: $\bar E = E$.
+    Si $a \in E$, entonces $\forall \O_a$ vecindad de $a$ se tiene que $$a \in \O_a \cap E$$ y entonces $E \subseteq \bar E$. Veamos ahora que $\bar E \subseteq E$.
+
+    Sea $a \in \bar E$, entonces para toda vecindad $\O_a$ se tiene que
+    \[\O_a \cap E \neq \varnothing. \tag{$\ast$}\]
+    Supongamos que $a \in \bar E \setminus E$, entonces $a \in X \setminus E$. Como $X \setminus E$ es abierto, existe $\O_*$ vecindad de $a$ tal que $\O_* \subseteq X \setminus E$. Entonces $\O_* \cap E = \varnothing$, lo que contradice $(*)$.
+    Concluimos que $\bar E \setminus E = \varnothing$.
+  \end{itemize}
+\end{proof}
+
+\begin{definition}
+  [Topología inducida]
+  Si $(X,\t)$ es un espacio topológico e $Y \subseteq X$, la \wea{topología inducida en $Y$} es
+  \[\t|_Y = \{\O \cap Y \colon \O \in \t\}.\]
+\end{definition}
+
+\begin{exercise}
+  Verificar que $\t|_Y$ es topología.
+\end{exercise}
+
+\begin{obs}
+  Con la topología inducida, los abiertos de $Y$ no son necesariamente abiertos en $X$.
+\end{obs}
+
+\begin{example}
+  En $\R$ con la topología usual, si tomamos $Y = [0,2]$ entonces $[0,1)$ es abierto, ya que $[0,1) = [0,2] \cap (-1,1)$ y $(-1,1)$ es abierto en $\R$.
+\end{example}
+
+\begin{example}
+  Consideremos la \wea{2--esfera}
+  \[\S^2 = \{(x,y,z) \in \R^3 \colon x^+ y^2 + z^= 1\}.\]
+  El conjunto
+  \[\{(x,y,z) \in \S^2 \colon z>0\}\]
+  es abierto en la topología inducida por $\R^3$.
+\end{example}
+
+\begin{definition}
+  Sea $P \in X$. Decimos que $\B_p \subseteq \t$ es una \wea{base de la topología $\t$ en $p$} si
+  \begin{enumerate}[(i)]
+    \item Todos los elementos de $\B_p$ son vecindades de $p$;
+    \item Para toda vecindad $U \ni p$, existe $B \in \B_p$ tal que $B \subseteq U$.
+  \end{enumerate}
+  Decimos que $\B$ es \wea{base de la topología} si $\forall p \in X$, $\exists \B_p \subseteq \B$ base de la topología en $p$.
+\end{definition}
+
+\begin{example}
+  Si $(X,d)$ es un espacio métrico, entonces
+  \[\{B_r(p) \colon r \in (0,\oo)\}\]
+  es base en $p$.
+  \[\{B_r(p) \colon r \in (0,\oo), p \in X\}\]
+  es base de $\t$.
+\end{example}
+
+\begin{example}
+  $X$ con la topología discreta,
+  \[\{\{p\} \colon p \in X\}\]
+  es base.
+\end{example}
+
+\begin{proposition}
+  Sea $X \neq \varnothing$ y $\B \subseteq \P(X)$.
+  $\B$ es base de alguna topología si y solo si
+  \begin{enumerate}[(i)]
+    \item $\B$ cubre $X$
+    \item $B_1,B_2 \in \B $, $\forall p \in B_1 \cap B_2, \exists B_p \in \B$ tal que $p \in B_p \subseteq B_1 \cap B_2$.
+  \end{enumerate}
+\end{proposition}
+\begin{proof}
+  \
+  \begin{itemize}
+    \item \boxed{\implies}
+    $(X,\t)$ es topología y $\B$ es base de $\t$.
+    Como $\B$ es base para $p \in X$, entonces existe $B_p \in \B$ vecindad de $p$. Luego
+    \[X \subseteq \bigcup_{p \in X} B_p \subseteq X\]
+    por lo que $(i)$ se cumple, ya que
+    \[X = \bigcup_{p \in X} B_p \subseteq \bigcup_{B \in \B} B \subseteq X.\]
+
+    Veamos ahora (ii). Tomamos $B_1,B_2 \in \B$, entonces $B_1 \cap B_2$ es abierto:
+    Si $B_1 \cap B_2 = \varnothing$, entonces ta está en la topología.
+    Si $B_1 \cap B_2 \neq \varnothing$, entonces existe $p \in B_1 \cap B_2$. Por definición de base, existe $B$ vecindad de $p$ con $B \subseteq B_1 \cap B_2$.
+
+    \item \boxed{\impliedby}
+    Sea $\t = \{\varnothing\} \cup \{\bigcup_{\a \in I} B_\a \colon \{B_\a\}_{\a \in I} \subseteq \B\}$ el conjunto de uniones arbitrarias de elementos de $\B$. Veamos que $\t$ es topología y $\B$ es base de $\t$.
+    \begin{itemize}
+      \item $\varnothing \in \t$.
+      \item Por (i), $X = \bigcup_{B \in \B} B \in \t$, y entonces $X \in \t$.
+      \item Si tomamos $\O_\a = \bigcup_{\beta \in I_\a} B_\beta^\a \in \t$
+      \[\bigcup_{\beta \in J} \O_\beta = \bigcup_{\a \in I} \bigcup_{\beta \in I_\a} B_\beta^\a \in \t.\]
+      \item Sean $\O_1, \O_2 \in \t$, entonces
+      \[\O_1 = \bigcup_{\a \in I_1} B_\a^1, \quad
+      \O_2 = \bigcup_{\beta \in I_2} B_\b^2.\]
+      Sea $p \in \O_1 \cap \O_2$, entonces $p \in \O_1$ y $p \in \O_2$.
+      Luego existe $\a \in I_1$ tal que $p \in B_\a^1$ y existe $\b \in I_2$ tal que $p \in B_\b^2$. Por lo tanto $p \in B_\a^1 \cap B_\b^2$.
+      Luego $\O_1 \cap \O_2 \in \t$.
+    \end{itemize}
+  \end{itemize}
+\end{proof}
+
+\begin{example}
+  Si $(X,\t_X)$ e $(Y,\t_Y)$ son espacios topológicos, entonces
+  \[\{\O_1 \times \O_2 \colon \O_1 \subseteq \t_X, \O_2 \subseteq \t_Y\}\]
+  es una base para una topología en $X \times Y$.
+\end{example}
+
+\begin{definition}
+  La topología dada por la base anterior se llama \wea{topología producto}.
+\end{definition}
+
+\begin{example}
+  La topología producto en $\R \times \R$ es igual a la topología en $\R^2$ dada por la norma usual.
+\end{example}
+
+\fecha{Clase 2. Miércoles 11 de Marzo}
+\begin{exercise}
+  Sea $(X,d)$ espacio métrico. Muestre que $x \in \bar{E}$ si y solo si $\exists (x_n)_{n\in\N} \subseteq E$ tal que
+  \[\lim_{n\to\oo} x_n = x.\]
+\end{exercise}
+
+\begin{definition}
+  Sea $(X,\t)$ un espacio topológico. Si $C \subseteq X$, decimos que $\O$ es \wea{vecindad de $C$} si $\O\in\t$ y $C \subseteq \O$.
+\end{definition}
+
+\begin{definition}
+  Sea $(X,\t)$ espacio topológico y $(a_n)_{n\in\N} \subseteq X$. Decimos que $\lim_{n\to\oo} a_n = a$ si $\forall \O$ vecindad de $a$, existe $n_0$ tal que $a_n \in \O$, $\forall n \geq n_0$.
+\end{definition}
+
+\begin{example}
+  Si consideramos $X$ con la topología discreta, entonces una sucesión $(a_n)_{n\in\N}$ es convergente si y solo si $\exists n_0$ tal que $a_n = a$ para todo $n \geq n_0$. Es decir, las sucesiones que convergen son constantes desde un cierto punto en adelante.
+\end{example}
+
+\newpage
+\subsection{Axiomas de Separación}
+
+\begin{definition}
+  Sea $(X,\t)$ espacio topológico. Decimos que $X$ es:
+  \begin{enumerate}[(1)]
+    \item \wea{Tychonoff} si $\forall u,v \in X$, existen abiertos $\O_u, \O_v \in \t$ tales que
+    \[u \in \O_u \setminus \O_v \quad\land\quad
+    v \in \O_v \setminus \O_u.\]
+
+    \item \wea{Hausdorff} si $\forall u,v \in X$, existen $\O_u, \O_v \in \t$ tales que
+    \[u \in \O_u \quad\land\quad
+    v \in \O_v \quad\land\quad
+    \O_u \cap \O_v = \varnothing.\]
+
+    \item \wea{Regular} si $X$ es Tychonoff y además para $F \subseteq X$ cerrado y $u \in X \setminus F$ existen $\O, \O_u \in \t$ tales que
+    \[F \subseteq \O \quad\land\quad
+    u \in \O_u \quad\land\quad
+    \O \cap \O_u = \varnothing.\]
+
+    \item \wea{Normal} si $X$ es Tychonoff y si $F_1, F_2 \subseteq X$ son cerrados entonces existen $\O_1,\O_2 \in \t$ tales que
+    \[F_1 \subseteq \O_1 \quad\land\quad
+    F_2 \subseteq \O_2 \quad\land\quad
+    \O_1 \cap \O_2 = \varnothing.\]
+  \end{enumerate}
+\end{definition}
+
+\begin{proposition}
+  $(X,\t)$ es Tychonoff si y solo si $\{v\}$ es cerrado para cualquier $v \in X$.
+\end{proposition}
+\begin{proof}\
+  \begin{itemize}
+    \item \boxed{\implies} Supongamos que $(X,\t)$ es Tychonoff.
+    Sea $v \in X$, y sea $u \in X \setminus \{v\}$. Luego existe $\O_u \in \t$ tal que $u \in \O_u$ y $v \notin \O_u$. Luego $u \in \O_u \subseteq X \setminus \{v\}$, y como $u$ es arbitrario, $X \setminus \{v\}$ es abierto. Luego $\{v\}$ es cerrado.
+
+    \item \boxed{\impliedby} Supongamos que $\{v\}$ es cerrado para todo $v \in X$. Sean $u,v \in X$ tales que $u \neq v$. Entonces $u \in X \setminus \{v\}$. Como $X \setminus \{v\}$ es abierto, existe $\O_u$ vecindad de $u$ tal que $\O_u \subseteq X \setminus \{v\}$. Por lo tanto $v \notin \O_u$. De la misma forma existe $\O_v$ vecindad tal que $u \notin \O_v$ y $v \in \O_v$.
+  \end{itemize}
+\end{proof}
+
+\begin{corollary}
+  Normal $\subseteq$ Regular $\subseteq$ Hausdorff $\subseteq$ Tychonoff.
+\end{corollary}
+
+\begin{definition}
+  Sea $(X,d)$ espacio métrico y sean $p \in X$, $C \subseteq X$. La \wea{distancia entre $p$ y $C$} es
+  \[\dist(p,C) = \inf\{\dist(p,c) \colon c \in C\}.\]
+\end{definition}
+
+\begin{theorem}
+  Si $(X,d)$ es un espacio métrico, entonces es normal.
+\end{theorem}
+\begin{proof}
+  Tomemos $F_1,F_2$ cerrados y disjuntos. Definimos
+  \begin{align*}
+    \O_1 &= \{a \in X \colon \dist(a,F_1) < \dist(a,F_2)\}, \\
+    \O_2 &= \{b \in X \colon \dist(b,F_2) < \dist(b,F_1)\}.
+  \end{align*}
+  Tenemos que $\O_1 \cap \O_2 = \varnothing$. Notemos que si $a \notin F_2$, entonces $\dist(a,F_2)>0$, pues si $\dist(a,F_2) = 0$ entonces existe $(a_n)_{n\in\N} \subseteq F_2$ tal que $\lim_{n\to\oo} a_n = a$, por lo que $a \in \bar{F_2} = F_2$, contradicción. Entonces $F_1 \subseteq \O_1$ y $F_2 \subseteq \O_2$.
+
+  Veamos que $\O_i$ es abierto:
+  Sea $a \in \O_1$, por demostrar que $\exists \e>0$ tal que si $d(a,b) < \e$ entonces $b \in \O_1$ (si $b \in B_\e(a)$ entonces $b \in \O$).
+  Queremos ver
+  \[d(b,F_1) \leq d(b,p_1), \quad \forall p_1 \in F_1.\]
+  Notemos que $d(b,F_1) \leq d(a,b) + d(a,p_1)$. Luego $\forall d >0$, $\exists p_1 \in F_1$ tal que
+  \[d(a,p_1) \leq \dist(a,F_1) + \d.\]
+  Luego $\forall \d>0$,
+  \[d(b,F_1) \leq d(a,b) + \dist(a,F_1) + \d.\]
+  Tomando $\d \to 0$
+  \begin{align*}
+    \dist(b,F_1) &\leq d(a,b) + \dist(a,F_1) \\
+    &\leq d(a,b) + \dist(a,F_1) - \dist(a,F_2) + \dist(a,F_2).
+  \end{align*}
+  De la misma manera:
+  \[d(a,F_2) \leq d(a,b) + \dist(b,F_2)\]
+  Luego
+  \begin{align*}
+    d(b,F_1) &\leq 2d(a,b) + \dist(a,F_1) - d(a,F_2) + \dist(b,F_2) \\
+    \dist(b,F_1) - \dist(b,F_2) &\leq 2d(a,b) + \dist(a,F_1) - \dist(a,F_2).
+  \end{align*}
+  Tomamos $\e>0$ tal que $2\e < \dist(a,F_2) - \dist(a,F_1)$, y entonces $b \in \O$. Por lo tanto $(X,d)$ es normal.
+\end{proof}
+
+\begin{theorem}
+  Sea $X$ Tychonoff. $X$ es normal si y solo si $\forall F \subseteq X$ cerrado y $U$ vecindad abierta de $F$, existe $\O$ abierto tal que
+  \[F \subseteq \O \subseteq \bar\O \subseteq U.\]
+\end{theorem}
+\begin{proof}\
+  \begin{itemize}
+    \item \boxed{\implies} Sea $F$ cerrado y $U$ abierto con $F \subseteq U$. Consideremos $F_2 = X \setminus U$. Tenemos que $F_2$ es cerrado y $F \cap F_2 = \varnothing$. Luego como $X$ es normal, existen $\O_1,\O_2 \in \t$ tales que
+    \[F \subseteq \O_1, \quad F_2 \subseteq \O_2, \quad \O_1 \cap \O_2 = \varnothing.\]
+    Veamos que $\O_1$ cumple. Ta tenemos que $F \subseteq \O_1$, además $\O_1 \cap \O_2 = \varnothing$ y $\O_2 \supseteq X \setminus U$. Por lo tanto $X \setminus \O_2 \subseteq U$. Además $\O_1 \subseteq X \setminus \O_2$
+    \[\implies \bar{\O_1} \subseteq \bar{X \setminus \O_2} = X \setminus \O_2 \subseteq U.\]
+    Por lo tanto $F \subseteq \O_1 \subseteq \bar{\O_1} \subseteq U$.
+
+    \item \boxed{\impliedby} Sean $F_1, F_2$ cerrados tales que $F_1 \cap F_2 = \varnothing$. Sea $U = X \setminus F_2$, entonces $F_1 \subseteq U$.
+    Por propiedad, existe $\O \in \t$ tal que
+    \[F_1 \subseteq \O \subseteq \bar\O \subseteq U = X \setminus F_2.\]
+    Tomamos $\O_2 = X \setminus \bar\O \in \t$. Entonces $F_2 \subseteq \O_2$. Similar para $F_1$.
+  \end{itemize}
+\end{proof}
+
+\begin{definition}
+  Un espacio topológico $(X,\t)$ se dice \wea{primero contable} si $\forall p \in X$ existe una base de abiertos en $p$ tal que la base es numerable.
+\end{definition}
+
+\begin{definition}
+  $(X,\t)$ se dice \wea{segundo contable} si existe una base de $\t$ numerable.
+\end{definition}
+
+\begin{example}
+  Todo espacio métrico $(X,d)$ es primero contable. Todo punto $p \in X$ tiene base $\{B_r(p) \colon p \in \Q_{>0}\}$.
+\end{example}
+
+\begin{definition}
+  Sea $(X,\t)$ espacio topológico. Decimos que $A \subseteq X$ es \wea{denso} si $\bar{A} = X$.
+\end{definition}
+
+\begin{definition}
+  Un espacio topológico $(X,\t)$ se dice \wea{separable} si existe un subconjunto denso numerable.
+\end{definition}
+
+\begin{theorem}
+  Sea $(X,d)$ espacio métrico. $X$ es segundo contable si y solo si $X$ es separable.
+\end{theorem}
+\begin{proof}\
+  \begin{itemize}
+    \item \boxed{\impliedby} Tomamos $E = \{e_i\}_{i\in\N}$ denso. Tomamos $$\B = \{B_r(e_i) \colon r \in \Q_{>0}, e_i \in E\}.$$
+    Veamos que es base:
+    \begin{enumerate}[(i)]
+      \item $\bigcup_{B\in\B} B = X$: trivial %% demostrar
+      \item $B_1, B_2\in \B \implies \exists B_3 \subseteq B_1 \cap B_2$:
+      
+      Sean $B_1, B_2$. Tenemos que< $B_1 \cap B_2 \neq \varnothing$. Sea $p \in B_1 \cap B_2$, luego existen $r_1,r_2$ tales que $B_{r_i}(p) \subseteq B_i$. Como $E$ es denso, existe $e_i \in B_{r_i}(p)$, y como $B_{r_i}(p)$ son abiertos, existe $\e$ tal que $B_\e(e_i) \subseteq B_{r_i}(p)$. Basta con tomar $\e$ racionales.
+    \end{enumerate}
+
+    \item \boxed{\implies} Sea $\{B_i\}_{i\in\N}$ base de abiertos numerable. Basta tomar $e_i \in B_i$, y considerar $E = \{e_i\}_{i\in\N}$.
+  \end{itemize}
+\end{proof}
+
+\begin{theorem}
+  Si $(X,\t)$ es un espacio topológico primero contable, entonces $a \in \bar{E}$ si y solo si $\exists (a_n)_{n\in\N} \subseteq E$ tal que $\lim_{n\to\oo} a_n = a$.
+\end{theorem}
+\begin{proof}\
+  \begin{itemize}
+    \item \boxed{\implies} Sea $p \in \bar{E}$. Tomamos $\{B_n\}$ base de abiertos de $p$ numerable. Notemos que, como $p \in \bar{E}$, entonces $B_1 \cap E \neq \varnothing$. Tomamos $p_1 \in B_1 \cap E$. Luego
+    \[p_i \in E \cap \bigcap_{j\leq i} B_i \neq \varnothing.\]
+    Este conjunto es no vacío porque es abierto y $p \in B_1 \cap \dots \cap B_i$.
+    Ahora veamos que $p_n \to p$.
+
+    Tomamos $B$ abierto con $p \in B$. Como $\{B_i\}$ es base, existe $i_0$ tal que $B_{i_0} \subseteq B$. Luego para todo $i \geq i_0$
+    \[p_i \in B_i \cap \dots \cap B_{i_0} \cap \dots \cap B_1 \cap E.\]
+    Luego $p_i \in B_{i_0}$. Para todo $i \geq i_0$, $p_i \in B$.
+  \end{itemize}
+\end{proof}
+
+\begin{theorem}
+  [Urysohn]
+  Si $(X,\t)$ es normal y segundo contable, entonces $(X,\t)$ es metrizable.
+\end{theorem}
+
+\newpage
+\fecha{Clase 3. Lunes 16 de Marzo}
+\subsection{Funciones Continuas}
+
+\begin{definition}
+  Si $(X,d)$ e $(Y,\rho)$ son espacios métricos, un función $f \colon X \to Y$ se dice \wea{continua en $a \in X$} si $\forall \e>0, \exists \d>0$ tal que $$d(a,b) < \d \implies \rho(f(a),f(b)) < \e.$$
+  La función se dice \wea{continua} si es continua en todo $a \in X$.
+\end{definition}
+
+\begin{obs}
+  Esto es equivalente a que $\forall \e>0, \exists \d>0$ tal que $$b \in B_\d(a) \implies f(b) \in B_\e(f(a)).$$
+\end{obs}
+
+\begin{obs}
+  Esto es equivalente a que si $\O$ es una vecindad de $f(a)$, entonces existe $U$ vecindad de $a$ tal que $f(U) \subseteq \O$.
+\end{obs}
+
+\begin{obs}
+  Hay dos definiciones equivalentes:
+  \begin{enumerate}[(1)]
+    \item Si $\O$ es abierto en $Y$, entonces $f^{-1}(\O)$ es abierto en $X$.
+    \item $f$ es continua en $a$ si $\forall a_n \to a \implies f(a_n) \to f(a)$.
+  \end{enumerate}
+\end{obs}
+
+\begin{definition}
+  Sean $(X,\t_X)$ e $(Y,\t_Y)$ espacios topológicos. Decimos que $f \colon X \to Y$ es \wea{continua en $a \in X$} si $\forall \O \in \t_Y$ vecindad de $f(a)$, existe $U \in \t_X$ vecindad de $a$ tal que $f(U) \subseteq \O$.
+\end{definition}
+
+\begin{proposition}
+  Sean $(X,\t_X), (Y,\t_Y)$ espacios topológicos. Una función $f \colon X \to Y$ es continua si y solo si $\forall \O \in \t_Y$, $f^{-1}(\O) \in \t_X$.
+\end{proposition}
+\begin{proof}
+  \
+  \begin{itemize}
+    \item [\boxed{\implies}]
+    Sea $\O \in \t_Y$ no vacío. Tenemos que $f^{-1}(\O) \neq \varnothing$, por lo que existe $a \in X$ tal que $f(a) \in \O$.
+    Por la definición, existe $U_a \in \t_X$ tal que $a \in U_a$ y $f(U_a) \subseteq \O$. $$\implies U_a \subseteq f^{-1}(\O).$$
+    Tenemos entonces que $\forall a \in f^{-1}(\O), \exists U_a \in \t_X$ tal que $a \in U_a \subseteq f^{-1}(\O)$. Por lo tanto $f^{-1}(\O) \in \t_X$.
+
+    \item [\boxed{\impliedby}]
+    Sea $a \in X$ y $\O_a$ vecindad de $f(a)$. Entonces $f^{-1}(\O_a) \in \t_X$. Además por construcción, $a \in f^{-1}(\O_a)$ y entonces $\exists U_a \in \t_X$ tal que $a \in U_a \subseteq f^{-1}(\O_a)$. Por lo tanto $f(U_a) \subseteq \O_a$.
+  \end{itemize}
+\end{proof}
+
+¿Cuándo podemos caracterizar la continuidad a través de sucesiones?
+Tomemos $(a_n)_{n\in\N}$ tal que $a_n \to a$. Esto es si y solo si
+\[\tag{$*$}
+\forall U_a \in \t_X [a \in U_a \implies \exists n_0 \in \N (n \geq n_0 \implies a_n \in U_a)]
+\]
+
+%% me faltó algo acá, lo completo después
+
+Tomemos $\O$ vecindad de $f(a)$. Tomemos $U = f^{-1}(\O)$. Como $f$ es continua, $U$ es abierto, y por $(*)$ existe $n_0$ tal que $n \geq n_0 \implies a_n \in U = f^{-1}(\O)$, y entonces $f(a_n) \in \O$
+$$\implies f(a_n) \to f(a).$$
+
+¿Se cumplirá que si $$a_n \to a \implies f(a_n) \to f(a)$$ entonces $f$ es continua?
+Habría que demostrar
+\[\tag{$**$}
+\forall \O \in \t_Y, \quad f^{-1}(\O) \in \t_x.
+\]
+Si fueran espacios métricos, $f^{-1}(B_{1/n}(f(a)))$ no es abierto para infinitos valores de $n$.
+Entonces
+\[\exists a_n \in f^{-1}(B_{1/n}(f(a))) \colon B_{r_n}(a) \not\subseteq f^{-1}(B_{1/n}(f(a)))\]
+\[\implies \exists b_n \in B_{r^n}(a) \ \land \ f(b_n) \notin B_{1/n}(f(a)).\]
+
+\begin{proposition}
+  \
+  \begin{enumerate}[(1)]
+    \item Si $f \colon X \to Y$ es continua, entonces \[\forall (a_n)_{n\in\N} \cor{\lim_{n\to\oo} a_n = a \implies \lim_{n\to\oo} f(a_n) = f(a)}\]
+    \item Si $X$ e $Y$ son primero contables, entonces
+    \[\forall (a_n)_{n\in\N}\cor{\lim_{n\to\oo} a_n = a \implies \lim_{n\to\oo} f(a_n) = a} \implies f \text{ es continua}.\]
+  \end{enumerate}
+\end{proposition}
+\begin{proof}
+  \
+  \begin{enumerate}[(1)]
+    \item \checkmark %% meter demostración acá
+    \item Tomemos $\B = \{\O_n\}_{n\in\N}$ base de vecindades de $f(a)$ y $\{U_n\}_{n\in\N}$ base de abiertos de $a$. Definimos $$\tilde\O_n = \O_1 \cap \dots \cap \O_n.$$ Son abiertos (intersección finita) y $\tilde\O_{n+1} \subseteq \tilde\O_n$. Definimos $$\tilde U_n = U_1 \cap \dots \cap U_n.$$ Queremos demostrar
+    \[\forall \O \in \t_Y, \quad f^{-1}(\O) \in \t_X.\]
+    Por contradicción, supongamos
+    \[\exists \O_0 \in \t_Y \colon f^{-1}(\O_0) \notin \t_X.\]
+    Luego existe $a_0 \in f^{-1}(\O_0)$ que no pertenece al interior de $f^{-1}(\O)$.
+    \[\implies \forall U \in \t_X \cor{a_0 \in U \implies U \not\subseteq \bar{f^{-1}(\O_0)}}\]
+    Tomamos base contable encajada de $a_0$, luego $(a_n)_{n\in\N}$ y $a_n \in U_n \cap (f^{-1}(\O))^c$
+    \[\implies \lim_{n\to\oo} a_n = a \implies \lim_{n\to\oo} f(a_n) = f(a).\]
+    Pero $f(a_n) \notin \O$ y $f(a) \in \O$. Por lo tanto $f(a_n) \not\to f(a)$.
+  \end{enumerate}
+\end{proof}
+
+\begin{proposition}
+  Si $(X,\t_X), (Y,\t_Y), (Z,\t_Z)$ son espacios topológicos, y las funciones $f \colon X \to Y$ y $g \olon Y \o Z$ son continuas, entonces $g \circ f$ es continua.
+\end{proposition}
+
+Pregunta: Dados $(X,\t), \{(X_\a,\t_\a)\}_{\a\in I}$ espacios topológicos y $f_\a \colon X \to X_\a$ funciones continuas $\forall \a \in I$, ¿Cuál es la topología con ``menos'' abiertos (más débil) que preserva la continuidad de estas funciones?
+
+\begin{definition}
+  Si $\t_1$ y $\t_2$ son topologías en $X$, decimos que $\t_2$ es \wea{más débil} que $\t_1$ si $$\t_2 \subseteq \t_1.$$
+\end{definition}
+
+Si tomamos $$\t_\a' = \{f_\a^{-1}(\O_\a) \colon \O_a \in \t_\a\}$$ entonces $\t_\a'$ tiene que estar incluido en esa topología débil.
+
+\begin{proposition}[o definición no se]
+  Cualquier familia de conjuntos genera una base de abiertos y la familia se llama \wea{subbase de la topología}.
+\end{proposition}
+\begin{proof}
+  $$\Fcal = \{C_\a \colon \a \in A\}$$
+  Si $$\B = \set{\bigcap_{i=1}^n C_i \colon C_i \in \Fcal} \cup \{X\}$$
+  es fácil ver que $\B$ cumple las condiciones de la proposición sobre bases, pues
+  \[\br{\bigcap_{i=1}^n C_i \cap \bigcap_{j=1}^m \tilde C_j} \in \B \quad\land\quad C_i \in \B.\]
+\end{proof}
+%% reescribir todo esto, buscar definición de subbase en el libro (no lo he leido)
+
+\begin{definition}
+  Sean $(X,\t_X), (Y,\t_Y)$ espacios topológicos. Una función $f \colon X \to Y$ se dice \wea{homeomorfismo} si es continua, biyectiva y tiene unversa continua.
+\end{definition}
+
+\begin{obs}
+  Los homeomorfismos definen una clase de equivalencia entre espacios topológicos.
+\end{obs}
+
+\newpage
+\subsection{Compacidad}
+
+\begin{theorem}
+  En espacios métricos son equivalentes:
+  \begin{enumerate}[(1)]
+    \item Completo y totalmente acotado;
+    \item Todo cubrimiento abierto tiene subcubrimiento finito;
+    \item Toda sucesión tiene subsucesión convergente.
+  \end{enumerate}
+\end{theorem}
+
+%\fecha{Clase 4.}
+%\fecha{Clase 5.}
+%\fecha{Clase 6.}
+%\fecha{Clase 7.}
+%\fecha{Clase 8.}
+%\fecha{Clase 9.}
+%\fecha{Clase 10.}
+%\fecha{Clase 11.}
+%\fecha{Clase 12.}
+%\fecha{Clase 13.}
+%\fecha{Clase 14.}
+%\fecha{Clase 15.}
+%\fecha{Clase 16.}
+%\fecha{Clase 17.}
+%\fecha{Clase 18.}
+%\fecha{Clase 19.}
+%\fecha{Clase 20.}
+%\fecha{Clase 21.}
+%\fecha{Clase 22.}
+%\fecha{Clase 23.}
+%\fecha{Clase 24.}
+%\fecha{Clase 25.}
+%\fecha{Clase 26.}
+%\fecha{Clase 27.}
+%\fecha{Clase 28.}
+%\fecha{Clase 29.}
+%\fecha{Clase 30.}
+
+\end{document}
