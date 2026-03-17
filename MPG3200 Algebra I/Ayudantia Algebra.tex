@@ -1,0 +1,226 @@
+\documentclass{article}
+%packages
+\usepackage{fullpage}
+\usepackage{xspace}
+\usepackage{graphicx,color}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{amsmath, amsthm, amscd, amsfonts, amssymb}
+\usepackage{graphicx}
+\usepackage{stmaryrd}
+\usepackage{quiver}
+\usepackage{float}
+\usepackage{mathtools}
+\usepackage{mathrsfs}
+\usepackage{multicol}
+\usepackage{tikz-cd}
+\usepackage[shortlabels]{enumitem}
+\usepackage{stackrel}
+\usepackage{cancel}
+\usepackage[framemethod = TikZ]{mdframed}
+
+%theorems
+\newtheorem{theorem}{Teorema}[section]
+
+\newtheorem{algorithm}{Algorithm}
+\newtheorem{axiom}{Axioma}
+\newtheorem{case}{Case}
+\newtheorem{claim}{Afirmación}
+\newtheorem{conclusion}{Conclusión}
+\newtheorem{condition}{Condition}
+\newtheorem{conjecture}[theorem]{Conjetura}
+\newtheorem{corollary}[theorem]{Corolario}
+\newtheorem{criterion}{Criterion}
+\newtheorem{proposition}[theorem]{Proposición}
+\newtheorem{lemma}[theorem]{Lema}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definición}
+
+\newtheorem{exercise}{Ejercicio}
+
+\newtheorem*{notation}{Notación}
+\newtheorem{problem}{Problema}[section]
+\newtheorem*{obs}{Observación}
+\newtheorem*{addendum}{Addendum}
+
+\newtheorem*{tarea}{\wea{Tarea}}
+
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem*{solution}{\textbf{Solución}}
+\newtheorem{summary}{Summary}
+\newtheorem{example}[theorem]{\textbf{Ejemplo}}
+
+\numberwithin{equation}{section}
+
+\renewcommand*{\proofname}{\textbf{Demostración}}
+
+\surroundwithmdframed[
+  topline=false,
+  rightline=false,
+  bottomline=false,
+  leftmargin=\parindent,
+  skipabove=\medskipamount,
+  skipbelow=\medskipamount
+]{proof}
+
+\surroundwithmdframed[
+  topline=false,
+  rightline=false,
+  bottomline=false,
+  leftmargin=\parindent,
+  skipabove=\medskipamount,
+  skipbelow=\medskipamount
+]{solution}
+
+%commands
+\newcommand{\A}{\mathbb{A}}
+\newcommand{\B}{\mathbb{B}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\D}{\mathbb{D}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\N}{\mathbb{N}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+
+\newcommand{\Acal}{\mathcal{A}}
+\newcommand{\Bcal}{\mathcal{B}}
+\newcommand{\Ccal}{\mathcal{C}}
+\newcommand{\Dcal}{\mathcal{D}}
+\newcommand{\Ecal}{\mathcal{E}}
+\newcommand{\Fcal}{\mathcal{F}}
+\newcommand{\Gcal}{\mathcal{G}}
+\newcommand{\Hcal}{\mathcal{H}}
+\newcommand{\Ical}{\mathcal{I}}
+\newcommand{\Jcal}{\mathcal{J}}
+\newcommand{\Kcal}{\mathcal{K}}
+\newcommand{\Lcal}{\mathcal{L}}
+\newcommand{\Mcal}{\mathcal{M}}
+\newcommand{\Ncal}{\mathcal{N}}
+\newcommand{\Ocal}{\mathcal{O}}
+\newcommand{\Pcal}{\mathcal{P}}
+\newcommand{\Qcal}{\mathcal{Q}}
+\newcommand{\Rcal}{\mathcal{R}}
+\newcommand{\Scal}{\mathcal{S}}
+\newcommand{\Tcal}{\mathcal{T}}
+\newcommand{\Ucal}{\mathcal{U}}
+\newcommand{\Vcal}{\mathcal{V}}
+\newcommand{\Wcal}{\mathcal{W}}
+\newcommand{\Xcal}{\mathcal{X}}
+\newcommand{\Ycal}{\mathcal{Y}}
+\newcommand{\Zcal}{\mathcal{Z}}
+
+\newcommand{\vphi}{\varphi}
+\newcommand{\oo}{\infty}
+\newcommand{\isom}{\cong}
+\newcommand{\longto}{\longrightarrow}
+\newcommand{\embbed}{\hookrightarrow}
+\renewcommand{\c}{\cdot}
+
+\renewcommand{\bar}{\overline}
+\newcommand{\sgn}{\mathrm{sgn}}
+\newcommand{\id}{\mathrm{id}}
+\newcommand{\im}{\mathrm{im}\,}
+\newcommand{\op}{\mathrm{op}}
+\newcommand{\GL}{\mathrm{GL}}
+\newcommand{\SL}{\mathrm{SL}}
+\newcommand{\Sym}{\mathrm{Sym}}
+\newcommand{\Aut}{\mathrm{Aut}}
+\newcommand{\Inn}{\mathrm{Inn}}
+
+\newcommand{\normal}{\unlhd}
+
+\renewcommand{\tilde}{\widetilde}
+\renewcommand{\hat}{\widehat}
+
+\newcommand{\abs}[1]{\left| #1 \right|}
+\newcommand{\norm}[1]{\left\lVert #1 \right\rVert}
+\newcommand{\br}[1]{\left( #1 \right)}
+\newcommand{\set}[1]{\left\{ #1 \right\}}
+\newcommand{\cor}[1]{\left[ #1 \right]}
+\newcommand{\gen}[1]{\left\langle #1 \right\rangle}
+\newcommand{\matr}[1]{\begin{pmatrix}#1\end{pmatrix}}
+
+\newcommand{\znz}[1]{\frac{\Z}{#1 \Z}}
+\newcommand{\zmz}[1]{\Z/ #1 \Z}
+
+% Por si me equivoco al escribir
+\newcommand{\rac}[2]{\frac{#1}{#2}}
+\newcommand{\olon}{\colon}
+\newcommand{\ubseteq}{\subseteq}
+\newcommand{\ubset}{\subset}
+\newcommand{\irc}{\circ}
+\renewcommand{\o}{\to}
+
+\newcommand{\ds}{\displaystyle}
+
+\renewcommand*\contentsname{Contenidos}
+
+\newcommand{\wea}[1]{\textcolor{BlueViolet}{\textbf{\emph{#1}}}}
+\newcommand{\fecha}[1]{\begin{flushright} \underline{#1} \end{flushright}}
+
+\newcommand{\dem}[1]{\textbf{Demostración (#1)}}
+
+%title
+\title{MPG3100 -- Álgebra I \\ Ayudantías}
+\author{Felipe Inostroza \\ Prof. Sebastián Barbieri \\ Ayudante Valentina Moreno}
+\date{Primer Semestre 2026}
+
+\begin{document}
+
+\maketitle
+
+Ayudante: Valentina Moreno, correo: \texttt{valentina.moreno.1@ug.uchile.cl}
+\tableofcontents
+
+\newpage
+\section{Ayudantía 1}
+
+\begin{problem}
+    Demuestre que la intersección de grupos es grupo. ¿Será cierto para la unión?
+\end{problem}
+\begin{proof}
+    Sean $H,K \leqslant G$, y consideramos la intersección $H \cap K$. Como $H$ es subgrupo de $G$, tenemos que $e \in H$. De la misma forma $e \in K$, y entonces $e \in H \cap K$, y por lo tanto $H \cap K \neq \varnothing$.
+
+    Sean $h,k \in H \cap K$. Tenemos que $h,k \in H$, por lo que $hk^{-1} \in H$. Similarmente $h,k \in K$, y entonces $hk^{-1} \in K$. Por lo tanto $hk^{-1} \in H \cap K$, y como $h,k$ son arbitrarios, tenemos que $H \cap K \leqslant G$.
+\end{proof}
+
+\begin{problem}
+    Decida si los siguientes grupos son finitamente generados:
+    \begin{enumerate}[(a)]
+        \item $(\Z,+)$
+        \item $(\Z^n,+)$
+        \item $(\Q,+)$
+        \item $(\mu_n,\c)$
+        \item $(\Q^*,\c)$
+    \end{enumerate}
+\end{problem}
+\begin{proof}
+    [\dem{a}]
+    Notemos que todo entero $n >0$ se escribe de la forma
+    \[n = \underbrace{1+\dots+1}_{n \text{ veces}}.\]
+    También, todo entero $n<0$ se escribe de la forma
+    \[n = \underbrace{-1-\dots-1}_{n \text{ veces}}.\]
+    Además, $0 = 1-1$, y entonces $\Z = \gen{1}$, por lo que es finitamente generado.
+\end{proof}
+\begin{proof}
+    [\dem{b}]
+    
+\end{proof}
+
+\begin{problem}
+    Demuestre los siguientes isomorfismos.
+    \begin{enumerate}[(a)]
+        \item $\ds \mu_n \simeq \znz n$
+        \item $\ds \Q^* \simeq \znz 2 \times \bigoplus_{p \text{ primo}} \Z$
+        \item $\ds \Aut(\Z^n) \simeq \GL_n(\Z)$
+    \end{enumerate}
+\end{problem}
+
+
+
+\end{document}

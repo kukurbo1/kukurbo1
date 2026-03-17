@@ -1,0 +1,283 @@
+\documentclass{article}
+%packages
+\usepackage{fullpage}
+\usepackage{xspace}
+\usepackage{graphicx,color}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{amsmath, amsthm, amscd, amsfonts, amssymb}
+\usepackage{graphicx}
+\usepackage{stmaryrd}
+\usepackage{quiver}
+\usepackage{float}
+\usepackage{mathtools}
+\usepackage{mathrsfs}
+\usepackage{multicol}
+\usepackage{tikz-cd}
+\usepackage[shortlabels]{enumitem}
+\usepackage{stackrel}
+\usepackage{cancel}
+\usepackage[framemethod = TikZ]{mdframed}
+
+%theorems
+\newtheorem{theorem}{Teorema}[section]
+
+\newtheorem{algorithm}{Algorithm}
+\newtheorem{axiom}{Axioma}
+\newtheorem{case}{Case}
+\newtheorem{claim}{Afirmación}
+\newtheorem{conclusion}{Conclusión}
+\newtheorem{condition}{Condition}
+\newtheorem{conjecture}[theorem]{Conjetura}
+\newtheorem{corollary}[theorem]{Corolario}
+\newtheorem{criterion}{Criterion}
+\newtheorem{proposition}[theorem]{Proposición}
+\newtheorem{lemma}[theorem]{Lema}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definición}
+
+\newtheorem{exercise}{Ejercicio}
+
+\newtheorem*{notation}{Notación}
+\newtheorem{problem}{Problema}[section]
+\newtheorem*{obs}{Observación}
+\newtheorem*{addendum}{Addendum}
+
+\newtheorem*{tarea}{\wea{Tarea}}
+
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem*{solution}{\textbf{Solución}}
+\newtheorem{summary}{Summary}
+\newtheorem{example}[theorem]{\textbf{Ejemplo}}
+
+\numberwithin{equation}{section}
+
+\renewcommand*{\proofname}{\textbf{Demostración}}
+
+\surroundwithmdframed[
+  topline=false,
+  rightline=false,
+  bottomline=false,
+  leftmargin=\parindent,
+  skipabove=\medskipamount,
+  skipbelow=\medskipamount
+]{proof}
+
+\surroundwithmdframed[
+  topline=false,
+  rightline=false,
+  bottomline=false,
+  leftmargin=\parindent,
+  skipabove=\medskipamount,
+  skipbelow=\medskipamount
+]{solution}
+
+%commands
+\newcommand{\A}{\mathbb{A}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\D}{\mathbb{D}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\N}{\mathbb{N}}
+\renewcommand{\O}{\mathcal{O}}
+\renewcommand{\P}{\mathcal{P}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\renewcommand{\S}{\mathbb{S}}
+\newcommand{\U}{\mathcal{U}}
+\newcommand{\Z}{\mathbb{Z}}
+
+\newcommand{\Acal}{\mathcal{A}}
+\newcommand{\Bcal}{\mathcal{B}}
+\newcommand{\Ccal}{\mathcal{C}}
+\newcommand{\Dcal}{\mathcal{D}}
+\newcommand{\Ecal}{\mathcal{E}}
+\newcommand{\Fcal}{\mathcal{F}}
+\newcommand{\Gcal}{\mathcal{G}}
+\newcommand{\Hcal}{\mathcal{H}}
+\newcommand{\Ical}{\mathcal{I}}
+\newcommand{\Jcal}{\mathcal{J}}
+\newcommand{\Kcal}{\mathcal{K}}
+\newcommand{\Lcal}{\mathcal{L}}
+\newcommand{\Mcal}{\mathcal{M}}
+\newcommand{\Ncal}{\mathcal{N}}
+\newcommand{\Qcal}{\mathcal{Q}}
+\newcommand{\Rcal}{\mathcal{R}}
+\newcommand{\Scal}{\mathcal{S}}
+\newcommand{\Tcal}{\mathcal{T}}
+\newcommand{\Ucal}{\mathcal{U}}
+\newcommand{\Vcal}{\mathcal{V}}
+\newcommand{\Wcal}{\mathcal{W}}
+\newcommand{\Xcal}{\mathcal{X}}
+\newcommand{\Ycal}{\mathcal{Y}}
+\newcommand{\Zcal}{\mathcal{Z}}
+
+\renewcommand{\a}{\alpha}
+\renewcommand{\b}{\beta}
+\renewcommand{\d}{\delta}
+\newcommand{\e}{\varepsilon}
+\renewcommand{\t}{\tau}
+
+\newcommand{\vphi}{\varphi}
+\newcommand{\oo}{\infty}
+\newcommand{\isom}{\cong}
+\newcommand{\longto}{\longrightarrow}
+\newcommand{\embbed}{\hookrightarrow}
+
+\renewcommand{\bar}{\overline}
+\newcommand{\sgn}{\mathrm{sgn}}
+\newcommand{\id}{\mathrm{id}}
+\newcommand{\im}{\mathrm{im}\,}
+\newcommand{\dist}{\mathrm{dist}}
+
+\newcommand{\normal}{\unlhd}
+
+\renewcommand{\tilde}{\widetilde}
+\renewcommand{\hat}{\widehat}
+
+\newcommand{\abs}[1]{\left| #1 \right|}
+\newcommand{\norm}[1]{\left\lVert #1 \right\rVert}
+\newcommand{\br}[1]{\left( #1 \right)}
+\newcommand{\set}[1]{\left\{ #1 \right\}}
+\newcommand{\cor}[1]{\left[ #1 \right]}
+\newcommand{\gen}[1]{\left\langle #1 \right\rangle}
+\newcommand{\matr}[1]{\begin{pmatrix}#1\end{pmatrix}}
+
+\newcommand{\znz}[1]{\frac{\Z}{#1 \Z}}
+\newcommand{\zmz}[1]{\Z/ #1 \Z}
+
+% Por si me equivoco al escribir
+\newcommand{\rac}[2]{\frac{#1}{#2}}
+\newcommand{\olon}{\colon}
+\newcommand{\ubseteq}{\subseteq}
+\newcommand{\ubset}{\subset}
+\newcommand{\irc}{\circ}
+\renewcommand{\o}{\to}
+
+\newcommand{\ds}{\displaystyle}
+
+\renewcommand*\contentsname{Contenidos}
+
+\newcommand{\wea}[1]{\textcolor{BlueViolet}{\textbf{\emph{#1}}}}
+\newcommand{\fecha}[1]{\begin{flushright} \underline{#1} \end{flushright}}
+
+\newcommand{\dem}[1]{\textbf{Demostración (#1)}}
+
+%title
+\title{MPG3200 -- Análisis I \\ Ayudantías}
+\author{Felipe Inostroza \\ Prof. Mariel Sáez \\ Ayud. Fernando Castillo}
+\date{Primer Semestre 2026}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+\newpage
+\section{Ayudantía 1. Lunes 16 de Marzo}
+\subsection{Problema 1}
+
+\begin{enumerate}
+\item Sea $X$ un conjunto y $\t_f$ la colección de subconjuntos $U$ de $X$ tal que $U^c$ es finita o todo $X$. Muestre que $(X,\t_f)$ es un espacio topológico. Llamamos a $\t_f$ la topología cofinita cofinita en $X$.
+\begin{proof}
+    Notemos que $\varnothing, X \in \t_f$. Consideremos $\{U_\a\}_\a \subset \t_f$, entonces tenemos que $U_\a^c$ son finitos $\forall \a$, y luego $\ds \bigcap_\a U_\a^c = \br{\bigcup_\a U_\a}^c$ es finito. Luego $\bigcup_\a U_\a \in \t_f$.
+    Sean $U_1,\dots,U_n \in \t_f$, tenemos que $U_i^c$ son finitos, y por lo tanto $\bigcup_{i \leq n} U_i^c = \br{\bigcap_{i\leq n} U_i}^c$ es finito, y entonces $U_1 \cap \dots \cap U_n \in \t_f$.
+\end{proof}
+
+\item Muestre que si $X$ no es numerable, entonces $(X,\t_f)$ no es primero contable.
+\begin{proof}
+    Supongamos que $(X,\t_f)$ es primero contable. Sea $x \in X$ y $\{\B_i\}_{i\in\N}$ base numerable en $x$.
+    Consideremos el conjunto
+    \[F = \{x\} \cup \bigcup_{n>0} B_n^c.\]
+    Notemos que $F$ es numerable, por lo que $X \setminus F \neq \varnothing$.
+    Sea $y \in X \setminus F$, entonces $\{y\}^c$ es vecindad de $x$. Luego existe $n_0 \in \Z_{>0}$ tal que $x \in B_{n_0} \subseteq \{y\}^c$, y entonces $y \in B_{n_0}^c \subseteq F$. $\to\gets$
+
+    Por lo tanto $(X,\t_f)$ no es primero contable.
+\end{proof}
+
+\item Denotando $\R_f$ como $\R$ con topología cofinita, evalúe a qué puntos converge $x_n = \dfrac 1n$.
+\begin{proof}
+    Mostremos que $x_n$ converge a todo $\R$.
+    Sea $x \in \R$, y sea $U$ vecindad de $x$. Escribimos $$U^c = \{y_1,\dots,y_m\}.$$
+    Luego existe $n_0 \in \Z_{>0}$ tal que $x_n \in U$ para todo $n \geq n_0$, ya que de caso contrario $U^c$ sería infinito.
+\end{proof}
+\end{enumerate}
+
+\newpage
+\subsection{Problema 2}
+\begin{enumerate}
+  \item En $\R^n$, considere $\B$ la familia de conjuntos $\{x \in \R^n \colon p(x) \neq 0\}$, donde $p(x)$ es un polinomio de $n$ variables. MMuestre que $\B$ define una base para una topología. Llamamos a la topología generada la topología de Zariski en $\R^n$.
+  \begin{proof}
+    \
+    \begin{enumerate}[(i)]
+      \item Denotamos $C(p) = \{x \in \R^n \colon p(x) \neq 0\}$. Notemos que
+      \[\bigcup_{B \in \B} B = \bigcup_{p \in \R[x_1,\dots,x_n]} C(p) \supseteq C(1) = \{x \in \R^n \colon 1 \neq 0\} = \R^n.\]
+      \item Sean $C(p), C(q) \in \B$ y $x \in C(p) \cap C(q)$. Tenemos que $p(x) \neq 0 \neq q(x)$. Luego $p(x) q(x) \neq 0$. Entonces $x \in C(pq)$. Por lo mismo, $C(pq) \subseteq C(p) \cap C(q)$.
+    \end{enumerate}
+  \end{proof}
+
+  \item Muestre que $\R^n$ en topología de Zariski es Tychonoff pero no Hausdorff.
+  \begin{proof}
+    Supongamos que es Hausdorff. Luego $\R \times \{0\}^{n-1} \subseteq \R^n$ debiese ser Hausdorff. La base para $\R$ es formada por conjuntos de la forma
+    \[\{(x,0,\dots,0) \in \R^n \colon p(x,0,\dots,0) \neq 0\}.\]
+    Es decir, $\R$ como subespacio coincide con $\R$ en topología de Zariski. En $\R$
+    \[C(p) = \{x \in \R \colon p(x) \neq 0\} = \{z_!,\dots,z_n\}^c\]
+    esto por el Teorema Fundamental del Álgebra. De aquí, $\R$ en Zariski coincide con $\R_f$.
+    En espacios Hausdorff, los límites son únicos, pero por el Problema 1, $\R_f$ no cumple esto. $\to\gets$
+  \end{proof}
+\end{enumerate}
+
+\newpage
+\subsection{Problema 3}
+Muestre que $X$ es un espacio topológico Hausdorff si y solo si $$\Delta = \{(x,x) \colon x \in X\} \subseteq X \times X$$ es cerrado.
+\begin{proof}
+  \
+  \begin{itemize}
+    \item [\boxed{\implies}]
+    Supongamos que $X$ es Hausdorff. Veamos que $\Delta^c$ es abierto.
+    Sea $(x,y) \in \Delta^c$, entonces $x \neq y$. Como $X$ es Hausdorff, existen abiertos $U,V$ disjuntos tales que
+    \[x \in U, \quad y \in V.\]
+    Como $U,V$ son disjuntos, tenemos que $(t_1,t_2) \in U \times V \implies t_1 \neq t_2$, y entonces $(U \times V) \cap \Delta = \varnothing$. Por lo tanto tenemos que $$(x,y) \in U \times V \subseteq \Delta^c.$$
+    Luego por cada punto en $\Delta^c$ existe una vecindad dentro de $\Delta^c$, y entonces $\Delta^c$ es abierto. Luego $\Delta$ es cerrado.
+
+    \item [\boxed{\impliedby}]
+    Supongamos que $\Delta$ es cerrado. Sen $x \neq y$ en $X$, entonces $(x,y) \in \Delta^c$. Sean $U,V$ abiertos con $$(x,y) \in U \times V \subseteq \Delta^c.$$
+    Luego $x \in U, \ y \in V$. Dado que $U \times V \subseteq \Delta^c$, $U$ y $V$ deben ser disjuntos. Por lo tanto $X$ es Hausdorff.
+  \end{itemize}
+\end{proof}
+
+\newpage
+\subsection{Problema 4}
+La recta de Sorgenfrey $\R_l$ se define como $\R$ con la topología generada por la base $[a,b)$ para $a<b$.
+\begin{enumerate}
+  \item Muestre que $\R_l$ es primero contable, separable pero no segundo contable.
+  \item Concluya que $\R_l$ no es metrizable.
+\end{enumerate}
+
+\newpage
+\subsection{Problema 5}
+Sea $K = \{1/n \colon n \in \N\}$. La $K$--topología en $\R$ se obtiene a partir de la base dada por intervalos abiertos $(a,b)$ y conjuntos de la forma $(a,b) \setminus K$.
+Muestre que $\R$ con la $K$--topología es Hausdorff pero no regular.
+\begin{proof}
+  \begin{itemize}
+    \item \wea{Hausdorff:}
+    Sean $x,y \in \R$ distintos. Como $\R$ con la topología euclideana es Hausdorff, existen $U,V$ disjuntos tales que $x \in U$ e $y \in V$. Como la $K$--topología contiene la Euclideana, $U,V$ son abiertos en $K$--topología. Por lo tanto es Hausdorff.
+
+    \item \wea{No regular:}
+    Tenemos que $\R \setminus K$ es abierto, y entonces $K$ es cerrado. También tenemos que $0 \notin K$. Supongamos que la $K$--topología es regular, entonces existen $U,V$ abiertos disjuntos tales que $0 \in U$ y $K \subseteq V$. Usando la base, tenemos que existen $a,b \in \R$ tales que
+    \[0 \in (a,b) \subseteq U \quad\lor\quad 0 \in (a,b) \setminus K \subseteq U.\]
+    No me acuerdo como se concluía pero tenemos que $0 \in (a,b) \subseteq U$.
+
+    Para $K$, tomamos $1/m \in (a,b)$, luego existen $c,d \in \R$ tales que
+    \[\frac 1m \in (c,d) \subseteq V \quad\lor\quad \frac 1m \in (c,d) \setminus K \subseteq V.\]
+    Notemos que $1/m \in K$, por lo que $1/m \notin (c,d) \setminus K$, y entonces $1/m \in (c,d) \subseteq V$. Luego podemos pedir
+    $$(c,d) \subseteq (a,b) \quad\lor\quad (c,d) \subseteq V$$
+    Si $z \in (c,d)$ es irracional, entonces $z \in (a,b) \setminus K \subseteq U$. Luego $U \cap V \neq \varnothing$, y entonces la $K$--topología no es regular.
+  \end{itemize}
+\end{proof}
+
+
+\end{document}
