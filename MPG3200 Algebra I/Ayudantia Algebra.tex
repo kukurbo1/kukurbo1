@@ -132,7 +132,7 @@
 \newcommand{\Aut}{\mathrm{Aut}}
 \newcommand{\Inn}{\mathrm{Inn}}
 
-\newcommand{\normal}{\unlhd}
+\newcommand{\normal}{\trianglelefteqslant}
 
 \renewcommand{\tilde}{\widetilde}
 \renewcommand{\hat}{\widehat}
@@ -207,7 +207,22 @@ Decida si los siguientes grupos son finitamente generados:
 \end{proof}
 \begin{proof}
     [\dem{b}]
-    
+    Consideramos la base canónica de $\Z^n$
+    \[\{e_1,\dots,e_n\} = \{(1,0,\dots,0), \dots, (0,\dots,0,1)\}.\]
+    Sea $v = (a_1,\dots,a_n) \in \Z^n$, entonces
+    \[v = a_1 e_1 + \dots + a_n e_n.\]
+    Como $a_i \in \Z = \gen{1}$, tenemos que $a_i e_i \in \gen{e_i}$, y entonces $v \in \gen{e_1,\dots,e_n}$. Luego $\Z = \gen{e_1,\dots,e_n}$, y entonces es finitamente generado.
+\end{proof}
+\begin{proof}
+    [\dem{c}]
+    Veamos que $(\Q,+)$ no es finitamente generado. Por contradicción, supongamos que
+    $$\Q = \gen{\frac{p_1}{q_1}, \dots, \frac{p_n}{q_n}}$$
+    con $p_i,q_i \in \Z$ y $q_i \neq 0$ para todo $i$.
+    Sea $r \in \Q$, entonces existen $\alpha_1,\dots,\alpha_n \in \Z$ tales que
+    \[r = \sum_{i=1}^n \alpha_i \frac{p_i}{q_i}.\]
+    Sea $Q = q_1 \cdots q_n$, entonces notemos que
+    \[Qr = Q \sum_{i=1}^n \frac{\alpha_i p_i}{q_i} = \sum_{i=1}^n \alpha_i p_i \frac{Q}{q_i}.\]
+    Como $q_i \mid Q$, tenemos que $Q/q_i \in \Z$ para todo $i$, y entonces $Qr \in \Z$ para todo $r \in \Q$. Notemos que $1/(Q+1) \in \Q$, pero tenemos que $Q/(Q+1) \notin \Z$, contradicción. Por lo tanto $\Q$ no es finitamente generado.
 \end{proof}
 
 \subsection{Problema 3}
