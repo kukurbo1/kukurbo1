@@ -82,7 +82,7 @@
 \newcommand{\D}{\mathbb{D}}
 \newcommand{\F}{\mathbb{F}}
 \newcommand{\N}{\mathbb{N}}
-\renewcommand{\P}{\mathbb{P}}
+\renewcommand{\P}{\mathcal{P}}
 \newcommand{\Q}{\mathbb{Q}}
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\Z}{\mathbb{Z}}
@@ -178,7 +178,7 @@ Ayudante: Valentina Moreno, correo: \texttt{valentina.moreno.1@ug.uchile.cl}
 \tableofcontents
 
 \newpage
-\section{Ayudantía 1}
+\section{Ayudantía 1. Miércoles 11 de Marzo}
 
 \subsection{Problema 1}
 Demuestre que la intersección de grupos es grupo. ¿Será cierto para la unión?
@@ -233,6 +233,83 @@ Demuestre los siguientes isomorfismos.
     \item $\ds \Aut(\Z^n) \simeq \GL_n(\Z)$
 \end{enumerate}
 
+\newpage
+\section{Ayudantía 2 Miércoles 18 de Marzo}
+\subsection{Problema 1}
+\begin{enumerate}[(a)]
+\item Pruebe que el producto cartesiano de conjuntos no vacíos es vacío.
+\begin{proof}
+    Sea $\{X_i\}_{i \in I}$ una familia de conjuntos no vacíos. El producto de estos conjuntos es
+    \[X = \prod_{i\in I} X_i = \{f \colon I \to \bigcup_{i\in I} X_i \mid \forall i \in I (f(i) \in X_i)\}.\]
+    El Axioma de Elección dice que existe al menos una función perteneciente a este conjunto, por lo que $X \neq \varnothing$.
+\end{proof}
+
+\item Pruebe que para cualquier conjunto $X$, si cumple que $|X| \leq |X \times X|$. ¿Qué ocurre si $X$ es infinito?
+\begin{proof}
+    
+\end{proof}
+
+\item Considere ahora dos conjuntos $A,B$ infinitos ¿Qué se puede decir de $\abs{A \times B}$ respecto de $\abs A$ y $\abs B$?
+\begin{proof}
+    Supongamos que $\abs A \leq \abs B$. Fijamos $a \in A$, y consideremos la función
+    \begin{align*}
+        f \colon B &\to B \times A \\
+        x &\mapsto (x,a).
+    \end{align*}
+    Sean $x,y \in B$ tales que $f(x) = f(y)$. Entonces $(x,a) = (y,a)$, y por lo tanto $x=y$. Entonces $f$ es inyectiva y luego $\abs B \leq \abs{B \times A}$.
+    Como $\abs A \leq \abs B$, existe una función inyectiva $g \colon A \embbed B$. Luego definimos
+    \begin{align*}
+        h \colon B \times A &\to B \times B \\
+        (x,y) &\mapsto (g(x),y).
+    \end{align*}
+    Sean $(x_1,y_1), (x_2,y_2) \in A \times B$ tales que $h(x_1,y_1) = h(x_2,y_2)$. Luego $(g(x_1),y_1) = (g(x_2),y_2)$ y entonces $g(x_1) = g(x_2), y_1=y_2$. COmo $g$ es inyectiva, tenemos que $x_1=x_2$, y entonces $(x_1,y_1) = (x_2,y_2)$. Por lo tanto $h$ es inyectiva, y entonces $\abs{A \times B} = \abs{B \times B} = \abs B$.
+\end{proof}
+\end{enumerate}
+
+\newpage
+\subsection{Problema 2}
+\begin{enumerate}[(a)]
+\item Pruebe que existe una biyección entre $\P(X)$ y $2^X$.
+\begin{proof}
+    Primero notemos que $2^X = \{f \colon X \to \{0,1\}\}$.
+    Consideremos la función
+    \begin{align*}
+        \phi \colon \P(X) &\to 2^X \\
+        A &\mapsto f(x) = \begin{cases}
+            1, &x \in A \\
+            0, &x \notin A
+        \end{cases}
+    \end{align*}
+    Veamos que es biyectiva.
+    \begin{itemize}
+        \item \wea{Inyectiva: }
+        Sean $A,B \in \P(X)$ tales que $\phi(A) = \phi(B)$.
+    \end{itemize}
+\end{proof}
+
+\item Demeustre que $\abs X < \abs{2^X}$.
+\begin{proof}
+    Sea $f \colon X \embbed \P(X)$ dada por $f(x) = \{x\}$. Esta función es inyectiva, luego $\abs X \leq \abs{\P(X)}$.
+    Ahora supongamos que existe $g \colon X \to \P(X)$ sobreyectiva, y sea $$B = \{x \in X \colon x \notin g(x)\} \subseteq X.$$
+    Como $g$ es sobreyectiva, existe $b \in X$ tal que $g(b) = B$.
+    \begin{itemize}
+        \item Si $b \in B$, entonces por definición de $B$ tenemos que $b \notin g(b) = B$. $\to\gets$
+        \item Si $b \notin B = g(b)$
+    \end{itemize}
+\end{proof}
+
+\item Concluya que $\abs{X} \leq \abs{X^X}$. ¿En qué caso tenemos la igualdad?
+\begin{proof}
+    Si $\abs X \geq 2$, fijamos $a,b \in X$ y consideramos
+    \begin{align*}
+        \psi \colon \P(X) &\to X^X \\
+        A &\mapsto f_A(x) = \begin{cases}
+            a, &x \in A \\
+            b, &x \notin A
+        \end{cases}
+    \end{align*}
+\end{proof}
+\end{enumerate}
 
 
 \end{document}
