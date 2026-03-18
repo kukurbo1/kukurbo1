@@ -663,16 +663,93 @@ Si tomamos $$\t_\a' = \{f_\a^{-1}(\O_\a) \colon \O_a \in \t_\a\}$$ entonces $\t_
 \newpage
 \subsection{Compacidad}
 
+\begin{definition}
+  Sea $X$ un conjunto. Un \wea{cubrimiento} es una familia $\{\O_\a\}_\a$ tal que $\ds X = \bigcup_\a \O_\a$. Si $(X,\t)$ es un espacio topológico, decimos que $\{\O_\a\}_\a$ es un \wea{cubrimiento abierto} ( o \wea{cubrimiento por abiertos}) si los $\O_\a$ son abiertos.
+\end{definition}
+
+\begin{definition}
+  Un espacio métrico $(X,d)$ se dice \wea{totalmente acotado} si $\forall \e>0, \exists \{x_i\}_{i=1}^n$ tal que $$X = \bigcup_{i=1}^n B_\e(x_i).$$
+\end{definition}
+
+\begin{definition}
+  Un espacio métrico $(X,d)$ se dice \wea{compacto} si Para cualquier cubrimiento abierto de $X$ existe un subcubrimiento finito.
+\end{definition}
+
 \begin{theorem}
   En espacios métricos son equivalentes:
   \begin{enumerate}[(1)]
-    \item Completo y totalmente acotado;
     \item Todo cubrimiento abierto tiene subcubrimiento finito;
     \item Toda sucesión tiene subsucesión convergente.
+    \item Completo y totalmente acotado;
   \end{enumerate}
 \end{theorem}
 
-%\fecha{Clase 4.}
+Todas estas propiedades sirven como definición de espacio métrico compacto.
+
+\fecha{Clase 4. Miércoles 18 de Marzo}
+
+\begin{obs}
+  Si $(X,\t)$ es un espacio topológico, no tenemos una forma de interpretar la definición (iii): No sabemos que es una sucesión de Cauchy sin métrica, y por lo tanto no tenemos completitud. Tampoco sabemos que es ser totalmente acotado en espacios topológicos generales. Por estas razones consideramos (i) como definición de compacidad para el caso general.
+\end{obs}
+
+\begin{proposition}
+  Sea $(X,\t)$ espacio topológico. Si $\Fcal = \{F_\a\}_{\a \in A}$ son cerrados tales que $$\forall \Ucal \subseteq \Fcal \cor{\#\Ucal < \oo \implies \bigcap \Ucal \neq \varnothing}$$ entonces $$\bigcap \Fcal \neq \varnothing.$$
+\end{proposition}
+
+Esto escrito con abiertos es
+
+\[\bigcup_{\a \in A} F_\a^c = X \iff \br{\bigcap_{\a \in A} F_\a = \varnothing \implies \exists F_1,\dots,F_n \cor{F_1 \cap \dots \cap F_n = \varnothing}}\]
+
+\begin{proposition}
+  Si $(X,\t)$ es compacto y $F \subseteq X$ es cerrado, entonces $F$ es compacto con la topología inducida.
+\end{proposition}
+\begin{proof}
+  Recordar que $\O_F$ es bierto con la topologí inducida, $\O_F = \O \cap F$ con $\O$ abierto en $X$. Si tomamos un cubrimiento abierto de $F$:
+  \[F = \bigcup_{\a \in A} (\O_\a \cap F)\]
+  con $\O_\a$ abiertos en $X$. Como $F$ es cerrado, entonces $X \setminus F$ es abierto y $\{\O_\a\}_{\a \in A} \cup \{X \setminus F\}$ cubre $X$. Como $X$ es compacto, existen $\O_1, \dots, \O_n$ tales que $\ds \bigcup_{i=1}^n \O_i = X$. Luego
+  \[F = \bigcup_{i=1}^n \O_i \cap F = \bigcup_{i=1}^n (\O_i \cap F).\]
+\end{proof}
+
+\begin{theorem}
+  Si $(X,\t)$ es compacto y Hausdorff, y $F \subseteq X$ es compacto, entonces $F$ es cerrado.
+\end{theorem}
+\begin{proof}
+  Notemos que $F$ es cerrado si y solo si $X \setminus F$ es abierto. Si $X \setminus F = \varnothing$, entonces $F=X$ y  es cerrado. Si $X \setminus F \neq \varnothing$, tomamos $a \in X \setminus F$ y $f_\a \in F$. Como $X$ es Hausdorff, entonces existen abiertos disjuntos $\O_a, U_\a$ tales que $a \in \O_\a$ y $f_\a \in U_\a$.
+  Sea $\{U_\a \colon f_\a \in F\}$ cubrimiento abierto de $F$. Como $F$ es compacto, tenemos $U_1,\dots,U_n$ que cubren $F$.
+  Tomamos $\O = \O_1 \cap \dots \cap \O_n$ tales que $a \in \O_i$ y $\O_i \cap U_i = \varnothing$. Tenemos que $\O$ es abierto. Luego
+  \[\O \cap F = \O \cap \bigcup_{i=1}^n U_i = \bigcup_{i=1}^n (\O \cap U_i) = \varnothing\]
+  \[\implies \O \subseteq X \setminus F.\]
+  Luego $X \setminus F$ es abierto y entonces $F$ es cerrado.
+\end{proof}
+
+\begin{definition}
+  $(X,\t)$ se dice \wea{secuencialmente compacto} si para toda sucesión existe una subsucesión convergente.
+\end{definition}
+
+\begin{proposition}
+  Sea $(X,\t)$ primero contable y compacto. Entonces $X$ es secuencialmente compacto.
+\end{proposition}
+
+\begin{definition}
+  $(X,\t)$ se dice \wea{Lindelöf} si toso cubrimiento abierto tiene un cubcubrimiento contable.
+\end{definition}
+
+\begin{obs}
+  Compacto $\implies$ Lindelöf.
+\end{obs}
+
+\begin{lemma}
+  Segundo contable $\implies$ Lindelöf.
+\end{lemma}
+\begin{proof}
+  Tomemos $\{\O_i\}_{i\in\N}$ base de abiertos numerable y $\{U_\a\}_{\a \in A}$ cubrimiento. Tomemos $U_i$ tal que $\O_i \subseteq U_i$. Luego
+  \[\bigcup_{i\in\N} U_i \supseteq \bigcup_{i\in\N} \O_i = X.\]
+\end{proof}
+
+\begin{theorem}
+  Sea $(X,\t)$ segundo contable. $X$ es compacto si y solo si $X$ es secuencialmente compacto.
+\end{theorem}
+
 %\fecha{Clase 5.}
 %\fecha{Clase 6.}
 %\fecha{Clase 7.}

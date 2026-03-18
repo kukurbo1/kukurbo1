@@ -142,6 +142,7 @@
 \newcommand{\Inn}{\mathrm{Inn}}
 \newcommand{\Hom}{\mathrm{Hom}}
 \newcommand{\stab}{\mathrm{stab}}
+\newcommand{\Cent}{\mathrm{Cent}}
 
 %different bracket types
 \newcommand{\abs}[1]{\left| #1 \right|}
@@ -619,6 +620,10 @@
   \[(gK) \c (hK) = ghK.\]
 \end{definition}
 
+\begin{definition}
+  Si $H \leqslant G$, el \wea{índice de $H$ en $G$} es $$[G \colon H] = \abs{\frac{G}{H}}.$$
+\end{definition}
+
 \begin{proposition}
   Sea $\phi \colon G \to H$ homomorfismo de grupos. Entonces $\ker(\phi) \normal G$.
 \end{proposition}
@@ -840,7 +845,190 @@
   $$\bigcap_{x \in X} \stab_G(x) \normal G.$$
 \end{proposition}
 
-%\fecha{Clase 4.}
+\fecha{Clase 4. Miércoles 18 de Marzo}
+
+\begin{definition}
+  Decimos que una acción $G \acts X$ es \wea{fiel} si $$\forall g \in G \setminus \{1_G\}, \exists x \in X \colon g\c x \neq x.$$
+\end{definition}
+
+\begin{proposition}
+  $G \acts X$ es fiel $\ds \iff \bigcap_{x \in X} \stab_G(x) \simeq 1$.
+\end{proposition}
+
+\begin{proposition}
+  $G \actsby\alpha X$ es fiel $\iff \ker(\phi_\alpha) \simeq 1$.
+\end{proposition}
+
+\begin{example}
+  Considere la acción $\Z^2 \acts \R^2$ dada por $$(n,m) \c (x_1,x_2) = (x_1 + n, x_2 + n).$$
+  Esta acción no es fiel, pues $(0,m) \c x = x$ para todo $n \in \Z$ y todo $x \in \R^2$. Notemos también que
+  \[\stab_{\Z^2}(\R^2) = \bigcap_{x \in \R^2} \stab_{\Z^2}(x) = \{0\} \times \Z \leqslant \Z^2.\]
+  Notemos que tenemos una acción
+  \[\frac{\Z^2}{\{0\} \times \Z} \simeq \Z \acts \R^2, \quad n \c (x_1,x_2) = (x_1 + n, x_2 + n).\]
+\end{example}
+
+\begin{definition}
+  Decimos que $G \actsby\alpha X$ es \wea{libre} si
+  \[\forall g \in G, \forall x \in X \cor{g\c x=x \implies g = 1_G}.\]
+\end{definition}
+
+\begin{proposition}
+  Son equivalentes:
+  \begin{enumerate}[(i)]
+    \item $G \actsby\alpha X$ es libre;
+    \item $\forall g \in G, \forall x \in X \cor{g \neq 1_G \implies gx \neq  x}$;
+    \item $\forall x \in X, \stab_G(x) \simeq 1$;
+    \item $\forall g \in G \setminus \{1_G\}$, $\phi_\alpha(g)$ no tiene puntos fijos.
+  \end{enumerate}
+\end{proposition}
+
+\begin{example}
+  La acción izquierda por multiplicación de un grupo en sí mismo es libre.
+\end{example}
+
+\begin{example}
+  Considere $S^1 = \{z \in \C \colon \abs z = 1\}, \ \alpha \in [0,1)$. Tenemos una acción $\Z \acts S^1$ dada por $$n \c z = z e^{2\pi in\alpha}.$$
+  Si $\alpha \in \Q, \alpha = p/q$ con $p,q \geq 1$ enteros y $p < q$, entonces la acción \wea{no} es fiel por
+  \[q \c z = ze^{2\pi i \frac{p}{q} q} = ze^{1\pi i p} = z.\]
+  Si $\alpha \notin \Q$ y $z \in S^1, \ n \in \Z$ son tales que $n \c z \implies e^{2\pi i n \alpha} = 1$. Por lo tanto $n\alpha \in \Z \implies n=0$. Entonces la acción es libre.
+\end{example}
+
+\begin{example}
+  Si $X$ es un conjunto con $\abs X > 2$, entonces $\Sym(X) \acts X$ es fiel, pero no es libre.
+\end{example}
+
+\begin{definition}
+  $G \acts X$ se dice \wea{transitiva} si $\forall x,y \in X, \exists g \in G \colon g\c x = y$.
+\end{definition}
+
+\begin{proposition}
+  Dada una acción $G \acts X$, son equivalentes:
+  \begin{enumerate}[(i)]
+    \item $G \acts X$ es transitiva;
+    \item $\forall x \in X, \orb_G(x) = X$;
+    \item $\exists x \in X \colon \orb_G(x) = X$.
+  \end{enumerate}
+\end{proposition}
+
+\begin{definition}
+  Decimos que un grupo $H$ \wea{se incrusta en un grupo $G$} si $\exists \phi \colon H \to G$ monomorfismo. Se denota $H \embbed G$.
+\end{definition}
+
+\begin{theorem}
+  [Cayley]
+  Sea $G$ grupo, entonces $G \embbed \Sym(G)$. Si $\abs G = n < \oo$, entonces $G \embbed S_n$.
+\end{theorem}
+\begin{proof}
+  Consideremos $\phi \colon G \to \Sym(G)$ dada por $$(\phi(g))\c(h) = gh, \quad \forall g,h \in G.$$
+  Este es un monomorfismo.
+\end{proof}
+
+\begin{exercise}
+  Sea $G$ grupo finito con $\abs G = n$. Pruebe que $$G \embbed \GL_n(\Z).$$
+\end{exercise}
+%% demostrar. primero G \embbed \Sym(G) \simeq S_n \embbed \GL_n(\Z), este último por matrices de permutación.
+
+\begin{theorem}
+  [Órbita--Estabilizador]
+  Sea $G \acts X$ una acción y $x \in X$. Entonces existe una biyección
+  \[f \colon \orb_G(x) \to \frac{G}{\stab_G(x)}.\]
+  En particular, $\abs G < \oo \implies \abs{\orb_G(x)} \c \abs{\stab_G(x)} = \abs{G}$.
+\end{theorem}
+\begin{proof}
+  Definimos $f \colon \orb_G(x) \to G/\stab_G(x)$ por $f(g \c x) = g \stab_G(x)$.
+  \begin{itemize}
+    \item \wea{Bien definido: }
+    Sean $g,h \in G$ tales que $g \c x = h \c x$. Entonces $h^{-1} g \c x = x$, y entonces $h^{-1}g \in \stab_G(x)$. Luego $$f(h \c x) = h \stab_G(x) = g \stab_G(x) = f(g \c x).$$
+
+    \item \wea{Sobreyectivo: } \checkmark %% ????
+    \item \wea{ Inyectivo: }
+    Sean $g\c x, h \c x \in \orb_G(x)$ tales que $f(g \c x) = f(h \c x)$, entonces $g \stab_G(x) = h \stab_G(x)$. Luego $h^{-1} g \in \stab_G(x)$ y entonces $g\c x = h \c x$.
+  \end{itemize}
+\end{proof} %% arreglar el como se ve el g\stab
+
+\begin{obs}
+  $\stab_G(x)$ no es necesariamente un subgrupo normal de $G$, pero el teorema trabaja solo con las clases laterales, sin estructura de grupo.
+\end{obs}
+
+\begin{theorem}
+  [Cauchy]
+  Sea $G$ grupo finito y sea $p$ primo tal que $p$ divide a $\abs G$. Entonces $\zmz p \embbed G$.
+\end{theorem}
+\begin{proof}
+  Consideremos $$X = \{(x_1,\dots,x_p) \in G^p \colon x_1 x_2 \cdots x_p = 1_G\}.$$
+  Notemos que $$X = \{(x_1,\dots,x_{p-1}, x_{p-1}^{-1}\cdots x_2^{-1}x_1^{-1}) \colon x_1,\dots,x_{p-1} \in G\}$$ y entonces $\abs X = \abs G^{p-1}$.
+  Consideremos la acción $\zmz p \acts X$ por permutación cíclica mediante $$1 \c (x_1,\dots,x_p) = (x_2,x_3, \dots, x_p, x_1).$$
+  Notemos que si $(x_1,\dots,x_p) \in X$, entonces
+  \begin{align*}
+    x_1 x_2 \cdots x_p &= 1_G \\
+    \implies x_2 x_3 \cdots x_p x_1 &= x_1^{-1} x_1 x_2 x_2 \cdots x_p x_1 \\
+    &= x_1 1_G x_1 = 1_G.
+  \end{align*}
+  Luego
+  \[\abs{X} = \abs{G}^{p-1} = \sum_{x_i \in X/(\Z/p\Z)} |\orb_{\Z/p\Z} (x_i)|.\] %% no entiendo este error, lo arreglaré
+  Supongamos por contradicción que $\forall g \in G \setminus \{1_G\}, \quad g^p \neq 1_G$.
+  Luego $\forall x = (x_1,\dots,x_p) \neq (1_G,\dots,1_G)$ tenemos que $\abs{\orb_{\zmz p}(x)} = p$. Luego
+  \[\abs G^{p-1} = 1 + p \br{\abs{\frac{X}{\zmz p}} -1}.\]
+  Tomando $\mod p$ tenemos que $0=1 \mod p$. $\to\gets$
+\end{proof}
+
+\begin{theorem}
+  Sea $G$ un grupo finito y $p$ primo tal que $\abs G = p^2$. Entonces $G$ es abeliano.
+\end{theorem}
+
+\begin{definition}
+  Sea $G$ un grupo. La \wea{clase de conjugación de $h \in G$} es
+  \[C(h) \coloneqq \{ghg^{-1} \colon g \in G.\]
+\end{definition}
+
+\begin{obs}
+  Tenemos la acción $G \acts G$ por congugación $g \star h = ghg^{-1}$. Luego $C(h) = \orb_G(h)$ para todo $h \in G$.
+\end{obs}
+
+\begin{obs}
+  Si $G$ es finito, entonces $$\abs G = \sum_{i \in I} \abs{C(g_i)}$$ donde $\{g_i\}_{i \in I}$ son representantes de las clases de conjugación. Los números $\{\abs{C(g_i)}\}$ se denomina \wea{ecuación de clase}.
+\end{obs}
+
+\begin{example}
+  Si $G$ es abeliano, entonces la ecuación de clase de $G$ es $$\abs G = \underbrace{1+1+\dots+1}_{\abs G \text{ veces}}.$$
+\end{example}
+
+\begin{example}
+  $|S_3| = |C(\id)| + |C((12))| + |C((123))| = 1+3+2$.
+\end{example}
+
+\begin{obs}
+  La ecuación de clase no es invariante completo de conjugación.
+\end{obs}
+
+\begin{definition}
+  Sea $G$ un grupo. Su \wea{centro} es
+  \[Z(G) = \{g \in G \colon gh=hg, \quad \ h \in G\}.\]
+\end{definition}
+
+\begin{obs}
+  Sea $\phi \colon G \to \Sym(G)$ por conjugación, entonces $Z(G) = \ker(\phi)$. %% no entendí la función
+\end{obs}
+
+\begin{definition}
+  Sea $G$ grupo y $g \in G$. El \wea{centralizador de $g$} es
+  \[\Cent(g) = \{h \in G \colon hg = gh\}.\]
+\end{definition}
+
+\begin{obs}
+  $\ds Z(G) = \bigcap_{g \in G} \Cent(g)$.
+\end{obs}
+
+\newpage %% error de mdframed, quitar eventualmente este salto de pagina
+\begin{lemma}
+  Sea $G$ grupo finito, $n\geq 1$ entero y $p$ primo tal que $\abs G = p^n$. Entonces $\abs{Z(G)} > 1$.
+\end{lemma}
+\begin{proof}
+  Supongamos que $\abs{Z(G)}=1$, entonces existe una única clase de conjugación con un elemento. Luego toda clase de conjugación $C(g)$ satisface que $\abs{C(g)}$ es divisible por $p$. Luego
+  \[p^n = \abs{G} = \sum_{g_i \text{ rep}} \abs{C(g_i)} = 1 +pk, \quad k \in \Z.\]
+  Contradicción, pues $0 \neq 1 \pmod p$.
+\end{proof}
+
 %\fecha{Clase 5.}
 %\fecha{Clase 6.}
 %\fecha{Clase 7.}
