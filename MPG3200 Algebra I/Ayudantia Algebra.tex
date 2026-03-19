@@ -244,7 +244,7 @@ Demuestre los siguientes isomorfismos.
     El Axioma de Elección dice que existe al menos una función perteneciente a este conjunto, por lo que $X \neq \varnothing$.
 \end{proof}
 
-\item Pruebe que para cualquier conjunto $X$, si cumple que $|X| \leq |X \times X|$. ¿Qué ocurre si $X$ es infinito?
+\item Pruebe que para cualquier conjunto $X$ se tiene que $|X| \leq |X \times X|$. ¿Qué ocurre si $X$ es infinito?
 \begin{proof}
     
 \end{proof}
@@ -262,7 +262,12 @@ Demuestre los siguientes isomorfismos.
         h \colon B \times A &\to B \times B \\
         (x,y) &\mapsto (g(x),y).
     \end{align*}
-    Sean $(x_1,y_1), (x_2,y_2) \in A \times B$ tales que $h(x_1,y_1) = h(x_2,y_2)$. Luego $(g(x_1),y_1) = (g(x_2),y_2)$ y entonces $g(x_1) = g(x_2), y_1=y_2$. COmo $g$ es inyectiva, tenemos que $x_1=x_2$, y entonces $(x_1,y_1) = (x_2,y_2)$. Por lo tanto $h$ es inyectiva, y entonces $\abs{A \times B} = \abs{B \times B} = \abs B$.
+    Sean $(x_1,y_1), (x_2,y_2) \in A \times B$ tales que $h(x_1,y_1) = h(x_2,y_2)$.
+    \[\implies (g(x_1),y_1) = h(x_1,y_1) = h(x_2,y_2) = (g(x_2),y_2)\]
+    \[\implies g(x_1) = g(x_2), \quad y_1 = y_2\]
+    \[\implies x_1 = x_2, \quad y_1 = y_2\]
+    \[\implies (x_1,y_1) = (x_2,y_2).\]
+    Por lo tanto $h$ es inyectiva, y entonces $\abs{A \times B} = \abs{B \times B} = \abs B$.
 \end{proof}
 \end{enumerate}
 
@@ -274,8 +279,8 @@ Demuestre los siguientes isomorfismos.
     Primero notemos que $2^X = \{f \colon X \to \{0,1\}\}$.
     Consideremos la función
     \begin{align*}
-        \phi \colon \P(X) &\to 2^X \\
-        A &\mapsto f(x) = \begin{cases}
+        \chi \colon \P(X) &\to 2^X \\
+        A &\mapsto \chi_A(x) = \begin{cases}
             1, &x \in A \\
             0, &x \notin A
         \end{cases}
@@ -283,8 +288,16 @@ Demuestre los siguientes isomorfismos.
     Veamos que es biyectiva.
     \begin{itemize}
         \item \wea{Inyectiva: }
-        Sean $A,B \in \P(X)$ tales que $\phi(A) = \phi(B)$.
+        Sean $A,B \in \P(X)$ tales que $\chi(A) = \chi(B)$. Entonces $\chi_A(x) = \chi_B(x)$ para todo $x \in X$. Notemos que
+        \[x \in A
+        \iff \chi_A(x) = 1
+        \iff \chi_B(x) = 1
+        \iff x \in B.\]
+        Por lo tanto $A = B$. Entonces $\chi$ es inyectiva.
+        \item \wea{Sobreyectiva: }
+        Sea $f \in 2^X$, y consideremos $S = \{x \in X \colon f(x) = 1\}$. Notemos que $\chi_S(x) = f(x)$ para todo $x \in X$, por lo que $S$ es preimagen de $f$. Entonces $\chi$ es sobreyectiva.
     \end{itemize}
+    Concluimos entonces que $\chi$ es una biyección entre $\P(X)$ y $2^X$.
 \end{proof}
 
 \item Demeustre que $\abs X < \abs{2^X}$.
