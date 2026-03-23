@@ -279,5 +279,71 @@ Muestre que $\R$ con la $K$--topología es Hausdorff pero no regular.
   \end{itemize}
 \end{proof}
 
+\newpage
+\section{Ayudantia 2. Lunes 23 de Marzo}
+
+\subsection{Problema 1}
+
+La recta de Sorgenfrey $\R_f$ es $\R$ con la base $[a,b)$ con $a<b$.
+\begin{enumerate}
+  \item Muestre que $\R_f$ no es segundo numerable.
+  \begin{proof}
+    Sea $\B$ una base de $\R_f$. Sea $x \in \R$, tenemos que $[x,x+1)$ es una vecindad abierta de $x$.
+    Luego existe $B_x \in \B$ tal que $x \in B_x \subseteq [x,x+1)$.
+    Si $y \neq x$, hacemos lo mismo:
+    \[y \in B_y \subseteq [y,y+1).\]
+    Vemos que $B_x \neq B_y$, pues $\inf{B_x} \geq \inf{[x,x+1)} = x$, y como $x \in B_x$, entonces $\inf{B_x} = x$. Similarmente, $\inf{B_y} = y$, y por lo tanto $\inf{B_x} \neq \inf{B_y}$. Luego $B_x \neq B_y$.
+
+    Entonces tenemos una inyección $\R \to \B$ dada por $x \mapsto B_x$, y entonces $\B$ no puede ser numerable.
+  \end{proof}
+
+  \item Muestre que $\R_f$ es Lindelöf.
+  \begin{proof}
+    Mostraremos que todo subrimiento por elementos de la base tiene subcubrimiento numerable.
+
+    Sea $\Acal = \{[a_\a,b_\a)\}_\a$ cubrimiento, y definimos
+    \[C = \bigcup_\a (a_\a,b_\a).\]
+    Veamos que $\R \setminus C = \{a_\a\}_\a$ es numerable. Sea $x \in \R$, como $\Acal$ es cubrimiento, entonces $\exists \b$ tal que $$x = a_\b \in [a_\b,b_\b)$$.
+    Sea $q_x \in \Q \cap [a_\b,b_\b) = \Q \cap [x,b_\b)$. Si $x \neq y$, entonces podemos asumir $x < y$, y entonces $q_x < q_y$, ya que en caso contrario tendriamos $x < y < q_y \leq q_x$ por lo que $y \in (x,q_x) \subseteq (a_\b,b_\b) \subseteq C$, pero $y \notin C$.
+
+    Tenemos entonces una inyección $\R \setminus C \to \Q$ dada por $x \mapsto q_x$, y entonces $\R \setminus C$ es numerable.
+
+    Por otro lado, viendo $C$ con topología Euclideana, al ser segundo numerable, admite subcubrimiento numerable $\{(a_{\a_n},b_{\a_n})\}_{n\in\N}$. Luego $\{[a_{\a_n},b_{\a_n})\}_{n\in\N} \cup \R\setminus C$ es numerable.
+  \end{proof}
+
+  \item Muestre que $\R_f \times \R_f$ no es Lindelöf.
+  \begin{proof}
+    Consideremos la recta $L = \{(x,-x) \colon x \in \R\}$. Tomamos
+    \[\Acal = \{L^c\} \cup \{[x,x+1) \times [-x,-x+1) \colon x \in \R\}.\]
+    De ser Lindelöf, cubriríamos $L$ con numerables elementos de $\Acal$, pero cada elemento de $\Acal$ contiene a lo más un elemento de $L$. Pero $\abs L = \abs \R$. $\to\gets$
+  \end{proof}
+\end{enumerate}
+
+\newpage
+\subsection{Problema 2}
+
+\begin{enumerate}
+  \item Si $N \subseteq X \times Y$ es abierto con $Y$ compacto y $\{x_0\} \times Y \subseteq N$, existe $W \subseteq X$ vecindad de $x_0$ tal que $$\{x_0\} \times Y \subseteq W \times Y \subseteq N.$$
+  \begin{proof}
+    Cubrimos $\{x_0\} \times Y$ con elementos de la base $U \times V \subseteq N$. Notemos que $\{x_0\} \times Y$ es homeomorfo a $Y$, el cual es compacto, y entonces existe un cubrimiento finito $U_1 \times V_1, \dots, U_n \times V_n$.
+    Sea $W = U_1 \cap \dots \cap U_n$.
+    
+    Veamos que $\{U_i \times V_i\}_{i=1}^n$ cubre a $W \times Y$.
+    Sea $(x,y) \in W \times Y$. Consideramos $(x_0,y) \in \{x_0\} \times Y$. Sea $U_i \times V_i$ con $(x_0,y) \in U_i \times V_i$, entonces $y \in V_i$. Notemos que
+    \[x \in W = \bigcap_{j=1}^n U_j \subseteq U_i\]
+    y entonces $(x,y) \in U_i \times V_i$. Por lo tanto
+    \[\{x_0\} \times Y \subseteq W \times Y \subseteq \bigcup_{i=1}^n U_i \times V_i \subseteq N.\]
+  \end{proof}
+  
+  \item Muestre que si $Y$ es compacto, entonces la proyección $\pi_1 \colon X \times Y \to X$ es cerrada.
+  \begin{proof}
+    Sea $F \subseteq X \times Y$ cerrado. Queremos mostrar que $\pi_1(F)$ es cerrado, lo cual pasa si y solo si $\pi_1(F)^c$ es abierto. Sea $x_0 \in \pi_1(F)^c \subseteq X$, entonces $\{x_0\} \times Y \subseteq F^c \subseteq X \times Y$.
+    Luego por la parte anterior, existe $W \subseteq X$ vecindad de $x_0$ tal que $$\{x_0\} \times Y \subseteq W \times Y \subseteq F^c.$$
+    Luego
+    \[x_0 \in W = \pi_1(W \times Y) \subseteq \pi_1(F^c).\]
+    Faltó concluir, pero el Fer mandará la solución después.
+  \end{proof}
+\end{enumerate}
+
 
 \end{document}
