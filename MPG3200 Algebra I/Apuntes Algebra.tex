@@ -537,13 +537,13 @@
 \end{proof}
 
 \begin{definition}
-  Consideremos la función $\phi \colon S_n \to \Z$ dada por
+  Consideremos la función $\sgn \colon S_n \to \Z$ dada por
   \begin{itemize}
-    \item $\phi(\sigma) = 1$ si $\sigma$ es permutación par;
-    \item $\phi(\sigma) = -1$ si $\sigma$ es permutación impar.
+    \item $\sgn(\sigma) = 1$ si $\sigma$ es permutación par;
+    \item $\sgn(\sigma) = -1$ si $\sigma$ es permutación impar.
   \end{itemize}
   El \wea{grupo alternante} es
-  \[A_n = \ker(\phi) = \{\sigma \in S_n \colon \sigma \text{ es par}\}.\]
+  \[A_n = \ker(\phi) = \{\sigma \in S_n \colon \sgn(\sigma) = 1\}.\]
 \end{definition}
 
 \begin{definition}
@@ -1029,7 +1029,91 @@
   Contradicción, pues $0 \neq 1 \pmod p$.
 \end{proof}
 
-%\fecha{Clase 5.}
+\fecha{Clase 5. Lunes 23 de Marzo}
+
+\begin{lemma}
+  Todo grupo de orden $p^n$ con $n \geq 1$ y $p$ primo tiene centro no trivial.
+\end{lemma}
+
+\begin{theorem}
+  Todo grupo de orden $p^2$ es abeliano con $p$ primo.
+\end{theorem}
+\begin{proof}
+  Sea $G$ un grupo de orden $p^2$. Tenemos 3 opciones:
+  \begin{enumerate}[(i)]
+    \item $Z(G) \simeq 1$;
+    \item $\abs{Z(G)} = p$;
+    \item $Z(G) = G$.
+  \end{enumerate}
+  La opción (i) no funciona por el lema. Supongamos que $\abs{Z(G)} = p$.
+\end{proof}
+
+\newpage
+\subsection{Subgrupos Simples}
+
+\begin{definition}
+  Un grupo $G$ se dice \wea{simple} si sus únicos subgrupos normales son $\{1_G\}$ y $G$.
+\end{definition}
+
+\begin{proposition}
+  $G$ es simple si todo cociente de $G$ es isomorfo a $G$ o 1.
+\end{proposition}
+
+\begin{example}
+  $\zmz p$ es simple para $p$ primo.
+\end{example}
+
+\begin{obs}
+  Recordemos que dado $n \geq 2$, las permutaciones $\sigma \in S_n$ tienen signo:
+  \begin{itemize}
+    \item $\sgn(\sigma) = 1$ si $\sigma$ es par;
+    \item $\sgn(\sigma) = -1$ si $\sigma$ es impar.
+  \end{itemize}
+  Esto nos da un homomorfismo de grupos $\phi \colon S_n \to \Z_2$, y entonces $A_n = \ker(\phi)$. Por lo tanto $A_n \normal S_n$.
+
+  Sea $\sigma \in S_n$ un producti de ciclos
+  \[\sigma = (a_1,\dots,a_{k_1})(b_1,\dots,b_{k_2})\dots(t_1,\dots,t_{k_l}).\]
+  Sea $\tau \in S_n$, entonces
+  \[\tau\sigma\tau^{-1} = (\tau(a_1,\dots,a_{k_1})\tau^{-1})(\tau(b_1,\dots,b_{k_2})\tau^{-1}) \dots (\tau(t_1,\dots,t_{k_l})\tau^{-1}).\]
+  Luego basta estudiar la conjugación de un ciclo. Sea $\sigma = (a_1 a_2 \dots a_k)$ y $\tau \in S_n$ con $k \leq n$, entonces
+  \[\tau\sigma\tau^{-1} = (\tau(a_1), \dots, \tau(a_k)).\]
+\end{obs}
+
+\begin{obs}
+  La conjugación en $S_n$ preserva la estructura de ciclos.
+\end{obs}
+
+\begin{example}
+  En $S_{11}$ (escrito en hexadecimal) tomemos
+  \[\sigma = (135)(24)(6789)(AB), \quad \tau = (123456789AB)\]
+  \[\implies \tau\sigma\tau^{-1} = (246)(35)(789A)(B1).\]
+\end{example}
+
+\begin{example}
+  Calculemos las clases de conjugación de $S_5$. Primero notemos que $\abs{S_5} = 120$. La estructura de las permutaciones son:
+  \begin{enumerate}[(1)]
+    \item $\id$ (1 elemento);
+    \item $(ab)$ (10 permutaciones);
+    \item $(abc)$ (20 permutaciones);
+    \item $(abcd)$ (30 permutaciones);
+    \item $(abcde)$ (24 permutaciones);
+    \item $(ab)(cd)$ (15 permutaciones);
+    \item $(ab)(cde)$ (20 permutaciones).
+  \end{enumerate}
+  Como la conjugación preserva la estructura de los ciclos, tenemos que las clases de conjugaciones coinciden con estos números, y entonces la ecuación de clase es
+  \[120 = 1 + 10 + 15 + 20 + 20 + 24 + 30.\]
+  Vamos a estudiar las clases de conjugación en $A_5$. Sus elementos son de la forma
+  \[\id, \quad (abc) = (ac)(ab), \quad (abcde) = (ae)(ad)(ac)(ab), \quad (ab)(cd).\]
+  Veamos las clases de conjugación de este tipo de elementos.
+  \begin{itemize}
+    \item Los elementos de la forma $(abc)$ forman una única clase de conjugación:
+    Supongamos que $(abc)$ y $(a'b'c')$ son conjugados por $\tau \in S_n$ con $n \geq 5$. Sean $e,f \in \{1,\dots,n\} \setminus \{a,b,c\}$ con $e \neq f$. Definimos $\tau' = \tau(ef)$. Luego
+    \[\tau'(abc)\tau'^{-1} = (\tau'(a), \tau'(b), \tau'(c))
+    = (\tau(a),\tau(b),\tau(c)) = \tau(abc)\tau^{-1}.\]
+    Luego $\abs{C_{A_n}((123))} = 20$.
+  \end{itemize}
+\end{example}
+
 %\fecha{Clase 6.}
 %\fecha{Clase 7.}
 %\fecha{Clase 8.}

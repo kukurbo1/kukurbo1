@@ -21,7 +21,7 @@
 \usepackage[framemethod = TikZ]{mdframed}
 
 %theorems
-\newtheorem{theorem}{Teorema}[section]
+\newtheorem{theorem}{Teorema}[subsection]
 
 \newtheorem{algorithm}{Algorithm}
 \newtheorem{axiom}{Axioma}
@@ -750,7 +750,120 @@ Esto escrito con abiertos es
   Sea $(X,\t)$ segundo contable. $X$ es compacto si y solo si $X$ es secuencialmente compacto.
 \end{theorem}
 
-%\fecha{Clase 5.}
+\fecha{Clase 5. Lunes 13 de Marzo}
+
+\begin{theorem}
+  Si $(X,\t)$ es compact y Hausdorff, entonces $(X,\t)$ es normal.
+\end{theorem}
+\begin{proof}
+  Royden, p. 235, Teorema 18.
+\end{proof}
+
+\begin{theorem}
+  Sea $(X,\t)$ compacto y $f \colon X \to Y$ continua. Entonces $f(X)$ es compacto.
+\end{theorem}
+\begin{proof}
+  Royden, p. 235, Proposición 20.
+\end{proof}
+
+\begin{corollary}
+  Si $f \colon X \to \R$ es continua y $X$ es compacto, entonces $f$ alcanza un máximo y mínimo.
+\end{corollary}
+
+\begin{corollary}
+  Sea $X$ compacto e $Y$ Hausdorff. Si $f \colon X \to Y$ es una función continua y biyectiva, entonces $f$ es homeomorfismo.
+\end{corollary}
+
+\newpage
+\subsection{Conexidad}
+
+\begin{definition}
+  Un espacio topológico $(X,\t)$ se dice \wea{conexo} si
+  \[\forall \O_1, \O_2 \in \t \cor{
+    (\O_1 \cap \O_2 \ \land\ \O_1 \cup \O_2 = X) \implies \O_1, \O_2 \in \{\varnothing, X\}
+  }.\]
+  Si $E \subseteq X$, decimos que $E$ es \wea{conexo} si es conexo con la topología inducida.
+\end{definition}
+
+\begin{theorem}
+  Si $X$ es conexo y $f \colon X \to Y$ es continua, entonces $f(X)$ es conexo.
+\end{theorem}
+
+\begin{exercise}
+  En $\R$ los conexos son intervalos.
+\end{exercise}
+
+\begin{corollary}
+  Si $X$ es conexo y $f \colon X \to \R$ continua, entonces $f(X)$ es un intervalo.
+\end{corollary}
+
+\begin{definition}
+  $X$ es un espacio topológico tal que $\forall f \colon X \to \R$, $f(X)$ es intervalo, se dice que $X$ cumple la \wea{propiedad del valor intermedio} (abreviado como \wea{PVI}).
+\end{definition}
+
+\begin{theorem}
+  $X$ cumple PVI si y solo si $X$ es conexo.
+\end{theorem}
+\begin{proof}
+  Supongamos que $X$ no es conexo. Veamos que no cumple PVI.
+  Si no es conexo, entonces existen $\O_1,\O_2$ abiertos tales que
+  \[\O_1 \neq \varnothing \neq \O_2 \quad\land\quad
+  \O_1 \cap \O_2 = \varnothing \quad\land\quad
+  X = \O_1 \cup \O_2.\]
+  Consideremos la función
+  \[f(x) = \begin{cases}
+    1, &x \in \O_1 \\
+    0, &x \in \O_2
+  \end{cases}\]
+  Entonces
+  \[f^{-1}((a,b)) = \begin{cases}
+    \O_1, &\text{si } 1 \in (a,b), 0 \notin (a,b), \\
+    \O_2, &\text{si } 0 \in (a,b), 1 \notin (a,b), \\
+    X, &\text{si } 0,1 \in (a,b), \\
+    \varnothing, &\text{si } 0,1 \notin (a,b).
+  \end{cases}\]
+  $f$ continua, entonces $f(X)$ no es intervalo.
+\end{proof}
+
+\begin{lemma}
+  [\wea{Urysohn}]
+  Sea $X$ normal y sean $A,B \subseteq X$ cerrados disjuntos. Sea $[a,b]$ cerrado, entonces existe $f \colon X \to [a,b]$ continua tal que
+  \[f(A) = \{a\} \quad\land\quad f(B) = \{b\}.\]
+\end{lemma}
+
+\begin{obs}
+  Si $(X,d)$ es un espacio métrico, entonces tenemos
+  \[f(x) = \frac{b \cdot \dist(x,A)}{\dist(x,A) + \dist(x,B)} + \frac{a \cdot \dist(x,B)}{\dist(x,A) + \dist(x,B)}.\]
+\end{obs}
+
+\begin{obs}
+  Si un espacio que cumple que $\forall A,B$ cerrados disjuntos existe $f \colon X \to [a,b]$ continua tal que $f(A) = \{a\}$ y $f(B) = \{b\}$, entonces es normal, pues si $A,B$ son cerrados disjuntos, tomamos
+  \[\O_1 = f^{-1}([a,(b-1)/3)) \supseteq A \quad\land\quad \O_2 = f^{-1}((2(b-a)/3, b]) \supseteq B.\]
+\end{obs}
+
+\begin{definition}
+  Sea $X$ un espacio topológico y $\Lambda \subseteq \R$. Una familia $\{\O_\lambda\}_{\lambda\in\Lambda}$ se dice \wea{noramlmente ascendente} si \[\forall \lambda_1,\lambda_2 \in \Lambda \cor{\lambda_1 < \lambda_2 \implies \bar{\O_{\lambda_1}} \subseteq \O_{\lambda_2}}.\]
+\end{definition}
+
+\begin{lemma}\label{lemma Urysohn proof 1}
+  Sea $X$ un espacio topológico y $\Lambda$ un conjunto denso en $(a,b)$. Sea $\{\O_\lambda\}_{\lambda\in\Lambda}$ familia normalmente ascendente de abiertos. Si tomamos
+  \[f(x) = \begin{cases}
+    b, &si \ X \setminus \bigcup_{\lambda\in\Lambda} \O_\lambda \\
+    \inf\{\lambda\in\Lambda \colon x \in \O_\lambda\}, &e.o.c.
+  \end{cases}\]
+  entonces $f$ es continua.
+\end{lemma}
+
+\begin{lemma}\label{lemma Urysohn proof 2}
+  Sea $X$ normal. Si $F$ es cerrado y $U$ es vecindad abierta de $F$, entonces existe una familia $\{\O_\lambda\}_{\lambda\in\Lambda}$ normalmente ascendente de abiertos tal que
+  \[F \subseteq \O_\lambda \subseteq \bar{\O_\lambda} \subseteq U.\]
+\end{lemma}
+
+\begin{proof}%% Urysohn, mover esto al enunciado, y poner los lemas antes.
+  Tenemos $A,B$ cerrados. En el Lema \ref{lemma Urysohn proof 2} tomamos $F=A$ y $U = X \setminus B$.
+  Si $A \cap B = \varnothing$, entonces $A \subseteq U$, luego el lema \ref{lemma Urysohn proof 2} entrega $\{\O_\lambda\}_{\lambda\in\Lambda}$ y construimos $f$ como en el lema \ref{lemma Urysohn proof 1}.
+\end{proof}
+
 %\fecha{Clase 6.}
 %\fecha{Clase 7.}
 %\fecha{Clase 8.}
