@@ -1111,10 +1111,67 @@
     \[\tau'(abc)\tau'^{-1} = (\tau'(a), \tau'(b), \tau'(c))
     = (\tau(a),\tau(b),\tau(c)) = \tau(abc)\tau^{-1}.\]
     Luego $\abs{C_{A_n}((123))} = 20$.
+
+    \item Para $(ab)(cd)$, consideremos el siguiente lema:
+    \begin{lemma}
+      Sea $G$ grupo finito y $G \acts X$ transitiva. Sea $N \normal X$ con $[G \colon N] = 2$ tal que $N \acts X$ no es transitiva.
+      Entonces $N \acts X$ tiene 2 órbitas de misma cardinalidad.
+    \end{lemma}
+    Aplicamos con $G = S_5$, $X = C_{S_5}((12)(34))$ con $N = A_5$ y $G \acts X$ por conjugación.
+    Luego si $C_{A_5}((12)(34)) \neq C_{S_5}((12)(34))$, entonces $\abs{C_{A_5}((12)(34))} = 15/2$, lo cual no puede ser. Entonces $\abs{C_{A_5}((12)(34))} = 15$.
+
+    \item Para los 5--ciclos, veremos que $(12345)$ y $(21345)$ no son conjugados. Supongamos que sí lo son, entonces existe $\tau \in S_5$ tal que $(21345) = \tau(12345)\tau^{-1} = (\tau(1), \dots, \tau(5))$.
+    Entonces $\tau = (12) \sigma$ con $\sigma \in \gen{(12345)}$. Por lo tanto $\tau \in (12)A_5$. Luego
+    \[C_{A_5}((12345)) \cap C_{A_5}((21345)) = \varnothing.\]
+    Por el lema, ésta última clase de conjugación se separa en 2.
   \end{itemize}
+  Luego, la ecuación de clase de $A_5$ es $$\abs{A_5} = 1 + 12 + 12 + 15 + 20.$$
 \end{example}
 
-%\fecha{Clase 6.}
+\fecha{Clase 6. Miércoles 25 de Marzo}
+
+\begin{theorem}
+  $A_5$ es simple.
+\end{theorem}
+\begin{proof}
+  Sea $N \normal A_5$.
+  Primero, como $N$ es normal, toda clase de conjugación $C$ cumple $C \subset N$ o $C \cap N = \varnothing$.
+
+  También, como $N \leqslant A_5$, tenemos que $\abs N$ divide a 60. Luego
+  \[\abs{N} \in \{1,2,3,4,5,6,10,12,15,20,30,60\}.\]
+  Luego $$\abs N = 1 + 12a_1 + 12a_2 + 15a_3 + 20a_4$$ con $a_i \in \{0,1\}$. Por lo tanto $\abs N \in \{1,60\}$.
+\end{proof}
+
+\begin{exercise}
+  Muestre que $A_4$ no es simple.
+\end{exercise}
+
+\begin{theorem}
+  $A_n$ es simple para $n \geq 5$.
+\end{theorem}
+\begin{proof}
+  Por inducción, supongamos que $A_{n-1}$ es simple para algún $n \geq 6$.
+  Tomamos $N \normal A_n$ con $N \neq A_n$, veamos que $N \simeq 1$.
+
+  Notemos que con la acción $A_n \acts \{1,\dots,n\}$, tenemos que $$\stab_{A_n}(i) \simeq A_{n-1}, \quad \forall i \in \{1,\dots,n\}.$$
+  Luego $$N \cap \stab_{A_n}(i) \normal \stab_{A_n}(i) \simeq A_{n-1}.$$
+  Como $A_{n-1}$ es simple (por hipótesis), tenemos que
+  \[N \cap \stab_{A_n}(i) \in \set{\set{\id}, \stab_{A_{n-1}}(i)}.\]
+  Si $\stab_{A_n}(i) \subset N$, entonces $\forall \sigma \in A_n$,
+  \[\stab_{A_n}(\sigma(i)) = \sigma \stab_{A_n}(i) \sigma^{-1} \subset \sigma N \sigma^{-1} = N\]
+  \[\implies \bigcup_{1 \leq i \leq n} \stab_{A_n}(i) \subset N.\]
+  En particular, para $n \geq 4$, $N$ contiene todos los 3--ciclos.
+  \begin{lemma}
+    Para $n \geq 3$, $A_n$ está generado por los 3--ciclos.
+  \end{lemma}
+  Luego $A_n \subset N$. Por lo tanto $N = A_n$, contradicción. Deducimos entonces que
+  \[N \cap \stab_{A_n}(i) \simeq 1, \quad \forall i.\]
+  Por lo tanto $\forall \sigma \in N \setminus \{\id\}$, $\sigma$ no tiene puntos fijos, es decir: $N \acts \{1,\dots,n\}$ es libre.
+
+  Sea $\sigma \in N \setminus \{\id\}$. Veamos que existe $\tau \in A_n$ (con $n \geq 6$) tal que
+  \[\tau(1) = 1 \quad\land\quad \tau(\sigma(1)) = \sigma(1) \quad\land\quad \tau\sigma \neq \sigma\tau.\]
+\end{proof}
+
 %\fecha{Clase 7.}
 %\fecha{Clase 8.}
 %\fecha{Clase 9.}
