@@ -120,6 +120,8 @@
 \renewcommand{\d}{\delta}
 \newcommand{\e}{\varepsilon}
 \renewcommand{\t}{\tau}
+\newcommand{\lam}{\lambda}
+\newcommand{\Lam}{\Lambda}
 
 \newcommand{\vphi}{\varphi}
 \newcommand{\oo}{\infty}
@@ -853,18 +855,129 @@ Esto escrito con abiertos es
   \end{cases}\]
   entonces $f$ es continua.
 \end{lemma}
+\begin{proof}
+  Tomemos $y_0 \in X$ y $f(y_0) = r_0$. Por demostrar que $\forall \e>0$, $f^{-1}(r_0-\e, r_0+\e)$ es abierto.
+  Esto es si y solo si $\forall \e>0$, $\exists U$ abierto en $X$ tal que
+  \[y_0 \in U \subseteq f^{-1}(r_0-\e,r_0+\e).\]
+  Asumamos primero que $r_0 \in (a,b)$. Existen $\lam_1,\lam_2 \in \Lam$ tales que
+  \[a < \lam_1 < r_0 < \lam_2 < b\]
+  Luego existen $\O_{\lam_1}, \O_{\lam_2} \in \{\O_\lam\}$ tales que
+  \[\bar{\O_{\lam_1}} \subseteq \O_{\lam_2}.\]
+  Tomemos
+  \[U = \O_{\lam_2} \setminus \bar{\O_{\lam_1}}.\]
+  Tenemos que $y_0 \in U$ porque $f(y_0) = r_0$ y entonces $\lam_1 < f(y_0) < \lam_2$.
+\end{proof}
 
 \begin{lemma}\label{lemma Urysohn proof 2}
   Sea $X$ normal. Si $F$ es cerrado y $U$ es vecindad abierta de $F$, entonces existe una familia $\{\O_\lambda\}_{\lambda\in\Lambda}$ normalmente ascendente de abiertos tal que
   \[F \subseteq \O_\lambda \subseteq \bar{\O_\lambda} \subseteq U.\]
 \end{lemma}
 
-\begin{proof}%% Urysohn, mover esto al enunciado, y poner los lemas antes.
+\begin{proof}[\dem{Urysohn}]%% Urysohn, mover esto al enunciado, y poner los lemas antes.
   Tenemos $A,B$ cerrados. En el Lema \ref{lemma Urysohn proof 2} tomamos $F=A$ y $U = X \setminus B$.
   Si $A \cap B = \varnothing$, entonces $A \subseteq U$, luego el lema \ref{lemma Urysohn proof 2} entrega $\{\O_\lambda\}_{\lambda\in\Lambda}$ y construimos $f$ como en el lema \ref{lemma Urysohn proof 1}.
 \end{proof}
 
-%\fecha{Clase 6.}
+\fecha{Clase 6. Miércoles 25 de Marzo}
+
+\begin{lemma}
+  Sea $\{f_n\}_{n\in\N}$ con $f_n \colon X \to [a,b]$ continuas, tal que
+  \[f(x) = \sum_{n\in\N} f_n(x)\]
+  es uniformemente convergente. Entonces $f$ es continua.
+\end{lemma}
+\begin{proof}
+  Dado $y_0 \in X$, $\forall \e>0$, $\exists U \subseteq X$ vecindad de $y_0$ tal que
+  \[y \in U \implies \abs{f(y) - f(y_0)} < \e.\]
+  Como $\ds \sum_{n=1}^\oo f_n(y)$ es uniformemente convergente, existe $n_0$ tal que
+  \[\abs{\sum_{n=n_0}^\oo f_n(x)} < \frac{\e}{3}\]
+  \[\implies \abs{\sum_{n=1}^{n_0-1} f_n(y) - f_n(y_0)} \leq \frac{\e}.\]
+  Como cada $f_n$ es continua, $\exists U_n$ tal que
+  \[y\in U_n \implies \abs{f_n(y) - f_n(y_0)} < \frac{\e}.\]
+  Tomando $U = U_1 \cap \dots \cap U_{n_0-1}$, tenemos que
+  \[y \in U \implies \abs{\sum_{n=1}^{n_0-1} f_n(y) - f_n(y_0)} \leq \frac{\e}{3}.\]
+\end{proof}
+
+\begin{theorem}
+  [Tietze]
+  Si $X$ es normal, $F \subseteq X$ es cerrado y $f \colon F \to [a,b]$ continua, entonces existe $g \colon X \to [a,b]$ tal que $g\vert_F = f$.
+\end{theorem}
+\begin{proof}
+  Suponemos que $[a,b] = [-1,1]$. La idea es construir funciones $g_n \colon X \to [-1,1]$ continuas tales que $\abs{g_n(x)} \leq (2/3)^n$ y para $x \in F$
+  \[\abs{f(x) - \sum_{i=1}^n g_i(x)} \leq \br{\frac{2}{3}}^n.\]
+  Entonces la extensión de $f$ es la función
+  \[g(x) = \sum_{i=1}^\oo g_i(x).\]
+  \begin{claim}
+    $\forall K>0$ y $h \colon F \to \R$ tal que $\abs{h}\leq K$, $\exists g$ continua tal que $\abs g < 2K/3$ en $X$ y $\abs{h-g} < 2K/3$.
+  \end{claim}
+  \begin{obs}
+    Si la afirmación se cumple:
+    \begin{itemize}
+      \item Para $n=1$, tomamos $h=f$ y $K=1$, obtenemos $g_1$.
+      \item Para $n=2$, tomamos $h = f-g_1$ y $K = 2/3$, obtenemos $g_2$ con $\abs{g_2} < 1/3$.
+      \item Para $n$ cualquiera, $h = f - g_1 - \dots - g_{n-1}$ y $K = (2/3)^{n-1}$. Luego existe $g_n$ tal que
+      \[\abs{g_n} \leq \br{\frac{2}{3}}^n \quad\land\quad \abs{f - \sum_{i=1}^n g_i} < \br{\frac{2}{3}}^n.\]
+    \end{itemize}
+  \end{obs}
+  Para demostrar la afirmación, tomamos
+  \[A = \{x \in F \colon h(x) \leq -\frac{K}{3}\},\]
+  \[B = \{x \in F \colon h(x) \geq \frac{K}{3}\}.\]
+  Por el Lema de Urysohn, $\exists g \colon X \to [-K/3,K/3]$ continua tal que
+  \[g(x) = \begin{cases}
+    -K/3, &x \in A \\
+    K/3, &x \in B.
+  \end{cases}\]
+  En $A$ tenemos que
+  \[-K \leq h(x) \leq -\frac{K}{3},\]
+  \[-\frac{2K}{3} \leq h(x) - g(x) \leq 0.\]
+  En $B$ tenemos que
+  \[\frac K3 \leq h(x) \leq K,\]
+  \[0 \leq h(x) - g(x) \leq \frac{2K}{3}.\]
+  Entonces este es el $g$ de la afirmación.
+\end{proof}
+
+\begin{theorem}
+  [Teorema de Metrización de Urysohn]
+  Sea $X$ segundo contable. Entonces $X$ es normal si y solo si $X$ es metrizable.
+\end{theorem}
+\begin{proof}
+  Ya sabemos que metrizable implica normal, así que supongamos que $X$ es segundo contable y normal, y mostremos que es metrizable.
+
+  Sea $\{U_n\}_{n\in\N}$ base de abiertos numerables. Sea
+  \[A = \{(n,m) \in \N \times \N \colon \bar{U_n} \subseteq U_m\}.\]
+  Por el Lema de Urysohn, $\forall (n,m) \in A, \exists f_{n,m} \colon X \to [0,1]$ tal que $\abs{f_{n,m}} < 1$ y
+  \[f_{n,m}(x) = \begin{cases}
+    0, &x \in \bar{U_n} \\
+    1, &x \in X \setminus U_m.
+  \end{cases}\]
+  Tomemos
+  \[d(x,y) = \sum_{(n,m) \in A} \frac{\abs{f_{n,m}(x) - f_{n,m}(y)}}{2^{n+m}}.\]
+  \begin{claim}
+    $d$ es métrica en $X$.
+  \end{claim}
+  Veamos que
+  \begin{itemize}
+    \item \boxed{d(x,y) = 0 \iff x=y} Notemos que si $x=y$ entonces
+    \[d(x,x) = \sum_{(n,m) \in A} \frac{\abs{f_{n,m}(x) - f_{n,m}(x)}}{2^{n+m}} = \sum_{(n,m) \in A} \frac{0}{2^{n+m}} = 0.\]
+    Si $x \neq y$, entonces $\{x\} \subseteq X \setminus \{y\} \eqcolon U$. Como $X$ es normal, entonces existe $\O$ tal que
+    \[
+    \{x\} \subseteq \O \subseteq \bar\O \subseteq U.\]
+    Tomamos $U_n$ vecindad de $x$ en $\O$ y $U_m = U$ (???)
+    \[(n,m) \in A \implies f_{n,m}(x) = 0 \ \land \ f_{n,m}(y) = 1.\]
+    \[\implies d(x,y) > 0.\]
+    \item \boxed{d(x,y) = d(y,x)} Trivial.
+    \item \boxed{d(x,y) \leq d(x,z) + d(z,y)} Trivial
+  \end{itemize}
+  \begin{claim}
+    La topología de $(X,d)$ coincide con la topología original. Es decir, $\id \colon (X,\t) \to (X,d)$ es homeomorfismo.
+  \end{claim}
+  Notemos que $d(\cdot, y)$ es continua en $(X,\t)$, y entonces $\id$ es continua. Veamos que es cerrada. Sea $F$ cerrado en $(X,\t)$, queremos ver que $\id(F) = F$ es cerrado en $(X,d)$.
+
+  Tomemos $x \notin F$, entonces existe $\O$ abierto tal que
+  \[F \subseteq \O \subseteq \bar\O \subseteq X \setminus \{x\}.\]
+  Por demostrar que
+  \[\exists \e>0 \cor{y \in F \implies d(x,y) > \e}\]
+\end{proof}
+
 %\fecha{Clase 7.}
 %\fecha{Clase 8.}
 %\fecha{Clase 9.}
