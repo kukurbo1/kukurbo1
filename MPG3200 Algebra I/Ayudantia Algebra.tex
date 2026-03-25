@@ -75,14 +75,14 @@
   skipbelow=\medskipamount
 ]{solution}
 
-%commands
+%Main letters
 \newcommand{\A}{\mathbb{A}}
 \newcommand{\B}{\mathbb{B}}
 \newcommand{\C}{\mathbb{C}}
 \newcommand{\D}{\mathbb{D}}
 \newcommand{\F}{\mathbb{F}}
 \newcommand{\N}{\mathbb{N}}
-\renewcommand{\P}{\mathcal{P}}
+\renewcommand{\P}{\mathbb{P}}
 \newcommand{\Q}{\mathbb{Q}}
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\Z}{\mathbb{Z}}
@@ -114,29 +114,36 @@
 \newcommand{\Ycal}{\mathcal{Y}}
 \newcommand{\Zcal}{\mathcal{Z}}
 
+%symbols
 \newcommand{\vphi}{\varphi}
 \newcommand{\oo}{\infty}
-\newcommand{\isom}{\cong}
 \newcommand{\longto}{\longrightarrow}
 \newcommand{\embbed}{\hookrightarrow}
+\newcommand{\acts}{\curvearrowright}
+\newcommand{\actsby}[1]{\stackrel{#1}{\acts}}
 \renewcommand{\c}{\cdot}
-
 \renewcommand{\bar}{\overline}
+\newcommand{\normal}{\trianglelefteqslant}
+\renewcommand{\tilde}{\widetilde}
+\renewcommand{\hat}{\widehat}
+
+%special functions or sets
 \newcommand{\sgn}{\mathrm{sgn}}
 \newcommand{\id}{\mathrm{id}}
 \newcommand{\im}{\mathrm{im}\,}
 \newcommand{\op}{\mathrm{op}}
+\newcommand{\orb}{\mathrm{orb}}
 \newcommand{\GL}{\mathrm{GL}}
 \newcommand{\SL}{\mathrm{SL}}
 \newcommand{\Sym}{\mathrm{Sym}}
 \newcommand{\Aut}{\mathrm{Aut}}
 \newcommand{\Inn}{\mathrm{Inn}}
+\newcommand{\Hom}{\mathrm{Hom}}
+\newcommand{\stab}{\mathrm{stab}}
+\newcommand{\Cent}{\mathrm{Cent}}
+\newcommand{\Fix}{\mathrm{Fix}}
 
-\newcommand{\normal}{\trianglelefteqslant}
-
-\renewcommand{\tilde}{\widetilde}
-\renewcommand{\hat}{\widehat}
-
+%different bracket types
 \newcommand{\abs}[1]{\left| #1 \right|}
 \newcommand{\norm}[1]{\left\lVert #1 \right\rVert}
 \newcommand{\br}[1]{\left( #1 \right)}
@@ -148,7 +155,7 @@
 \newcommand{\znz}[1]{\frac{\Z}{#1 \Z}}
 \newcommand{\zmz}[1]{\Z/ #1 \Z}
 
-% Por si me equivoco al escribir
+%If I mess up while typing
 \newcommand{\rac}[2]{\frac{#1}{#2}}
 \newcommand{\olon}{\colon}
 \newcommand{\ubseteq}{\subseteq}
@@ -162,9 +169,45 @@
 
 \newcommand{\wea}[1]{\textcolor{BlueViolet}{\textbf{\emph{#1}}}}
 \newcommand{\fecha}[1]{\begin{flushright} \underline{#1} \end{flushright}}
-
 \newcommand{\dem}[1]{\textbf{Demostración (#1)}}
 
+\makeatletter
+\providecommand*{\cupdot}{%
+  \mathbin{%
+    \mathpalette\@cupdot{}%
+  }%
+}
+\newcommand*{\@cupdot}[2]{%
+  \ooalign{%
+    $\m@th#1\cup$\cr
+    \sbox0{$#1\cup$}%
+    \dimen@=\ht0 %
+    \sbox0{$\m@th#1\cdot$}%
+    \advance\dimen@ by -\ht0 %
+    \dimen@=.5\dimen@
+    \hidewidth\raise\dimen@\box0\hidewidth
+  }%
+}
+
+\providecommand*{\bigcupdot}{%
+  \mathop{%
+    \vphantom{\bigcup}%
+    \mathpalette\@bigcupdot{}%
+  }%
+}
+\newcommand*{\@bigcupdot}[2]{%
+  \ooalign{%
+    $\m@th#1\bigcup$\cr
+    \sbox0{$#1\bigcup$}%
+    \dimen@=\ht0 %
+    \advance\dimen@ by -\dp0 %
+    \sbox0{\scalebox{2}{$\m@th#1\cdot$}}%
+    \advance\dimen@ by -\ht0 %
+    \dimen@=.5\dimen@
+    \hidewidth\raise\dimen@\box0\hidewidth
+  }%
+}
+\makeatother
 %title
 \title{MPG3100 -- Álgebra I \\ Ayudantías}
 \author{Felipe Inostroza \\ Prof. Sebastián Barbieri \\ Ayudante Valentina Moreno}
@@ -322,6 +365,101 @@ Demuestre los siguientes isomorfismos.
         \end{cases}
     \end{align*}
 \end{proof}
+\end{enumerate}
+
+\newpage
+\section{Ayudantía 3. Miércoles 25 de Marzo}
+
+\begin{definition}
+    Dada una acción $G \acts X$, definimos
+    \[\Fix(g) = \{x \in X \colon g \c x = x\}.\]
+\end{definition}
+
+\begin{lemma}
+    [Burnside]
+    Sea $G$ un grupo finito tal que $G \acts X$.  Sea $X/G$ el conjunto de órbitas de la acción. Entonces
+    \[\abs{X \setminus G} = \frac{1}{\abs{G}} \sum_{g \in G} \abs{\Fix(g)}\]
+\end{lemma}
+\begin{proof}
+    \begin{align*}
+        \sum_{g\in G} \abs{\Fix(g)}
+        &= \sum_{g \in G} \abs{\{x \in X \colon g \c x = x \}} \\
+        &= \sum_{g \in G} \abs{\{(g,x) \in G \times X \colon g \c x = x\}} \\
+        &= \sum_{x \in X} \abs{\{g \in G \colon g \c x = x\}} \\
+        &= \sum_{x \in X} \abs{\stab_G(x)}.
+    \end{align*}
+    Para cada $x \in X$, existen biyecciones entre la órbita $\orb_G(x)$ y el conjunto de clases laterales izquierdas $G/\orb_G(x)$. Luego
+    \[\abs{\orb_G(x)} = [G \colon \orb_G(x)] = \frac{\abs G}{\abs{\orb_G(x)}}\]
+    \[\implies \sum_{x\in X} \abs{\orb_G(x)}
+    = \sum_{x \in X} \frac{\abs{G}}{\abs{\orb_G(x)}}
+    = \abs{G} \sum_{x \in X} \frac{1}{\orb_G(x)}.\]
+    Tenemos también que $X = \bigcupdot_{\Ocal \in X/G} \Ocal$
+    \begin{align*}
+        \implies \sum_{x \in X} \frac{1}{\orb_G(x)}
+        &= \sum_{\Ocal \in X/G} \sum_{x \in \Ocal} \frac{1}{\abs{\orb_G(x)}} \\
+        &= \sum_{\Ocal \in X/G} \sum_{x \in \Ocal} \frac{1}{\abs\Ocal} \\
+        &= \sum_{\Ocal \in X/G} \frac{\abs\Ocal}{\abs\Ocal} \\
+        &= \sum_{\Ocal \in X/G} 1 = \abs{X/G}
+    \end{align*}
+    \[\implies \abs{G} \sum_{x \in X} \frac{1}{\abs{\orb_G(x)}} = \abs{G} \c \abs{X/G}.\]
+\end{proof}
+
+\subsection{Problema 1}
+\begin{enumerate}
+\item Sea $\sigma \in S_n$. Muestre que $\sigma$ se escribe de manera única en producto de ciclos disjuntos (salvo permutación de ciclos).
+\begin{proof}
+    Sea $X = \{1,\dots,n\}$. Para $a \in X$, consideramos su órbita bajo $\sigma$:
+    \[a, \sigma(a), \sigma^2(a), \sigma^3(a), \dots\]
+    Como $\abs X = n < \oo$, existen $r<s \leq n$ tales que $\sigma^r(a) = \sigma^s(a)$. Luego $a = \sigma^{s-r}(a)$, y entonces
+    \[\{m \in \N \colon \sigma^m(a) = a\} \neq \varnothing.\]
+    Por lo tanto tiene un elemento mínimo. Sea $k$ el menor entero positivo tal que $\sigma^k(a) = a$. Entonces
+    \[a, \sigma(a), \dots, \sigma^{k-1}(a)\]
+    son todos distintos. Luego definimos el ciclo
+    \[\tau_1 = (a, \sigma(a),\dots, \sigma^{k-1}(a)).\]
+    Luego %% no entendi el como estaba escrito en la pizarra kfjgkfg lo escribo eventualmente
+\end{proof}
+
+\item Muestre que $S_n$ es generado por transposiciones.
+\begin{proof}
+    Por la parte anterior, basta mostrar que todo ciclo se escribe como producto de transposiciones. Notemos que, para $a_1,\dots,a_k \in \{1,\dots,n\}$ tenemos
+    \[(a_1 \dots a_k) = (a_1 a_k) (a_1 a_{k-1}) \dots (a_1 a_3) (a_1 a_2).\]
+\end{proof}
+
+\item Muestre que las transposiciones de la forma $(i, i+1)$ generan $S_n$.
+\begin{proof}
+    Como toda permutación es generada por transposiciones, basta mostrar que toda transposición se puede escribir como producto de ciclos adyacentes, y en particular, basta comprobar para ciclos de la forma $(1k)$ con $k \in \{1,\dots,n\}$. Por inducción, tenemos como caso base $(12)$, el cual ya es una transposición adyacente.
+    Supongamos que $(1,k)$ se escribe como producto de transposiciones, veamos que
+    \[(1,k+1) = (k,k+1)(1,k)(k,k+1).\]
+    Usando la acción $S_n \acts \{1,\dots,n\}$, notamos que
+    \[(1,k+1) \c m = (k,k+1)(1,k)(k,k+1) \c m, \quad \forall m \in \{2,\dots,n\} \setminus \{1,k,k+1\}.\]
+    Notemos también que
+    \[(k,k+1)(1,k)(k,k+1) \c 1
+    = (k,k+1)(1,k) \c 1
+    = (k,k+1) \c k
+    = k+1 = (1,k+1) \c 1.\]
+    \[(k,k+1)(1,k)(k,k+1) \c k
+    = (k,k+1)(1,k) \c (k+1)
+    = (k,k+1) \c (k+1)
+    = k
+    = (1,k+1) \c k\]
+    \[a\]
+\end{proof}
+
+\item Sea $\sigma \in S_n$ y $(a_1 a_2 \dots a_k)$ un ciclo. Pruebe que $$\sigma(a_1 \dots a_k) \sigma^{-1} = (\sigma(a_1), \dots, \sigma(a_k)).$$
+
+\item Demuestre que $S_n$ está generado por $(12)$ y $(12 \dots n)$.
+\end{enumerate}
+
+
+\newpage
+\subsection{Problema 2}
+
+Considere un polígono regular de $n$ vértices numerados del 1 al $n$ en el sentido horario. El grupo de rotaciones del polígono está generado por la permutación $\sigma = (12\dots n)$. Queremos colorear cada vértice con uno de $k$ colores. Dos coloraciones se consideran equivalentes si una se obtiene de la otra mediante una rotación (es decir, aplicando alguna potencia de $\sigma$).
+
+\begin{enumerate}
+\item Para $k = 2$ colores, aplique el lema de Burnisde para determinar el número de coloraciones distintas (módulo rotaciones) en función de $n$.
+\item Calcule explícitamente para $k$ colores cualesquiera con $n=4, 5,6$.
+\item Generalice para un polígono de $n$ vértices y $k$ colores cualesquiera. ¿Cuál es la fórmula general? (Sugerencia. Puede expresarla en términos de la función $\varphi$ de Euler).
 \end{enumerate}
 
 
