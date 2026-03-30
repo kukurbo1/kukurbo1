@@ -978,7 +978,83 @@ Esto escrito con abiertos es
   \[\exists \e>0 \cor{y \in F \implies d(x,y) > \e}\]
 \end{proof}
 
-%\fecha{Clase 7.}
+\newpage
+\fecha{Clase 7. Lunes 30 de Marzo}
+\subsection{Teorema de Stone--Weierstrass}
+
+\begin{definition}
+  Sea $(X,\tau)$ un espacio topológico.
+  $C(X) = C(X;R) = \{f \colon X \to \R \mid f \text{ continua}\}$.
+\end{definition}
+
+\begin{definition}
+  $$d(f,g) = \sup_{u\in X} \abs{f(u) - g(u)}.$$
+  Si $X$ es compacto, entonces $$d(f,g) = \max_{u \in X} \abs{f(u) - g(u)}.$$
+  La topología inducida por esta métrica se llama \wea{topología uniforme}.
+\end{definition}
+
+\begin{obs}
+  $C(X)$ es un $\R$--espacio vectorial.
+\end{obs}
+
+\begin{definition}
+  Decimos que $A \subseteq C(X)$ es una \wea{álgebra de funciones} si es un subespacio vectorial y si $\forall f,g \in A$, $fg \in A$.
+\end{definition}
+
+\begin{definition}
+  Se dice que $A \subseteq C(X)$ \wea{separa puntos} si $$\forall u,v \in X, \exists f \in A \colon f(u) \neq f(v).$$
+\end{definition}
+
+\begin{theorem}[Stone--Weierstrass]
+  Si $X$ es compacto y Hausdorff, y $A$ es un álgebra que separa puntos y que contiene las constantes, entonces $A$ es denso en $C(X)$ con la topología uniforme.
+\end{theorem}
+
+\begin{obs}
+  Si $X$ es normal, el lema de Urysohn garantiza que $C(X)$ separa puntos. En general, no sabemos si $C(X)$ separa puntos.
+\end{obs}
+
+\begin{lemma}
+  Sea $X$ compacto Hausdorff y $A$ un álgebra de funciones que separa puntos y contiene las constantes.
+  Entonces para todo $F$ cerrado y todo $x_0 \in X \setminus F$, existe $U$ vecindad de $x_0$ tal que
+  \[U \cap F = \varnothing \quad\land\quad
+  \forall \e > 0, \exists h \in A \cor{
+    h\vert_U < \e \quad\land\quad
+    h\vert_F > 1-\e \quad\land\quad
+    0 \leq h \leq 1
+  }\]
+\end{lemma}
+
+\begin{lemma}
+  Sean $X$ compacto Hausdorff y $A$ un álgebra de funciones que separa puntos y contiene las constantes. Entonces
+  \[\forall F_1,F_2 \in \tau^c, \forall \e>0 \cor{
+    F_1 \cap F_2 = \varnothing \implies \exists h \in A \br{
+      h\vert_{F_1} < \e \quad\land\quad h\vert_{F_2} > 1-\e \quad\land\quad 0 \leq h \leq 1.
+    }
+  }\]
+\end{lemma}
+
+\begin{proof}
+  [\dem{Stone--Weierstrass}]
+  \begin{claim}
+    Basta considerar $f \in C(X)$ tales que $0 \leq f(x) \leq 1$.
+  \end{claim}
+  En efecto, para $f$ cualquiera, si $c = \max_{u \in X} \abs{f(u)}$ ($X$ es compacto), tenemos que $c \in A$.
+  Si $f \in A$, entonces $f+c \geq 0$, $f+c \in A$, y entonces
+  \[\frac{f+c}{\abs{f+c}} \in A, \quad 0 \leq \frac{f+c}{\abs{f+c}} \leq 1.\]
+  Tomemos $n \in \N$, $f \in C(X)$ con $0 \leq f \leq 1$. Definimos
+  \begin{align*}
+    C_j &= \set{u \in X \colon f(u) \leq \frac{j-1}{n}}, \\
+    B_j &= \set{u \in X \colon f(u) \geq \frac{j}{n}}.
+  \end{align*}
+  Por el lema anterior, existen $g_j \in A$ tal que $g_j < 1/n$ en $C_j$, $g_j > 1 - 1/n$ en $B_j$ y $0 \leq g_j \leq 1$.
+  Tomando
+  \[g(x) = \frac{1}{n} \sum_{j=1}^n g_j \in A\]
+  Tendríamos
+  \[\tag{$*$} \max_{x \in X} \abs{f(x) - g(x)} < \frac{3}{n}.\]
+  Demostremos $(*)$. Tomamos $k \in \{1,\dots,n\}$, y supongamos que $0 \leq f(x) \leq k/n$.
+  Me rindo con la demostración.
+\end{proof}
+
 %\fecha{Clase 8.}
 %\fecha{Clase 9.}
 %\fecha{Clase 10.}
