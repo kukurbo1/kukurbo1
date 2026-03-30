@@ -345,5 +345,109 @@ La recta de Sorgenfrey $\R_f$ es $\R$ con la base $[a,b)$ con $a<b$.
   \end{proof}
 \end{enumerate}
 
+\newpage
+\section{Ayudantía 3. Lunes 30 de Marzo}
+
+\subsection{Problema 1}
+Sea $X$ un espacio conexo normal. Muestre que $X$ es un singleton o bien no numerable.
+\begin{proof}
+  Si $X = \{*\}$ estamos listos. Espléndido.
+
+  Si $\abs{X}>1$, sean $a,b \in X$ con $a \neq b$. Por Urysohn, existe $f \colon X \to [0,1]$ continua tal que $f(a) = 0$ y $f(b) = 1$. Como $X$ es conexo, entonces $f(X) \subseteq [0,1]$ también es conexo, y entonces $f(X)$ es un intervalo. Pero $0,1 \in f(X)$, y entonces $f(X) = [0,1]$. Luego, como $f$ es sobreyectiva:
+  \[\abs\R = \abs{[0,1]} \leq \abs X.\]
+\end{proof}
+
+\newpage
+\subsection{Problema 2}
+$X$ es conexo por caminos si para todo $p,q \in X$, existe $\gamma \colon [0,1] \to \R$ continua tal que $\gamma(0) = p$ y $\gamma(1) = q$.
+\begin{enumerate}
+\item Muestre que si $U \subseteq \R^n$ es un abierto conexo, entonces es conexo por caminos.
+\begin{proof}
+  Sea $p \in U$, y sea
+  \[V = \{q \in U \mid \exists \gamma \colon [0,1] \to U, \quad \gamma(0) = p, \quad \gamma(1) = q\}.\]
+  Veamos que $V$ es abierto cerrado no vacío, así concluiremos por conexidad que $V = U$.
+
+  \begin{itemize}
+    \item Notemos que $p \in V$, por lo que $V \neq \varnothing$.
+    \item \wea{Abierto: }
+    Sea $q \in V \subseteq U$. Sea $B$ tal que $q \in B \subseteq U$.
+    Queremos $q \in B \subseteq V$. Pero las bolas son convexas, por lo que $q \in B \subseteq V$, y entonces $V$ es abierto.
+    \item \wea{Cerrado: }
+    Tomar $q \in \partial V$, no me acuerdo como seguía fkgjfgk
+  \end{itemize}
+\end{proof}
+
+\item Muestre que si $A \subseteq \R^2$ es numerable, entonces $\R^2 \setminus A$ es conexo por caminos.
+\begin{proof}
+  Sean $p,q \in \R^2 \setminus A$. Primero notemos que existe una recta $L_p$ tal que $p \in L_p \subseteq \R^2 \setminus A$, esto porque existe una cantidad no numerable de rectas que pasan por $p$, y como $A$ es numerable, solo hay una cantidad numerable de rectas que pasan por $p$ y que pasan por algún punto de $A$. Entonces existe la recta $L_p$.
+
+  Similarmente, podemos encontrar una recta $L_q$ tal que $q \in L_q \subseteq \R^2 \setminus A$ y que además no sea paralela a $L_p$ (como tenemos no numerables rectas contenidas en $\R^2 \setminus A$, solo una de esas podría ser paralelas, y tenemos infinitas que no lo son). Luego $L_p \cap L_q \neq \varnothing$, y luego tenemos el camino dado por recorrer desde $p$ hasta la intersección, y después ir hasta $q$.
+\end{proof}
+\end{enumerate}
+
+\newpage
+\subsection{Problema 3}
+Sea $X$ un espacio topológico normal, $F \subseteq X$ un cerrado y $g \colon F \to \R$ continua. Siga el siguiente procedimiento para mostrar que existe una extensión de $g$ a todo $X$. (¿Por qué no es consecuencia inmediata de Tietze?)
+\begin{enumerate}
+\item Reduzca el caso a $f \colon F \to (-1,1)$.
+\begin{proof}
+  Tenemos un homeomorfismo $\psi \colon \R \to (-1,1)$, y entonces tomamos $f = \psi \circ g \colon F \to \R \to (-1,1)$ continua.
+\end{proof}
+
+\item Extienda $f$ a una función $h$ en todo $X$.
+\begin{proof}
+  Como $(-1,1) \subseteq [-1,1]$, tenemos $f \colon F \to [-1,1]$, y por Tietze existe $h \colon X \to [-1,1]$ tal que $h\vert_F = f$.
+\end{proof}
+
+\item Consiga una función $\vphi \colon X \o [-1,1]$ tal que $\vphi = 1$ en $F$ y $\vphi = 0$ en $h^{-1}(\{-1,1\})$.
+\begin{proof}
+  Por Urysohn, existe $\vphi \colon X \to [0,1]$ tal que $\vphi(F) = \{1\}$ y $\vphi(h^{-1}(\{-1,1\})) = \{0\}$.
+  Además, $F \cap h^{-1}(\{-1,1\}) = \varnothing$, pues $h(x) = f(x) \in (-1,1)$ para todo $x \in F$.
+\end{proof}
+
+\item Considere $\bar g = \vphi \cdot h$.
+\begin{proof}
+  Considere Considere $\bar g = \varphi \cdot h \colon X \to (-1,1)$. Veamos que extiende a $g$: Para $x \in F$ tenemos
+  \[\bar g(x) = \vphi(x) \cdot h(x) = 1 \cdot g(x) = g(x).\]
+  Por otro lado, si $x \in X$, tenemos
+  \begin{align*}
+    &\vphi(x) h(x) = 1 \\
+    \iff &\vphi(x) = h(x) = 1 \\
+    \implies &x \in h^{-1}(\{1\}) \\
+    \implies &\vphi(x) = 0. \quad \to\gets
+  \end{align*}
+  Por lo tanto $\bar g \colon X \to [-1,1)$. Mismo arumento para $\bar g \colon X \to (-1,1)$.
+\end{proof}
+\end{enumerate}
+
+\newpage
+\subsection{Problema 4}
+Dado $X$ un espacio topológico, un \wea{retracto} es un subespacio $Y \subseteq X$ tal que existe una función continua $r \colon X \to Y$ con $r(y) = y$ para todo $y \in Y$.
+
+Sea $X$ un espacio normal e $Y \subseteq X$ un cerrado tal que $Y \simeq \R$. Muestre que $Y$ es un retracto de $X$.
+
+\begin{proof}
+  Consideremos $\id_Y \colon Y \to Y$. Sea $f \colon Y \xrightarrow\sim \R$, luego $f \circ \id_Y \colon Y \to \R$. Por el problema 3, existe $\bar{f \circ \id_Y} \colon X \to \R$ extensión continua.
+  Consideramos $r = f^{-1} \circ \bar{f \circ \id_Y} \colon X \to Y$.
+
+  Para $y \in Y$ tenemos
+  \begin{align*}
+    r(y) &= f^{-1}(\bar{f \circ \id_Y}(y)) \\
+    &= f^{-1}(f \circ \id_Y(y)) \\
+    &= f^{-1} \circ f (y) = y.
+  \end{align*}
+  Por lo tanto $r$ es retracto.
+\end{proof}
+
+\newpage
+\subsection{Problema 5}
+El plano de Moore $$\Gamma = \{(x,y) \in \R^2 \colon y \geq 0\}$$ se le equipa la topología dada por la siguiente base local: Si $(x,y)$ con $y > 0$, los elementos de la base son $B_r((x,y)) \subseteq \Gamma$. Si $(x,0) \in \Gamma$, los elementos de la base son $\{(x,0)\} \cup B_r((x,r))$, discos abiertos tangentes a $(x,0)$ con $(x,0)$.
+
+Muestre que el plano de Moore es regular no normal.
+\begin{proof}
+  Consideremos $D = (\Q_{>0} \times \Q_{>0}) \cap \{y>0\}$. Este conjunto es denso en $\Gamma$. Luego las funciones continuas $C(\Gamma)$ quedan determinadas por $f \colon D \to \R$. Entonces a lo más hay $\abs{\R}^{\abs D} = \abs{\R}^{\abs\N}$ funciones continuas reales.
+
+  $L = \{(x,0) \inf\Gamma \colon x \in \R\}$ es el complemento del seiplano superior, por lo que es cerrado, y también con la topología subespacio es discreto. Luego las funciones continuas $g \colon L \to \R$ se extienden a $\bar g \colon \Gamma \to \R$, y entonces hay por lo menos $\abs\R^{\abs\R}$ funciones continuas. $\to\gets$
+\end{proof}
 
 \end{document}
