@@ -143,6 +143,9 @@
 \newcommand{\Hom}{\mathrm{Hom}}
 \newcommand{\stab}{\mathrm{stab}}
 \newcommand{\Cent}{\mathrm{Cent}}
+\newcommand{\ab}{\mathrm{ab}}
+\newcommand{\sop}{\mathrm{sop}}
+\newcommand{\Cay}{\mathrm{Cay}}
 
 %different bracket types
 \newcommand{\abs}[1]{\left| #1 \right|}
@@ -1172,7 +1175,280 @@
   \[\tau(1) = 1 \quad\land\quad \tau(\sigma(1)) = \sigma(1) \quad\land\quad \tau\sigma \neq \sigma\tau.\]
 \end{proof}
 
-%\fecha{Clase 7.}
+\fecha{Clase 7. Lunes 30 de Marzo}
+
+El objetivo ahora es dar un ejemplo de un grupo simple infinito.
+
+Recordemos que
+\[S_\oo = \Sym_0(\Z) = \{\sigma \in \Sym(\Z) \colon \abs{\sop(\sigma)} < \oo\}\]
+donde $$\sop(\sigma) = \{n \in \Z \colon \sigma(n) \neq n\}.$$
+
+Notemos que
+\[\Sym_0(\Z) = \bigcup_{n \geq 1} \Sym(\{-n, \dots, n\}).\]
+Luego $\sgn \colon \Sym_0(\Z) \to \Z_2$ está bien definida y $A_\oo = \ker(\sgn)$ está bien definido.
+
+\begin{obs}
+  $A_\oo$ está generado por los 3--ciclos.
+\end{obs}
+
+\begin{exercise}
+  Pruebe que $A_\oo$ no es finitamente generado.
+\end{exercise}
+
+\begin{definition}
+  Sea $G$ un grupo y sean $x,y \in G$. El \wea{conmutador de $x$ e $y$} es
+  \[[x,y] = xyx^{-1}y^{-1}.\]
+  El \wea{subgrupo derivado} (o \wea{subgrupo conmutador}) de $G$ es
+  \[G' = [G,G] = \gen{[x,y] \colon x,y \in G}.\]
+\end{definition}
+
+\begin{definition}
+  Sea $G$ grupo y $H \leqslant G$. Decimos que $H$ es \wea{característico en $G$} si $$\forall \vphi \in \Aut(G), \quad \vphi(H) = H.$$
+\end{definition}
+
+\begin{obs}
+  Si $H \leqslant G$ es característico, entonces es normal en $G$. Esto porque $\Inn(G) \leqslant \Aut(G)$, y tenemos que $gHg^{-1} = H$.
+\end{obs}
+
+\begin{proposition}
+  $G'$ es característico en $G$.
+\end{proposition}
+\begin{proof}
+  Sea $\vphi \in \Aut(G)$ y $g \in G'$, entonces $$g = c_1 c_2 \dots c_n$$ con $c_i = [x_i,y_i]$ y $x_i,y_i \in G$. Luego
+  \[\vphi(g) = \vphi(c_1) \dots \vphi(c_n)\]
+  y notemos que
+  \begin{align*}
+    \vphi(c_i) &= \vphi([x_i,y_i]) \\
+    &= \vphi(x_i y_i x_i^{-1} y_i^{-1}) \\
+    &= \vphi(x_i) \vphi(y_i) \vphi(x_i)^{-1} \vphi(y_i)^{-1} \\
+    &= [\vphi(x_i), \vphi(y_i)] \in G'
+  \end{align*}
+  y entonces $\vphi(g) \in G'$. Por lo tanto $\vphi(G') \subseteq G'$
+\end{proof}
+
+\begin{exercise}
+  Sea $G$ grupo, $N \normal G$ y sea $H \leqslant N$ característico en $N$. Entonces $H \normal G$.
+\end{exercise}
+
+\begin{definition}
+  Sea $G$ un grupo. Su \wea{abelianización} es el cuociente
+  \[G^\ab = \frac{G}{G'}.\]
+\end{definition}
+
+\begin{obs}
+  $G^\ab$ es abeliano, y si $N \normal G$ tal que $G/N$ es abeliano, entonces $G' \subset N$.
+  \[\begin{tikzcd}
+    G & \\
+    & {G^\ab} \\
+    Q
+    \arrow[from=1-1, to=2-2]
+    \arrow[from=1-1, to=3-1]
+    \arrow[from=2-2, to=3-1]
+  \end{tikzcd}\]
+\end{obs}
+
+\begin{proposition}
+  $$A_\oo = [S_\oo,S_\oo] = S_\oo',$$
+  y en particular
+  $$A_n = [S_n, S_n] = S_n'.$$
+\end{proposition}
+\begin{proof}
+  Sea $g \in S_\oo'$, entonces $g = c_1 \dots c_n$ con $c_i = [\sigma_i, \tau_i]$ con $\sigma_i, \tau_i \in S_\oo$.
+  \[\sgn(g) = \prod_{i=1}^n \sgn(c_i) = 1\]
+  \[\sgn(c_i) = \sgn(\sigma_i) \sgn(\tau_i) \sgn(\sigma_i)^{-1} \sgn(\tau_i)^{-1} = 1\]
+  y entonces $S_\oo' \subset A_\oo$.
+  Para ver  que $A_\oo \subset S_\oo'$, basta ver que todo 3--ciclo es un conmutador:
+  \[(abc) = (ac)(bc)(ac)(bc) = [(ac),(bc)].\]
+\end{proof}
+
+\begin{lemma}
+  Sea $N \normal S_\oo$, $N \neq \{\id\}$. Entonces $A_\oo \subset N$.
+\end{lemma}
+\begin{proof}
+  Sea $\sigma \in N \setminus \{\id\}$.
+  \begin{claim}
+  Existen $n_1,n_2$ suficientemente grandes tales que
+  \[(-n_1, \dots, n_2) \in N.\]
+  \end{claim}
+  \begin{proof}
+    Sea $\sigma = \sigma_1 \dots \sigma_k$ su descomposición en ciclos disjuntos. Escojo $\tau_1 \in S_\oo$ tal que
+    \[\sop(\tau_1 \sigma \tau_1^{-1}) \subset - \N, \quad \forall i < k. \tag{$*$}\]
+    Tenemos que $\tau_1 \sigma_k \tau_1^{-1} = (1,2,3, \dots, j)$ con $j = \abs{\sigma_k}$.
+    Escojo $\tau_2$ tal que
+    \[\sop(\tau_2 \sigma_i \tau_2^{-1}) \subset -\N. \tag{$*$}\]
+    $\tau_2 \sigma_k \tau_2^{-1} = (j,\dots, 2j-1)$.
+
+    Repitieno muchas veces, obtenemos
+    \[\tau_1 \sigma \tau_1^{-1} \dots \tau_n \sigma \tau_n^{-1} = \beta(j,\dots, Mj - (M - 1))\]
+    con $\sop(\beta) \subset -\N$. Reconjugando obtengo $\tau$.
+  \end{proof}
+  Sean $a,b \in S_\oo$. Sea $k \geq 1$ tal que
+  \[\sop(a) \cup \sop(b) \subset \{-k,\dots,k\}.\]
+  Escojo $\tau \in N$ que permuta cíclicamente un intervalo que contiene a $$\{-k,\dots,3k+1\}.$$
+  Sea $l = 2k+1$, entonces
+  \[\sop(\tau^l a \tau^{-l}) \cap \sop(b) = \varnothing.\]
+  Por lo tanto conmutan.
+
+  Sea $g = [[a,\tau^l],b]$.
+  \begin{obs}
+    $g \in N$.
+  \end{obs}
+  \begin{exercise}
+    Si $N \normal G$, $h \in N$, $g \in G$, entonces $[g,h] \in N$.
+  \end{exercise}
+  \begin{obs}
+    \begin{align*}
+      g &= [[a,\tau^l], b] \\
+      &= a \tau^l a^{-1} \tau^{-l} b \tau^l a \tau^{-l} a^{-1} b^{-1} \\
+      &= aba^{-1}b^{-1} = [a,b]
+    \end{align*}
+    y entonces $[a,b] \in N$.
+  \end{obs}
+  Por lo tanto $A_\oo = A_\oo' \subset N$.
+\end{proof}
+
+\begin{obs}
+  Si $\{\id\} \neq N \normal S_\oo' = A_\oo$, entonces $[S_\oo',S_\oo'] \subset N$.
+\end{obs}
+
+\newpage %% error de mdframed, posiblemente quitarlo eventualmente
+\begin{obs}
+  $[S_\oo',S_\oo']$ no es trivial.
+\end{obs}
+\begin{proof}
+  Notemos que
+  \[[(123),(234)] = (123)(234)(321)(432) = (14)(23) \neq \id.\]
+\end{proof}
+
+\begin{theorem}
+  $A_\oo$ es simple.
+\end{theorem}
+\begin{proof}
+  Sea $G = S_\oo$. Como $G^{(2)} = (G')'$ es característico en $A_\oo = G'$ y $G' \normal G = S_\oo$,
+  \[\implies \{\id\} \neq G^{(2)} = [S_\oo',S_\oo'] \normal S_\oo.\]
+  Luego $A_\oo \subset [A_\oo,A_\oo]$, y entonces $A_\oo = [A_\oo,A_\oo]$.
+
+  Sea $\{\id\} \neq N \normal A_\oo$. Por el lema, tenemos que $A_\oo \subset N$, y entonces $N = A_\oo$.
+\end{proof}
+
+\newpage
+\subsection{Introducción a la Teoría Geométrica de Grupos}
+
+Vamos a ver solo el caso de grupos contables.
+
+\begin{definition}
+  Un \wea{grafo dirigido} es un par $(V,E)$ donde $V \neq \varnothing$ es un conjunto (\wea{vértices}) y $E \subset V \times V$ (\wea{aristas}).
+\end{definition}
+
+\begin{example}
+  $V = \{1,2,3\}, E = \{(1,1), (1,2), (2,3), (3,2), (3,1), (3,3)\}$. El grafo $(V,E)$ se representa como:
+  \[\begin{tikzcd}
+    1 && 2 \\
+    \\
+    & 3
+    \arrow[from=1-1, to=1-1, loop, in=100, out=170, distance=10mm]
+    \arrow[from=1-1, to=1-3]
+    \arrow[shift left=2, curve={height=-6pt}, from=1-3, to=3-2]
+    \arrow[from=3-2, to=1-1]
+    \arrow[shift right, curve={height=-6pt}, from=3-2, to=1-3]
+    \arrow[from=3-2, to=3-2, loop, in=305, out=235, distance=10mm]
+  \end{tikzcd}\]
+\end{example}
+
+\begin{definition}
+  Dado un grafo $(V,E)$, un \wea{camino} es una secuencia $v_1,\dots,v_n$ de vértices tal que $(v_i,v_{i+1}) \in E$, $\forall i$.
+\end{definition}
+
+\begin{definition}
+  Un grafo $(V,E)$ es \wea{fuertemente conexo} si $\forall u,v \in V$ existe un camino de $u$ a $v$.
+\end{definition}
+
+\begin{definition}
+  Sea $G = (V,E)$ un grafo. Si $\forall e = (a,b) \in E$, existe $\bar e = (b,a) \in E$, y además $G$ es conexo, entonces la \wea{distancia entre $u$ y $v$} es el largo del camino más corto entre $u,v$. Se denota $d(u,v)$.
+\end{definition}
+
+\begin{obs}
+  La distancia en un grafo conexo es una métrica.
+\end{obs}
+
+\begin{definition}
+  Sea $G$ un grupo y $S \subset G$. El \wea{grafo de Cayley de $G$ con respecto a $S$} es el grafo
+  \[\Cay(G,S) = (G,\{(g,gs) \colon s \in S , g \in G\}).\]
+\end{definition}
+
+\begin{example}
+  $G = \Z$, $S=\{1\}$, tenemos $E = \{(n,n+1) \colon n \in \Z\}$.
+  \[\begin{tikzcd}
+    \cdots & \bullet & \bullet & \bullet & \bullet & \cdots
+    \arrow[from=1-1, to=1-2]
+    \arrow[from=1-2, to=1-3]
+    \arrow[from=1-3, to=1-4]
+    \arrow[from=1-4, to=1-5]
+    \arrow[from=1-5, to=1-6]
+  \end{tikzcd}\]
+\end{example}
+
+\begin{example}
+  $G = \Z^2$, $S = \{(0,0), (1,0)\}$.
+  \[\begin{tikzcd}
+    \cdots & \bullet & \bullet & \bullet & \bullet & \cdots \\
+    \cdots & \bullet & \bullet & \bullet & \bullet & \cdots \\
+    \cdots & \bullet & \bullet & \bullet & \bullet & \cdots
+    \arrow[from=1-1, to=1-2]
+    \arrow[from=1-2, to=1-2, loop, in=55, out=125, distance=10mm]
+    \arrow[from=1-2, to=1-3]
+    \arrow[from=1-3, to=1-3, loop, in=55, out=125, distance=10mm]
+    \arrow[from=1-3, to=1-4]
+    \arrow[from=1-4, to=1-4, loop, in=55, out=125, distance=10mm]
+    \arrow[from=1-4, to=1-5]
+    \arrow[from=1-5, to=1-5, loop, in=55, out=125, distance=10mm]
+    \arrow[from=1-5, to=1-6]
+    \arrow[from=2-1, to=2-2]
+    \arrow[from=2-2, to=2-2, loop, in=55, out=125, distance=10mm]
+    \arrow[from=2-2, to=2-3]
+    \arrow[from=2-3, to=2-3, loop, in=55, out=125, distance=10mm]
+    \arrow[from=2-3, to=2-4]
+    \arrow[from=2-4, to=2-4, loop, in=55, out=125, distance=10mm]
+    \arrow[from=2-4, to=2-5]
+    \arrow[from=2-5, to=2-5, loop, in=55, out=125, distance=10mm]
+    \arrow[from=2-5, to=2-6]
+    \arrow[from=3-1, to=3-2]
+    \arrow[from=3-2, to=3-2, loop, in=55, out=125, distance=10mm]
+    \arrow[from=3-2, to=3-3]
+    \arrow[from=3-3, to=3-3, loop, in=55, out=125, distance=10mm]
+    \arrow[from=3-3, to=3-4]
+    \arrow[from=3-4, to=3-4, loop, in=55, out=125, distance=10mm]
+    \arrow[from=3-4, to=3-5]
+    \arrow[from=3-5, to=3-5, loop, in=55, out=125, distance=10mm]
+    \arrow[from=3-5, to=3-6]
+  \end{tikzcd}\]
+\end{example}
+
+\begin{obs}
+  Supongamos dos casos ahora:
+  \begin{enumerate}
+    \item $S$ es simétrico, i.e.: $S = S^{-1}$;
+    \item $G$ es generado por $S$.
+  \end{enumerate}
+  Entonces $\Cay(G,S)$ es conexo y $E \subset G \times G$ es simétrica. Además, $d_S$ induce una distancia en $G$.
+
+  Además, si $S$ es finito y $1_G \in S$, entonces
+  \[\forall g \in G, \forall r \geq 1, \quad \abs{B_S(g,r)} \leq \abs{S}^r\]
+  donde $B_S(g,r) = \{h \in G \colon d_S(g,b) \leq r\}$.
+
+  Es decir, $\Cay(G,S)$ es \wea{localmente finito}.
+\end{obs}
+
+\begin{definition}
+  Sea $G$ grupo y $S \subset G$ generador finito y simétrico. Para $g \in G$ definimos
+  \[\abs{g}_S = \min\{n \in \N \colon g = s_1,\dots,s_n, \quad s_i \in S\}.\]
+  y definimos $\abs{1_G}_S = 0$.
+\end{definition}
+
+\begin{obs}
+  Notemos que $$d_S(g,h) = d_S(xg,xh) = \abs{g^{-1} h}_S.$$
+\end{obs}
+
 %\fecha{Clase 8.}
 %\fecha{Clase 9.}
 %\fecha{Clase 10.}
