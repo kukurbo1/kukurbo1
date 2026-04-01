@@ -116,6 +116,10 @@
 \newcommand{\Ycal}{\mathcal{Y}}
 \newcommand{\Zcal}{\mathcal{Z}}
 
+\newcommand{\lam}{\lambda}
+\newcommand{\e}{\varepsilon}
+\newcommand{\w}{\omega}
+
 %symbols
 \newcommand{\vphi}{\varphi}
 \newcommand{\oo}{\infty}
@@ -1445,11 +1449,266 @@ Vamos a ver solo el caso de grupos contables.
   y definimos $\abs{1_G}_S = 0$.
 \end{definition}
 
+\fecha{Clase 8. Miércoles 1 de Abril}
+
+\begin{definition}
+  Definimos la \wea{distancia entre $g$ y $h$ sobre $S$} como
+  \[d_S(g,h) = \abs{g^{-1} h}_S.\]
+\end{definition}
+
 \begin{obs}
-  Notemos que $$d_S(g,h) = d_S(xg,xh) = \abs{g^{-1} h}_S.$$
+  $d_S$ es una distancia y corresponde al largo del camino más corto de $g$ a $h$ en $\Cay(G,S)$.
 \end{obs}
 
-%\fecha{Clase 8.}
+\begin{proposition}
+  $\forall x, y,g \in G$,
+  \[d_S(gx,gy) = d_S(x,y).\]
+  i.e.: $d_S$ es invariante bajo traslaciones izquierdas.
+\end{proposition}
+
+\begin{obs}
+  La elección de generadores no es canónica.
+\end{obs}
+
+\begin{example}
+  Consideremos $\Z$ con $S_1 = \{-1,0,1\}$. Tenemos que $\Cay(\Z,S_1)$ se ve de la forma:
+  \[\begin{tikzcd}
+    \cdots & \bullet & \bullet & \bullet & \bullet & \cdots
+    \arrow[from=1-1, to=1-2]
+    \arrow[from=1-2, to=1-3]
+    \arrow[from=1-3, to=1-4]
+    \arrow[from=1-4, to=1-5]
+    \arrow[from=1-5, to=1-6]
+  \end{tikzcd}\]
+  Si $S_2 = \{-3,-2,0,2,3\}$, entonces $\Cay(\Z,S_2)$ es
+  \[\begin{tikzcd}
+    \cdots & {-3} & {-2} & {-1} & 0 & 1 & 2 & 3 & \cdots
+    \arrow[curve={height=30pt}, from=1-1, to=1-3]
+    \arrow[curve={height=-30pt}, from=1-1, to=1-4]
+    \arrow[curve={height=30pt}, from=1-2, to=1-4]
+    \arrow[curve={height=-30pt}, from=1-2, to=1-5]
+    \arrow[curve={height=30pt}, from=1-3, to=1-5]
+    \arrow[curve={height=-30pt}, from=1-3, to=1-6]
+    \arrow[curve={height=30pt}, from=1-4, to=1-6]
+    \arrow[curve={height=-30pt}, from=1-4, to=1-7]
+    \arrow[curve={height=30pt}, from=1-5, to=1-7]
+    \arrow[curve={height=-30pt}, from=1-5, to=1-8]
+    \arrow[curve={height=30pt}, from=1-6, to=1-8]
+    \arrow[curve={height=-30pt}, from=1-6, to=1-9]
+    \arrow[curve={height=30pt}, from=1-7, to=1-9]
+  \end{tikzcd}\]
+\end{example}
+
+\begin{proposition}
+  Sea $G$ un grupo finitamente generado y sean $S,S'$ dos generadores finitos y simétricos. Entonces $\exists c>0, \forall g,h \in G$
+  \[c^{-1} d_S(g,h) \leq d_{S'}(g,h) \leq c d_S(g,h).\]
+\end{proposition}
+\begin{proof}
+  Notemos que como $S$ es generador, todo elemento de $S'$ se puede escribir como producto de elementos de $S$. Definimos
+  \[C_1 = \max_{s' \in S'} \abs{s'}_S.\]
+  Luego si $g \in G$,
+  \[\abs{g}_{S'} \leq C_1 \abs{g}_S.\]
+  En efecto, sea $n = \abs{g}_{S'}$, entonces existen $s_1',\dots,s_n' \in S$ tales que
+  \[g = s_1' \c \dots \c s_n'.\]
+  Para todo $i \leq n$, existen $s_i^1, \dots, s_i^C \in S$ tales que
+  \[s_i' = s_i^1 \cdots s_i^{C_1}.\]
+  Luego
+  \[g = \prod_{\substack{i \leq n \\ j \leq C_1}} s_i^j.\]
+  Luego
+  \[\abs{g}_S \leq C_1 \cdot n = \abs{g}_{S'} C_1.\]
+  Luego $\forall g,h \in G$,
+  \[C_1^{-1} \abs{g^{-1} h}_S \leq \abs{g^{-1} h}_{S'}.\]
+  Intercambiando $S$ con $S'$ obtenemos $C_2 > 0$ tal que $\abs{g^{-1}h}_{S'} \leq C_2 \abs{g^{-1} h}_S.$
+  Luego $C = \max{C_1,C_2}$ cumple lo pedido.
+\end{proof}
+
+\begin{notation}
+  Fijo $G$ y $S$. Definimos, para $g \in G$ y $r \in \N$,
+  \[B_S(g,r) \coloneqq \{h \in G \colon d_S(g,h) \leq r\}.\]
+  \[B_S(r) \coloneqq B_S(1_G,r).\]
+\end{notation}
+
+\begin{obs}
+  $\abs{B_S(g,r)} = \abs{B_S(r)} \leq \abs{S}^r$.
+\end{obs}
+
+\begin{definition}
+  Sea $G$ grupo finitamente generado y sea $S \subset G$ un conjunto finito, simétrico, generador. Decimos que:
+  \begin{enumerate}[(1)]
+    \item $G$ tiene \wea{crecimiento exponencial} si $$\exists \lam>1, \quad \forall r \geq 1, \quad \abs{B_S(r)} \geq \lam^r.$$
+    \item $G$ tiene \wea{crecimiento polinomial} si $$\exists p \in \R[x], \quad \forall r \geq 1, \quad \abs{B_S(r)} \leq p(r).$$
+    \item $G$ tiene \wea{crecimiento intermedio} si no es ni polinomial ni exponencial.
+  \end{enumerate}
+\end{definition}
+
+\begin{exercise}
+  La definición anterior no depende de $S$.
+\end{exercise}
+
+\begin{example}
+  Si $G$ es finito, entonces es de crecimiento polinomial. Se acota por un polinomio de grado el orden del grupo.
+\end{example}
+
+\begin{example}
+  $\Z$ es de crecimiento polinomial. Si tomamos $S = \{-1,0,1\}$, entonces $\abs{B_S(r)} = 2r + 1$, tomamos $p(x) = 2x+1$.
+\end{example}
+
+\begin{example}
+  $\Z^d$ es de crecimiento polinomial. Si elegimos
+  \[S = \set{\sum_{i=1}^d a_ie_i \colon a_i \in \{-1,0,1\}}\]
+  entonces $\abs{B_S(r)} = (2r+1)^d.$
+\end{example}
+
+\begin{definition}
+  Decimos que un grupo $G$ es \wea{nilpotente} si al escribir
+  \[G_0 = G, \quad G_{n+1} = \frac{G_n}{\Cent(G_n)}\]
+  entonces la secuencia $\{G_n\}_n$ termina en $\{1_G\}$.
+\end{definition}
+
+\begin{exercise}
+  El \wea{grupo de Heisenberg discreto} es
+  \[H = \set{\matr{1 & x & z \\ 0 & 1 & y \\ 0 & 0 & 1} \in \GL_3(\Z) \colon x,y,z \in \Z} \leqslant \GL_3(\Z).\]
+  $H$ es el ejemplo clásico de un grupo nilpotente infinito y finitamente generado. Tomamos
+  \[S = \set{\matr{1&1&0\\0&1&0\\0&0&1}^\pm, \matr{1&0&1\\0&1&0\\0&0&1}^\pm, \matr{1&0&0\\0&1&1\\0&0&1}^\pm}.\]
+  Pruebe que $H$ tiene crecimiento polinomial.
+\end{exercise}
+
+\begin{theorem}
+  [Gromov]
+  Un grupo $G$ finitamente generado tiene crecimiento polinomial si t solo si $\exists H \leqslant G$ con $[G \colon H] < \oo$ tal que $H$ es nilpotente.
+\end{theorem}
+\begin{proof}
+  No veremos la demostración, ya que requiere muchas cosas complicadas.
+\end{proof}
+
+\newpage
+\subsection{Grupos Libres}
+
+\begin{definition}
+  Sea $X$ un conjunto. Definimos
+  \[X^\star = \bigcup_{n\geq0} X^n\]
+  con la convención de que $X^0 = \{\e\}$.
+\end{definition}
+
+\begin{notation}
+  $\omega = x_1 \dots x_n \in X^n \subset X^\star$ es una palabra de largo $n = \abs{\omega}$. i.e.: concatenación.
+\end{notation}
+
+\begin{example}
+  Si $X = \{0,1\}$, entonces
+  \[X^\star = \{\e,0,1,00,01,10,11,000,001,010,011, \dots\}.\]
+\end{example}
+
+\begin{definition}
+  Sea $X$ un conjunto, considero a $X^-$ como un conjunto de ``inversos formales'':
+  \[X^- = \{x^{-1} \colon x \in X\}.\]
+\end{definition}
+
+\begin{definition}
+  Decimos que $(X,\op)$ es un \wea{monoide} si
+  \begin{enumerate}[(1)]
+    \item $X$ es un conjunto;
+    \item $\op \colon X \times X \to X$ es una operación binaria;
+    \item $\forall x,y,z \in X$, $\op(x,\op(y,z)) = \op(\op(x,y),z)$;
+    \item $\exists 1 \in X$, $\forall x \in X$, $1x = x1 = x$.
+  \end{enumerate}
+\end{definition}
+
+\begin{obs}
+  Todos los grupos son monoides, pero los monoides no son necesariamente grupos, ya que les falta la existencia de inversos.
+\end{obs}
+
+\begin{obs}
+  Consideramos $(X \cupdot X^{-1})^\star$ equipado con la concatenación:
+  dados $u,v \in (X \cupdot X^{-1})^\star$ con $u = x_1 \dots x_n$ y $v = y_1 \dots y_m$, entonces
+  \[u \c v = x_1 \dots x_n y_1 \dots y_m.\]
+  Tenemos que $(X \cupdot X^{-1})^\star$ con la concatenación es un monoide.
+\end{obs}
+
+\begin{definition}
+  Decimos que $u,v \in (X \cupdot X^{-1})^\star$ son \wea{similares} si $u$ puede obtenerse a partir de $v$ borrando o agregando un par de la forma $xx^{-1}$ o $x^{-1} x$ para algún $x \in X$.
+\end{definition}
+
+\begin{example}
+  Si $X = \{a,b\}$, tenemos que $u = aba^{-1}ab$ y $v = abb$ son similares.
+\end{example}
+
+\begin{definition}
+  Decimos que $u,v \in (X \cupdot X^{-1})^\star$ son \wea{equivalentes} si $\exists n \geq 1$ y $\w_0,\w_1,\dots,\w_n$ palabras tal que
+  \[u = \w_0 v \w_1 v \w_2 \dots v \w_n = v.\]
+  Se denota $u \sim v$.
+\end{definition}
+
+\begin{example}
+  $abba^{-1}ab^{-1}b^{-1}abaa^{-1} \sim aab$.
+\end{example}
+
+\begin{obs}
+  Ser palabras equivalentes es una relación de equivalencia.
+\end{obs}
+
+\begin{definition}
+  Una palabra $\w \in (X \cupdot X^{-1})^\star$ se dice \wea{reducida} si no contiene copias de $xx^{-1}$ o $x^{-1}x$.
+\end{definition}
+
+\begin{obs}
+  Cada clase de equivalencia contiene una única palabra reducida.
+\end{obs}
+
+\begin{obs}
+  Dadas $u,v \in (X \cupdot X^{-1})^\star/\sim$, defino
+  \[[u]_\sim \c [v]_\sim = [uv]_\sim.\]
+  Esta operación está bien definida.
+\end{obs}
+
+\begin{example}
+  Si $X = \{a,b\}$ y $u = abab^{-1} aa$, $v = a^{-1}a^{-1} bba$, entonces
+  \begin{align*}
+    uv &= a b a b^{-1} a a a^{-1} a^{-1} b b a \\
+    &\sim a b a b^{-1} a a^{-1} b b a \\
+    &\sim a b a b^{-1} b b a \\
+    &\sim a b a b a
+  \end{align*}
+  y entonces $[uv]_\sim$ está representada por $ababa$.
+\end{example}
+
+\begin{definition}
+  Sea $X$ un conjunto. El \wea{grupo libre generado por $X$} es
+  \[F(X) = \frac{(X \cupdot X^{-1})^\star}{\sim}\]
+  equipado con la concatenación.
+\end{definition}
+
+\begin{notation}
+  Módulo isomorfías,
+  \[F(X) = \{\w \in (X \cupdot X^{-1})^\star \text{ reducidas}\}.\]
+\end{notation}
+
+\begin{example}
+  Si $X = \{a\}$, entonces
+  \begin{align*}
+    F(\{a\}) &= \{\w \in \{a,a^{-1}\}^\star \colon aa^{-1}, a^{-1} a \text{ no están en } \w\} \\
+    &= \{a^n \colon n \geq 1\} \cup \{a^{-n} \colon n \geq 1\} \cup \{\e\} \\
+    \simeq \Z.
+  \end{align*}
+\end{example}
+
+\begin{example}
+  Si $X = \{a,b\}$, entonces $F(X)$ son todas las palabras tales que no contiene ocurrencias de $aa^{-1}$, $a^{-1}a$, $bb^{-1}$, $b^{-1}b$. Consideremos $S = \{\e,a,b,a^{-1},b^{-1}\}$, entonces el grafo $\Cay(F(\{a,b\}),S)$ es
+  \[\wea{Poner aca el grafo de Cayley de $F_2$.}\] %% no olvidar
+\end{example}
+
+\begin{exercise}
+  Calcule explícitamente $B_S(r)$ y concluya que $F(\{a,b\})$ tiene crecimiento exponencial.
+\end{exercise}
+
+\begin{obs}
+  Si $\abs X = \abs Y$, entonces $F(X) \simeq F(Y)$.
+\end{obs}
+
+\begin{notation}
+  Dado $n \geq 1$ entero, denotamos $F_n$ al grupo libre generado por un conjunto de $n$ elementos.
+\end{notation}
+
 %\fecha{Clase 9.}
 %\fecha{Clase 10.}
 %\fecha{Clase 11.}
