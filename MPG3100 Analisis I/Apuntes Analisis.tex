@@ -980,7 +980,8 @@ Esto escrito con abiertos es
 
 \newpage
 \fecha{Clase 7. Lunes 30 de Marzo}
-\subsection{Teorema de Stone--Weierstrass}
+\subsection{Teoremas Importantes de Espacios Métricos}
+\subsubsection{Teorema de Stone--Weierstrass}
 
 \begin{definition}
   Sea $(X,\tau)$ un espacio topológico.
@@ -1055,7 +1056,76 @@ Esto escrito con abiertos es
   Me rindo con la demostración.
 \end{proof}
 
-%\fecha{Clase 8.}
+\fecha{Clase 8. Miércoles 1 de Abril}
+
+\begin{theorem}
+  [Riesz]
+  Sea $X$ compacto y Hausdorff. Entonces $C(X)$ es separable si y solo si $X$ es metrizable.
+\end{theorem}
+\begin{proof}\
+  \begin{itemize}
+    \item \boxed{\implies} Supongamos que $X$ es separable. Sabemos que compacto y Hausdorff implica normal, entonces si $X$ es segundo contable, obtenemos por Urysohn que es metrizable.
+
+    Existe $\{g_n\}_{n\in\N}$ denso en $C(X)$. Tomemos
+    \[U_n = \{x \in X \colon g_n > 1/2\}.\]
+    Veamos que $\{U_n\}_{n\in\N}$ es base de la topología de $X$.
+    Sea $\O \subseteq X$ abierto y $u \in \O$, queremos $U_n$ tal que $u \in U_n \subseteq \O$.
+
+    Como el espacio es normal, existe $A \subseteq X$ abierto tal que
+    \[u \in A \subseteq \bar A \subseteq \O.\]
+    Por lema de Urysohn, existe $f \in C(X)$ tal que $f(x) = 1$ en $A$ y $f(x) = 0$ en $\O^c$.
+    Como $\{g_n\}$ es denso, existe un $g_{n_0}$ tal que
+    \[\norm{f-g_{n_0}} < \frac{1}{2}.\]
+    Si $x \in A$, entonces
+    \[g_{n_0}(x) = g_{n_0}(x) - f(x) + f(x) = 1 + g_{n_0}(x) - f(x) > 1 - \frac12 = \frac12.\]
+    $\implies U_{g_{n_0}} \subseteq A \implies X$ es metrizable.
+
+    \item \boxed{\impliedby} Supongamos que $X$ es metrizable. Tomamos $d$ como la métrica en $X$. Veamos que $X$ es separable. Me rendí también con la demostración.
+  \end{itemize}
+\end{proof}
+
+\newpage
+\subsubsection{Teorema de Arzela--Ascoli}
+
+\begin{definition}
+  Sea $(X,d)$ un espacio métrico. $F \subseteq C(X)$ se dice \wea{equicontinua} si
+  \[\forall \e>0, \exists \d>0, \forall f \in F \cor{
+    d(u,v)<\d \implies \abs{f(u) - f(v)} < \e
+  }.\]
+\end{definition}
+
+\begin{definition}
+  Decimos que $F \subseteq C(X)$ es \wea{uniformemente acotada} si
+  \[\exists M \in \R, \forall f \in F \cor{\norm{f}_\oo < M}.\]
+\end{definition}
+
+\begin{theorem}
+  [Arzela--Ascoli]
+  Si $(X,d)$ es un espacio métrico compacto y $\{f_n\}_{n\in\N} \subseteq C(X)$ es equicontinua y uniformemente acotada, entonces $\{f_n\}_{n\in\N}$ tiene una subsucesión convergente.
+\end{theorem}
+\begin{proof}
+  Como $(X,d)$ es separable, tomamos $D = \{x_n\}_{n\in\N}$ denso en $X$. Seguimos los siguientes pasos:
+  \begin{enumerate}[(1)]
+    \item Ver que podemos extraer una subsucesión que converge en $D$.
+    \item Usar la equicontinuidad para ver que converge en todo $X$.
+    \item Ver que el límite obtenido es una función continua.
+  \end{enumerate}
+  Históricamente, los primeros dos pasos fueron demostrados por Arzelà, y el 3er paso fué un teorema aparte de Ascoli. Actualmente consideramos todo como un único teorema.
+  Demostremos cada uno:
+  \begin{enumerate}[(1)]
+    \item Usaremos un argumento diagonal. Como $\{f_n(x)\}$ es uniformemente acotada en $\R$, tiene una subsucesión convergente $\{f_{s(n,1)}\}_{n \in \N}$. Luego $\{f_{S(n,1)}(x_2)\}$ es uniformemente acotada y tiene subsucesión convergente $\{f_{S(n,2)}(x_2)\}_{n\in\N}$. Notemos que
+    \[\{f_{S(n,2)}(x_1)\}_{n\in\N} \subseteq \{f_{S(n,1)}(x_1)\}_{n\in\N}.\]
+    Me perdí.
+  \end{enumerate}
+\end{proof}
+
+\begin{exercise}
+  Probar que $(C(X), \norm{\ \cdot \ }_\oo)$ es completo.
+\end{exercise}
+
+% \subsubsection{Teorema del Punto Fijo de Banach}
+% \subsubsection{Teorema de Categoría de Baire}
+
 %\fecha{Clase 9.}
 %\fecha{Clase 10.}
 %\fecha{Clase 11.}
