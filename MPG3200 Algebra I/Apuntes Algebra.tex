@@ -21,7 +21,7 @@
 \usepackage[framemethod = TikZ]{mdframed}
 
 %theorems
-\newtheorem{theorem}{Teorema}[section]
+\newtheorem{theorem}{Teorema}[subsection]
 
 \newtheorem{algorithm}{Algorithm}
 \newtheorem{axiom}{Axioma}
@@ -119,6 +119,7 @@
 \newcommand{\lam}{\lambda}
 \newcommand{\e}{\varepsilon}
 \newcommand{\w}{\omega}
+\renewcommand{\a}{\alpha}
 
 %symbols
 \newcommand{\vphi}{\varphi}
@@ -150,6 +151,8 @@
 \newcommand{\ab}{\mathrm{ab}}
 \newcommand{\sop}{\mathrm{sop}}
 \newcommand{\Cay}{\mathrm{Cay}}
+\newcommand{\ord}{\mathrm{ord}}
+\newcommand{\lcm}{\mathrm{lcm}}
 
 %different bracket types
 \newcommand{\abs}[1]{\left| #1 \right|}
@@ -1709,9 +1712,396 @@ Vamos a ver solo el caso de grupos contables.
   Dado $n \geq 1$ entero, denotamos $F_n$ al grupo libre generado por un conjunto de $n$ elementos.
 \end{notation}
 
-%\fecha{Clase 9.}
-%\fecha{Clase 10.}
-%\fecha{Clase 11.}
+\fecha{Clase 9. Lunes 6 de Abril}
+
+\begin{theorem}[\wea{Propiedad Universal de los Grupos Libres}]
+  Sea $G$ un grupo, $X$ un conjunto y $f \colon X \to G$ función. Entonces $\exists \vphi \colon F(X) \to G$ homomorfismo tal que $\forall x \in X$, $\vphi(x) = f(x)$.
+
+  Además, $F(X)$ es el único grupo que cumple esta propiedad.
+\end{theorem}
+\begin{proof}
+  Clara Loh.
+\end{proof}
+
+\begin{corollary}
+  Todo grupo es cociente de un grupo libre.
+\end{corollary}
+\begin{proof}
+  $X = G$, $f = \id_G$.
+\end{proof}
+
+\begin{corollary}
+  Si $G$ es grupo y $S \subset G$ es generador, entonces $G$ es cociente de $F(S)$.
+\end{corollary}
+\begin{proof}
+  $X = S$, $f \colon S \to G$, $f(s) = s$.
+\end{proof}
+
+\begin{corollary}
+  Si $G$ es generado por un conjunto $S$ finito de $n$ elementos, entonces $G$ es cociente de $F_n$.
+  % Entraron a la casa del Luengo, se robaron todo,   uedó la pura zorra: la mamá del Luengo.
+  %% Quiero dejar en claro que el señor Benjamín Maldonado Villalobos escribió esto, no yo (me está obligando a no borrarlo)
+\end{corollary}
+
+\newpage
+\subsection{Presentaciones de Grupo}
+
+\begin{definition}
+  Sea $S$ un conjunto y sea $R \subset (S \cup S^{-1})^\star$. El \wea{grupo presentado por $S,R$} es
+  \[\gen{S \mid R} = \frac{F(S)}{\ll R \gg}\]
+  donde
+  \[\ll R \gg = \bigcap_{\substack{N \normal F(S) \\ R \subset N}} N.\]
+  Al conjunto $S$ se le denomina \wea{generadores}, y $R$ se le denomina \wea{relaciones}.
+\end{definition}
+
+\begin{obs}
+  La intuición es que $\gen{S \mid R}$ es el grupo más grande generado por $S$ tal que toda palabra en $R$ es trivial.
+\end{obs}
+
+\begin{exercise}
+  $\gen{S \mid \varnothing} \simeq F(S)$.
+\end{exercise}
+
+\begin{exercise}
+  $\gen{\{a\} \mid \{a^n\}} \simeq \zmz n$.
+\end{exercise}
+
+\begin{exercise}
+  $\gen{\{a,b\} \mid \{aba^{-1} b^{-1}\}} \simeq \Z^2$.
+\end{exercise}
+
+\begin{notation}
+  \
+  \begin{enumerate}[(1)]
+    \item No escribiremos las llaves de los conjuntos $S$ y $R$. Si $S = \{s_1, \dots, s_n\}$ y $R = \{r_1, \dots, r_m\}$, entonces
+    \[\gen{S \mid R} = \gen{s_1,\dots, s_n \mid r_1, \dots, r_m}.\]
+    \item Las relaciones se pueden escribir con igualdad, como por ejemplo
+    \[aba^{-1}b^{-1} \leadsto aba^{-1} b^{-1} = 1 \leadsto ab=ba\]
+    \[\implies \gen{\{a,b\} \mid \{aba^{-1}b^{-1}\}} = \gen{a,b \mid ab=ba}.\]
+  \end{enumerate}
+\end{notation}
+
+\begin{definition}
+  Dado $S$ conjunto y $R \subset (S \cup S^{-1})^\star$, considere el monoide $(S \cup S^{-1})^\star$ y la relación $\sim_R$ dada por:
+  $u \sim_R v$ si existe una secuencia finita
+  \[u = u_0 \sim_R u_1 \sim_R \dots \sim_R u_n = v\]
+  tal que $u_{i+1}$ se obtiene a partir de $u$ mediante:
+  \begin{itemize}[(1)]
+    \item Agregar o quitar un pat $ss^{-1}$ o $s^{-1}s$,
+    \item Agregar o quitar $r$ o $r^{-1}$ con $r \in R$.
+  \end{itemize}
+\end{definition}
+
+\begin{obs}
+  $(S \cup S^{-1})^\star/\sim_R$ es un grupo con la concatenación.
+\end{obs}
+
+\begin{theorem}
+  $$\frac{(S \cup S^{-1})^\star}{\sim_R} \simeq \frac{F(S)}{\ll R \gg}.$$
+\end{theorem}
+
+\begin{lemma}
+  Si $u,v \in F(X)$ tal que $uv \in \ll R \gg$, entonces $\forall r \in (R \cup R^{-1})^\star$, $urv \in \ll R \gg$.
+\end{lemma}
+
+\begin{definition}
+  Sea $S$ un conjunto de generadores y $S$ de relaciones. Decimos que
+  \begin{itemize}[(1)]
+    \item $\gen{S \mid R}$ es \wea{finitamente generado} si $\abs S < \oo$.
+    \item $\gen{S \mid R}$ es \wea{finitamente presentado} si $\abs S < \oo$ y $\abs R < \oo$.
+  \end{itemize}
+  Más generalmente, un grupo $G$ se dice \wea{finitamente presentado} si existen $S$ y $R \subseteq (S \cup S^{-1})^\star$ finitos tales que
+  \[G \simeq \gen{S \mid R}.\]
+\end{definition}
+
+\begin{example}
+  $F_n, \Z^d$ y los grupos finitos son finitamente presentados.
+\end{example}
+
+\begin{example}
+  Cualquier grupo dado por una presentación finita
+  \[\mathrm{BS}(1,n) = \gen{a,b \mid ab=ba^n}.\]
+\end{example}
+
+\begin{example}
+  $$\mathrm{FB}(n,k) = \gen{a_1,\dots,a_n \mid \forall \w \in \{a_1^\pm, \dots, a_n^\pm\}, \w^k = 1}.$$
+\end{example}
+
+\begin{obs}
+  ¿Existe algún $n,k$ tal que $\mathrm{FB}(n,k)$ sea infinito? Este se conoce como el \wea{problema de Burnside} y se resolvió afirmativamente en los 40's.
+\end{obs}
+
+\begin{obs}
+  Dada una presentación finita $S,R$, ¿se puede decidir algoritmicamente si $\gen{S \mid R} \simeq 1$? La respuesta es que no se puede. En particular, este problema es indecidible.
+\end{obs}
+
+\begin{definition}
+  Dado $G = \gen{S}$ con $S$ finito. El \wea{problema de la palabra} de $G$ es
+  \[\mathrm{WP}_S(G) = \{\w \in (S \cup S^{-1})^\star \colon \underline{\w}_G = 1_G\}.\]
+\end{definition}
+
+\begin{theorem}
+  Si $G$ es un grupo finitamente presentado, el problema de decirdir si $\w \in (S \cup S^{-1})^\star$ pertenece a $\mathrm{WP}_S(G)$ es indecidible.
+\end{theorem}
+
+Sea $G$ un grupo. ¿Cómo probar que $F_n \embbed G$? Hay una técnica bonita que permite hacer eso:
+
+\begin{lemma}
+  Sea $n \geq 2$, $X$ un conjunto y $a_1, \dots, a_n \in \Sym(X)$. Supongamos que existen subconjuntos de $X$ disjuntos a pares
+  \[X_1^+, \dots, X_n^+, X_1^-, \dots, X_n^-\]
+  tales que
+  \[Z = \bigcup_{i=1}^n X_i^+ \cup \bigcup_{i=1}^n X_i^- \implies \forall i \cor{
+    a_i (Z \setminus X_i^-) \subset X_i^+ \quad \land\quad a_i^{-1} (Z \setminus X_i^+) \subseteq X_i^-
+  }\]
+  entonces $\gen{a_1,\dots,a_n} \simeq F_n$.
+\end{lemma}
+
+\fecha{Clase 10. Miércoles 8 de Abril}
+
+\begin{obs}
+  Este lema nos permite incrustar $F_2$ en otro grupo.
+\end{obs}
+
+Una versión más elegante del lema del Ping Pong es la siguiente:
+
+\begin{theorem}
+  Sea $G \acts X$ una acción y sean $H_1,\dots, H_k \leqslant G$ (con $k \geq 2$) con al menos uno que no sea trivial.
+  Supongamos que existen $X_1, \dots, X_k \subset X$ disjuntos de a pares tales que $\forall s \in \{1,\dots, k\}$, $\forall i \neq s$, $\forall h \in H_i \setminus \{1_G\}$ tenemos
+  \[h(X_s) \subset X_i.\]
+  Entonces
+  \[\gen{\bigcup_{i=1}^k H_i}
+  \simeq H_1 * H_2 * \dots * H_k
+  \simeq \gen{\bigcup S_i \mid \bigcup R_i}\]
+  donde $H_i = \gen{S_i \mid R_i}$ con los $S_i$ disjuntos de a pares.
+\end{theorem}
+
+\begin{theorem}
+  $F_2 \embbed \SL_2(\Z)$. Más precisamente,
+  \[\gen{\matr{1 & 2 \\ 0 & 1}, \matr{1 & 0 \\ 2 & 1}} \simeq F_2.\]
+\end{theorem}
+
+\begin{example}
+  Consideremos $X = \R P^1$ la \wea{recta proyectiva real}
+  \[\R P^1 = \frac{\R^2 \setminus \{(0,0)\}}{x \sim \lam x}\]
+  La acción de $\SL_2(\Z) \acts \R^2$ induce una acción $\SL_2(\Z) \acts \R P^1$. Sean $x,y \in \R^2 \setminus 0$ tal que $[x] = [y]$, entonces existe $\lam \neq 0$ tal que $x = \lam y$. Luego
+  \[A \c x = A(\lam y) = \lam A y \implies Ax \sim Ay.\]
+  Escribimos
+  \[g_1 = \matr{1 & 2 \\ 0 & 1}, \quad g_2 = \matr{1 & 0 \\ 2 & 1}.\]
+  Notemos que
+  \[g_1 \matr{x \\ y} = \matr{x+2y \\ y}, \quad
+  g_2 \matr{x \\ y} = \matr{x \\ 2x+y}.\]
+  Consideramos
+  \[H_1 = \gen{g_1} \simeq \Z, \quad
+  H_2 = \gen{g_2} \simeq \Z.\]
+  Consideremos
+  \begin{align*}
+    X_1 &= \{[x:y] \in \R P^1 \colon \abs x > \abs y\}, \\
+    X_2 &= \{[x:y] \in \R P^1 \colon \abs y > \abs x\}.
+  \end{align*}
+  Notemos que si $[x:y] \in X_2$, entonces $g_1 \matr{x\\y} \in X_1$, y si $[x:y] \in X_1$, entonces $g_2 \matr{x\\y} \in X_2$.
+
+  Si $h \in H_1$, entonces existe $n \in \Z$ tal que
+  \[h = \matr{1 & 2n \\ 0 & 2}.\]
+  Si $h \in H_1 \setminus \{1\}$, entonces $n \neq 0$. Notemos que
+  \[h \matr{x\\y} = \matr{1 & 2n \\ 0 & 1} \matr{x\\y} = \matr{x + 2ny \\ y}.\]
+  Luego si $[x:y] \in X_2$, tenemos que $h \c [x:y] \in X_1$. Similarmente si $[x:y] \in X_1$ y $\gamma \in H_2 \setminus \{1\}$, entonces $\gamma \c [x:y] \in X_2$.
+  
+  Por el lema del Ping Pong (elegante) tenemos que
+  \[H_1 * H_2 \simeq \gen{\matr{1 & 2 \\ 0 & 1}, \matr{1 & 0 \\ 2 & 1}} \simeq F_2.\]
+\end{example}
+
+\begin{exercise}
+  Pruebe que $F_n \embbed F_2$ para $n \geq 2$.
+
+  \emph{Hint:} Consideremos el conmutador $[F_2,F_2]$. Pruebe que $[F_2,F_2] \simeq F_\oo$, luego
+  \[F_n \embbed F_\oo \simeq [F_2,F_2] \leqslant F_2.\]
+\end{exercise}
+
+\newpage
+\subsection{Introducción a lso Teoremas de Sylow}
+
+Vamos a ver una parte del Teorema de clasificación de grupos abelianos finitamente generados.
+
+\begin{theorem}
+  Sea $G$ un grupo abeliano finitamente generado. Entonces existen $d \geq 0$, $p_1,\dots, p_k$ primos y $\alpha_1, \dots, \alpha_k \geq 1$ tales que
+  \[G \simeq \Z^d \oplus \bigoplus_{i=1}^k \znz{p_i^{\alpha_i}}.\]
+\end{theorem}
+
+\begin{example}
+  Supongamos que $G$ es $n$--generado, entonces $G$ es cociente de $\Z^n$. Es decir, existe $N \normal \Z^n$ tal que
+  \[G \simeq \frac{Z^n}{N}.\]
+  Notemos que $N = A \Z^n$ con $A$ matríz. Esta tiene descomposición de Smith:
+  \[A = UST\]
+  donde $U,T$ son matrices invertibles y $S$ es diagonal.
+\end{example}
+
+\begin{definition}
+  Sea $G$ un grupo y $g \in G$. el \wea{orden de $g$} se define como
+  \[\ord(g) = \min\{n \geq 2 \colon g^n = 1\},\]
+  \[\ord(g) = \oo \iff \gen{g} \simeq \Z.\]
+  $g$ se dice \wea{de torsión} si $\ord(g) < \oo$.
+  $g$ se dice \wea{no de torsión} si $\ord(g) = \oo$.
+\end{definition}
+
+\begin{definition}
+  Sea $G$ un grupo y $p$ primo. Decimos que $G$ es un \wea{$p$--grupo} si $\forall g \in G$, $\ord(g) = p^n$ para algún $n \geq 0$.
+\end{definition}
+
+\begin{obs}
+  Si $G$ es finito, entonces $G$ es $p$--grupo si y solo si $\abs G = p^n$ para algún $n \geq 0$.
+
+  Si $\abs G$ no es potencia de $p$, entonces existe $q \neq p$ primo tal que $q \mid \abs G$. Por el Teorema de Cauchy, $\zmz q \embbed G$, y entonces $\exists a \in G$ tal que $\ord(a) = q$. $\to\gets$
+\end{obs}
+
+\begin{theorem}
+  Todo grupo abeliano finito se descompone como suma de sus $p$--subgrupos maximales ($p$--subgrupos más grandes bajo contención).
+\end{theorem}
+
+\begin{definition}
+  Dado un grupo $G$, definimos el \wea{exponente de $G$} como
+  \[\exp(G) = \min\{n \geq 1 \colon \forall g \in G, g^n = 1\}.\]
+\end{definition}
+
+\begin{obs}
+  $\exp(G) \leq \abs G$. Podría ser menor estricto:
+  \[G = \znz2 \times \znz2\]
+  tenemos que $\exp(G) = 2$ y $\abs G = 4$.
+\end{obs}
+
+\begin{obs}
+  Si $\abs G < \oo$, entonces $\exp(G) \mid \abs G$.
+\end{obs}
+
+\newpage %% error mdframed
+\begin{obs}
+  Si $\abs G < \oo$, entonces
+  \[\exp(G) = \lcm\{\ord(g) \colon g \in G\}.\]
+\end{obs}
+\begin{proof}
+  Sea $M = \lcm\{\ord(g) \colon g \in G\}$. Notemos que $M \leq \exp(G)$, pues $\forall g \in G$, $\ord(g) \mid \exp(G)$.
+
+  Por otro lado, $g^M = 1$ para todo $g \in G$, y justamente $\exp(G)$ es el menor entero positivo que cumple esto, por lo que $\exp(G) \leq M$. Concluimos que $\exp(G) = M$.
+\end{proof}
+
+\begin{notation}
+  De aquí en adelante escribimos
+  \[\abs G = p_1^{\a_1} \dots p_\ell^{\a_\ell}\]
+  con $p_i$ primos y $\a_i \geq 1$ enteros.
+  \[\exp(G) = p_1^{r_1} \dots p_\ell^{\a_\ell}\]
+  con $r_i \geq 1$ enteros y $r_i \leq \a_i$.
+\end{notation}
+
+\begin{definition}
+  Para $d \geq 1$ defino
+  \begin{align*}
+    E_d \olon G &\to G \\
+    g &\mapsto g^d.
+  \end{align*}
+  Escribimos $G_d = \ker(E_d)$ y $E_d(G) = \im(E_d)$.
+\end{definition}
+
+\begin{proposition}
+  \[1 \to G_d \to G \to E_d(G) \to 1\]
+\end{proposition}
+
+\begin{obs}
+  $G_d \simeq 1 \iff \gcd(d,\abs G) = 1$.
+\end{obs}
+
+\begin{lemma}
+  Sea $d = p_i^{r_i}$, entonces
+  \begin{enumerate}[(1)]
+    \item $p_i$ no divide a $\abs{E_d(G)}$.
+    \item $G \simeq G_{p_i^{r_i}} \times E_{p_i^{r_i}}(G)$.
+  \end{enumerate}
+\end{lemma}
+
+\newpage
+\begin{obs}
+  De acá sale el Teorema, pues inductivamente
+  \[G \simeq G_{p_1^{r_1}} \times \dots \times G_{p_\ell^{r_\ell}}.\]
+\end{obs}
+\begin{proof}
+  Supongamos que $p_i \mid \abs{E_d(G)}$. Entonces $\zmz{p_i} \embbed E_d(G)$. Ñuego $\exists g \in E_d(G) \setminus \{1\}$ tal que $g^{p_i} =1$.
+  Como $g \in E_d$, tenemos que $g = h^{p_i^{r_i}}$ para algún $h \in G \setminus \{1\}$.
+  \[\implies 1 = g^{p_i} = h^{p_i^{r_i+1}}
+  \implies \ord(h) = p_i^{r_i+1}.\]
+  Esto contradice que $\exp(G) = p_1^{r_i} \dots p_\ell^{r_\ell}$.
+
+  Por PTI, $$\frac{G}{G_d} \simeq E_d(G).$$
+  En particular, $\abs G = \abs{G_d} \c \abs{E_d(G)}$. Luego $\abs{G_d} = p_i^{r_i}$ y $G_d \cap E_d(G) = \{1\}$.
+  Como $G_d$ y $E_d(G)$ son normales en $G$, entonces
+  \[G_d \c E_d(G) \simeq G_d \times E_d(G)\]
+  Como $G = G_d \c E_d(G)$ se concluye (ejercicio).
+\end{proof}
+
+\fecha{Clase 11. Lunes 13 de Abril}
+
+\newpage
+\subsection{Productos Semidirectos}
+
+\begin{definition}
+  Sean $H,K$ dos grupos y sea $\a \colon K \to \Aut(H)$ un homomorfismo de grupos (i.e.: una acción $K \acts H$). El \wea{producto semidirecto} de $H$ y $K$ bajo $\a$, denotado por $H \rtimes_\a K$, es el conjunto $H \times K$ con la operación
+  \[(h_1,k_1) \c (h_2,k_2) = (h_1 \c \a_{k_1}(h_2), k_1 \c k_2).\]
+\end{definition}
+
+\begin{notation}
+  Escribimos $\a_k$ para el automorfismo $\a(k)$.
+\end{notation}
+
+\begin{theorem}
+  $H \rtimes_\a K$ es grupo.
+\end{theorem}
+
+\begin{obs}\
+  \begin{itemize}
+    \item $H \rtimes_\a K$ contiene copias isomorfas de $H$ y $K$:
+    \[ H \simeq H \times \{1_K\} \leqslant H \rtimes_\a K, \quad
+    K \simeq \{1_H\} \times K \leqslant H \rtimes_\a K.\]
+    \item $H \times \{1_K\} \cap \{1_H\} \times K = \{(1_H,1_K)\}.$
+    \item $(1_H,k) \c (h,1_K) \c (1_H,k)^{-1} = (\a_k(h),1_K)$.
+  \end{itemize}
+  Luego $H \times \{1_K\}$ es normal en $H \rtimes_\a K$, luego la acción por conjugación de $\{1_H\} \times K$ sobre $H \times \{1_K\}$ es simplemente 
+\end{obs}
+
+Otra definición equivalente a la del producto semidirecto es la siguiente:
+
+\begin{definition}
+  Sea $G$ un grupo, y $H,K \leqslant G$ tales que
+  \begin{itemize}[(i)]
+    \item $HK = G$ (i.e.: $\forall g \in G, \exists h \in H, \exists k \in K, g = hk$).
+    \item $H \cap K = \{1_G\}$.
+    \item $H \normal G$.
+  \end{itemize}
+  Entonces diremos que $G$ es \wea{producto semidirecto} de $H$ y $K$.
+\end{definition}
+
+\begin{proposition}
+  En el caso anterior, existe una acción natural $\a \colon K \o \Aut(H)$ con $\a_k(h) = khk^{-1}$, y se cumple que $G \simeq H \rtimes_\a K$, $hk \mapsto (h,k)$.
+\end{proposition}
+
+\begin{notation}
+  Si $K = \Z$, la acción $\a \colon \Z \to \Aut(H)$ queda totalmente determinada por el automorfismo $\vphi = \a_1$. Por ende, escribimos $H \rtimes_\vphi \Z$ en vez de $H \rtimes_\a \Z$.
+
+  En particular, si por ejemplo $H = \Z^d$, podemos escribir el producto como $\Z^d \rtimes_A \Z$ donde $A$ es la matriz asociada al automorfismo.
+\end{notation}
+
+\begin{definition}
+  Dos acciones $\a,\beta \colon K \to \Aut(H)$ se dicen \wea{conjugadas} si existe un isomorfismo $\psi \colon H \to H$ tal que $\forall k \in K, \psi \circ \beta_k = \a_k \circ \psi$.
+\end{definition}
+
+\begin{proposition}
+  Si $\a,\beta$ son conjugadas, entonces $H \rtimes_\a K \simeq H \rtimes_\beta K$.
+\end{proposition}
+
+\begin{proposition}
+  Si $\a \colon K \to \Aut(H)$ es una acción y $\vphi \colon K \to K$ es un automorfismo, entonces $H \rtimes_\a K \simeq H \rtimes_{\a \circ \vphi} K$.
+\end{proposition}
+
+\subsection{Producto en corona (wreath product)}
+
+Supongamos que tenemos un conjunto de índices $I$ y una acción $K \acts I$ (i.e.: un homomorfismo $\a \colon K \o B_{ij}(I,I)$). Este $\a$ induce una acción del grupo $K$ en cualquier grupo $H^I$, que envía $(h_j)_{j \in I}$ a $(h_{\a(j)})_{j \in I}$. El producto semidirecto $H^I \rtimes K$ se llama \wea{producto en corona}.
+
 %\fecha{Clase 12.}
 %\fecha{Clase 13.}
 %\fecha{Clase 14.}

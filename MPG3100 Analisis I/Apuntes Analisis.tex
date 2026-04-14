@@ -76,7 +76,7 @@
 ]{solution}
 
 %commands
-\newcommand{\A}{\mathbb{A}}
+\newcommand{\A}{\mathcal{A}}
 \newcommand{\B}{\mathcal{B}}
 \newcommand{\C}{\mathbb{C}}
 \newcommand{\D}{\mathbb{D}}
@@ -167,6 +167,9 @@
 \newcommand{\fecha}[1]{\begin{flushright} \underline{#1} \end{flushright}}
 
 \newcommand{\dem}[1]{\textbf{Demostración (#1)}}
+
+\newcommand{\sialg}{\text{$\sigma$--álgebra}}
+\newcommand{\sialgs}{\text{$\sigma$--álgebras}}
 
 %title
 \title{MPG3100 -- Análisis I}
@@ -1123,12 +1126,386 @@ Esto escrito con abiertos es
   Probar que $(C(X), \norm{\ \cdot \ }_\oo)$ es completo.
 \end{exercise}
 
-% \subsubsection{Teorema del Punto Fijo de Banach}
-% \subsubsection{Teorema de Categoría de Baire}
+\fecha{Clase 9. Lunes 6 de Abril}
 
-%\fecha{Clase 9.}
-%\fecha{Clase 10.}
-%\fecha{Clase 11.}
+\begin{theorem}
+  Sea $X$ compacto métrico y sea $\Fcal \subseteq C(X)$. $\Fcal$ es compacto (con la topología de $\norm{\cdot}_\oo$) si y solo si $\Fcal$ es cerrado, acotado y equicontinua.
+\end{theorem}
+
+\begin{obs}
+  $C(X)$ es métrico, por lo tanto la compacidad se puede caracterizar como ``toda suseción tiene una subsucesión convergente''.
+\end{obs}
+
+\newpage
+\subsubsection{Teorema del Punto Fijo de Banach}
+
+\begin{definition}
+  Sea $(X,d)$ espacio métrico, y $T \colon X \to X$ una función continua. Decimos que $T$ es \wea{Lipschitz de constante $L$} si
+  \[\forall x,y \in X \cor{d(T(x),T(y)) \leq L d(x,y)}\]
+  Si $L < 1$, entonces $T$ se dice \wea{contracción}.
+\end{definition}
+
+\begin{definition}
+  Si $T \colon X \to X$, $u \in X$, se dice \wea{punto fijo} si $T(u) = u$.
+\end{definition}
+
+\begin{theorem}
+  Si $(X,d)$ es métrico completo y $T \colon X \to X$ es contracción, entonces $T$ tiene un único punto fijo.
+\end{theorem}
+\begin{definition}
+  Veamos primero que es único. Supongamos que $u,v$ son puntos fijos:
+  \[T(u) = u, \quad T(v) = v\]
+  \[\implies d(u,v) = d(T(u),T(v)) \leq L d(u,v).\]
+  Como $L<1$, tenemos que $d(u,v) = 0$, y entonces $u=v$.
+
+  Veamos que existe. Tomamos $u \in X$, y escribimos
+  \[u_n = \underbrace{T \circ T \circ \dots \circ T}_{n \ veces}(u) = T^n(u).\]
+  Queremos demostrar que $\{u_n\}$ es sucesión de Cauchy, ya que como $(X,d)$ es completo, tenemos que $u_n$ converge, y luego tendremos que demostrar que el límite es el punto fijo.
+
+  Notemos que
+  \begin{align*}
+    d(u_{n+1},u_n) &= d(T(u_n),T(u_{n-1})) \\
+    &\leq L d(u_n, u_{n-1}) \\
+    &\leq L^2 d(u_{n-1},u_{n-2}) \\
+    &\leq \dots \leq L^n d(u_1,u_0)
+    = L^n d(T(u),u).
+  \end{align*}
+  Sean $n>k$, entonces
+  \begin{align*}
+    d(u_n,u_k) &\leq d(u_n,u_{n-1}) + d(u_{n-1}, u_k) \\
+    &\leq \sum_{j=k+1}^n d(u_j,u_{j-1}) \\
+    &\leq \sum_{j=k+1}^n L^{j-1} d(u_0,u_1) \\
+    &= d(u_0,u_1) \frac{L^k - L^n}{1-L} \\
+    &\leq d(u_0,u_1) \frac{L^k}{1-L}.
+  \end{align*}
+  Luego $\forall \e>0, \exists n_0$ tal que si $k,n \geq n_0$, entonces
+  \[\frac{L^k}{1-L} d(u_0,u_1) < \e\]
+  \[\implies d(u_n,u_k) \leq \frac{L^k}{1-L} d(u_0,u_1) < \e\]
+  y entonces $\{u_n\}$ es de Cauchy, y como $(X,d)$ es completo, entonces $\{u_n\}$ converge. Escribimos
+  \[\bar u = \lim_{n\to\oo} u_n\]
+  Como $u_{n+1} = T(u_n)$, obtenemos que
+  \[\bar{u} = \lim_{n\to\oo} u_n = \lim_{n\to\oo} u_{n+1} = \lim_{n\to\oo} T(u_n) = T(\bar u).\]
+\end{definition}
+
+\newpage
+\subsubsection{Teorema de Categoría de Baire}
+
+\begin{definition}
+  Sea $(X,\t)$ espacio topológico y $\O \subseteq X$. Se dice que $x$ es \wea{interior a $\O$} si $\exists U_x$ vecindad abierta de $x$ tal que $U_x \subseteq \O$.
+\end{definition}
+
+\begin{definition}
+  $x$ es \wea{exterior} a $F$ si $x$ es interios de $F^c$.
+\end{definition}
+
+\begin{definition}
+  $x \in \partial A$ si $\forall U_x$ vecindad de $x$,
+  \[U_x \cap A \neq \varnothing \quad\land\quad U_x \cap A^c \neq \varnothing.\]
+\end{definition}
+
+\begin{theorem}
+  Sea $(X,d)$ un espacio métrico completo.
+  \begin{enumerate}[(i)]
+    \item Si $\{\O_n\}_{n\in\N}$ son abiertos densos, entonces $\ds \bigcap_{n\in\N} \O_n$ es denso.
+    \item Si $\{F_n\}_{n\in\N}$ son cerrados con interior vacío, entonces $\ds \bigcup_{n\in\N} F_n$ tiene interior vacío.
+  \end{enumerate}
+\end{theorem}
+\begin{proof}
+  Primero notemos que $(i) \iff (ii)$, por lo que basta con demostrar $(i)$.
+
+  Tomemos $u \in X$ y $B_{r_0}(u)$, queremos demostrar que $B_{r_0}(u) \cap \bigcap_{n\in\N} \O_n \neq \varnothing$.
+
+  Como $\O_1$ es denso, tenemos que $B_{r_0}(u) \cap \O_1 \neq \varnothing$. Luego existe $u_1 \in B_{r_0}(u) \cap \O_1$. Como este conjunto es abierto, existe $\tilde{r_1}$ tal que
+  \[B_{\tilde{r_1}}(u_1) \subseteq B_{r_0}(u) \cap \O_1.\]
+  Tomamos $r_1 < \tilde{r_1}$ tal que $$\bar{B_{r_1}(u_1)} \subseteq B_{\tilde{r_1}}(u_1) \subseteq B_{r_0}(u) \cap \O_1.$$
+  Como $\O_2$ es denso y abierto, existe $u_2$ tal que
+  \[\bar{B_{r_2}(u_2)} \subseteq B_{r_1}(u_1) \cap \O_2.\]
+  En general, existen $u_n,r_n$ tal que
+  \[\bar{B_{r_n}(u_n)} \subseteq B_{r_{n-1}}(u_{n-1}) \cap \O_n \subseteq B_{r_{n-2}}(u_n) \cap \O_{n-1}.\]
+  Además podemos pedir $r_n < 1/n$.
+  \begin{claim}
+    $\ds \bigcap_{n\in\N} \bar{B_{r_n}(u_n)} \subseteq \bigcap_{i\in\N} \O_i.$
+  \end{claim}
+  \begin{claim}
+    $\ds \bigcap \bar{B_{r_n}(u_n)} \neq \varnothing$.
+  \end{claim}
+  \begin{obs}
+    $n>m$, entonces $u_n \in B_{r_m}(u_m)$, luego
+    \[d(u_m,u_n) < r_m < \frac1m\]
+    Luego para todo $n,m \geq n_0$,
+    \[d(u_m,u_n) < \frac{1}{n_0} < \e\]
+    y entonces $\{u_m\}$ es de Cauchy. Luego existe el límite
+    \[\bar{u} = \lim_{n\to\oo} u_n.\]
+  \end{obs}
+  Por construcción, $\forall m \geq m_0$, $u_m \in \bar{B_{r_{m_0}}(u_{m_0})}$, y entonces
+  \[\bar u = \lim_{n\to\oo} u_n \in B_{r_{m_0}}, \quad \forall m_0\]
+  \[\implies \bar u \in \bigcap_{n\in\N} B_{r_n}.\]
+\end{proof}
+
+\begin{corollary}
+  Si $\ds \bigcup_{m\in\N} F_m$ tiene interior no vacío, entonces existe $m_0$ tal que $F_{m_0}$ tiene interior no vacío.
+\end{corollary}
+
+\begin{corollary}
+  Si $\Fcal \subseteq C(X)$ es tal que
+  \[\forall x \in X, \exists M_x, \forall f\in \Fcal, \quad \abs{f(x)} \leq M_x\]
+  entonces existe $\O$ abierto y $M>0$ tal que
+  \[\forall f \in \Fcal, \forall x \in X, \quad \abs{f(x)} \leq M.\]
+\end{corollary}
+
+\newpage
+\fecha{Clase 10. Miércoles 8 de Abril}
+\section{Teoría de la Medida}
+\subsection{Álgebras y \texorpdfstring{$\sigma$}{sigma}--álgebras}
+
+\begin{definition}
+  Dado $X$ un espacio cualquiera, $\A \subseteq \P(X)$ se dice \wea{álgebra} si
+  \begin{enumerate}[(i)]
+    \item $X \in \A$,
+    \item $C \in \A \implies C^c \in \A$
+    \item $\{A_i\}_{i=1}^n \subseteq \A \implies \bigcup_{i=1}^n A_i \in \A$.
+  \end{enumerate}
+\end{definition}
+
+\begin{obs}
+  Como $X \in \A$, entonces $\varnothing = X^c \in \A$.
+  Además, (iii) y (ii) nos da que $\bigcap_{i=1}^n A_i \in \A$.
+\end{obs}
+
+\begin{definition}
+  Si $X$ es un espacio cualquiera, $\A \subseteq \P(X)$ se dice \wea{$\sigma$--álgebra} si es un álgebra y además
+  \[\{A_i\}_{i\in\N} \subseteq \A \implies \bigcup_{i\in\N} A_i \in \A.\]
+\end{definition}
+
+\begin{obs}
+  Las topologías no son $\sigma$--álgebras.
+\end{obs}
+
+\begin{example}
+  \begin{itemize}
+    \item $\P(X)$ y $\{\varnothing,X\}$ es $\sigma$--álgebra.
+    \item $\{\varnothing,X\}$ es $\sigma$--álgebra.
+    \item Si $X$ es infinito, $\{C \subseteq X \colon \abs{C^c} < \oo\}$ no es álgebra.
+    \item $\{C \colon \abs{C}<\oo \lor \abs{C^c} < \oo\}$ es álgebra pero no es $\sigma$--álgebra.
+  \end{itemize}
+\end{example}
+
+\begin{proposition}
+  La intersección arbitraria de \sialgs\ es \sialg.
+\end{proposition}
+%% me faltó demostrar esto. lo haré eventualmente.
+
+\begin{corollary}
+  Dado $\Fcal \subseteq \P(X)$ cualquiera, entonces existe una \sialg\ $\A$ tal que $\Fcal \subseteq \A$ y $\forall \B$ \sialg\ tal que $\Fcal \subseteq \B$, se tiene $\A \subseteq \B$.
+
+  i.e.: $\A$ es la \sialg\ más pequeña que contiene a $\F$.
+\end{corollary}
+
+\begin{definition}
+  Si $(X,\t)$ es un espacio topológico, la \sialg\ más pequeña que contiene a $\t$ se llama \wea{\sialg\ boreliana}.
+\end{definition}
+
+\begin{definition}
+  Sea $(X,\t)$ espacio topológico. Vamos a decir que $C$ es \wea{$G_\delta$} si $C = \bigcap_{i \in \N} \O_i$ con $\O_i$ abiertos.
+  Decimos que es \wea{$F_\sigma$} si $C = \bigcup_{i\in\N} F_i$ con $F_i$ cerrados.
+\end{definition}
+
+\begin{proposition}
+  Si $(X,d)$ es métrico, entonces
+  \begin{itemize}
+    \item Todo abierto es $F_\sigma$.
+    \item Todo cerrado es $G_\delta$.
+  \end{itemize}
+\end{proposition}
+
+\begin{obs}
+  Son equivalentes porque $\ds \O = \bigcap_{i\in\N} F_i \iff \O^c = \bigcup_{i\in\N} F_i^c$.
+\end{obs}
+
+\begin{definition}
+  Una familia $\{A_i\}_{i\in\N}$ se dice \wea{creciente} si $A_i \subseteq A_{i+1}$. La familia se dice \wea{decreciente} si $\A_{i+1} \subseteq A_i$.
+\end{definition}
+
+\begin{proposition}
+  Si $\A$ es un álgebra y para toda familia creciente $\{A_i\}_{i\in\N} \subseteq \A$ se tiene $\ds\bigcup_{i\in\N} A_i \in \A$, entonces $\A$ es \sialg.
+
+  Equivalentemente, si para toda familia decreciente $\{A_i\}_{i\in\N} \subseteq \A$ se tiene $\ds \bigcap_{i\in\N} A_i \in \A$, entoces también es \sialg.
+\end{proposition}
+
+\begin{definition}
+  Dado $(X,\A)$ con $\A$ una \sialg, una función $$\mu \colon \A \to [0,\oo]$$ se dice \wea{medida numerablemente aditiva} (o simplemente \wea{medida}) si
+  \begin{itemize}
+    \item $\mu(\varnothing) = 0$,
+    \item Si $\{A_i\}_{i\in\N} \subseteq \A$ son disjuntos de a pares, entonces $\mu\br{\bigcup_{i\in\N} A_i} = \sum_{i\in\N} \mu(A_i)$.
+  \end{itemize}
+  la función se dice de \wea{medida finitamente aditiva} si
+  \begin{itemize}
+    \item $\mu(\varnothing) = 0$,
+    \item Si $\{A_i\}_{i=1}^n \subseteq \A$ son disjuntos de a pares, entonces $\mu\br{\bigcup_{i=1}^n A_i} = \sum_{i=1}^n \mu(A_i)$.
+  \end{itemize}
+  $(X,\A,\mu)$ se dice \wea{espacio de medida}.
+\end{definition}
+
+\begin{definition}
+  Decimos que $\mu$ es \wea{finita} si $\mu(X) < \oo$.
+  Si $X = \bigcup_{i\in\N} A_i$ con $A_i$ tales que $\mu(A_i)<\oo$, se dice que $\mu$ es \wea{$\sigma$--finita}.
+\end{definition}
+
+\begin{proposition}
+  Si $A \subseteq B$ y $A,B \in \A$, entonces $\mu(A) \leq \mu(B)$.
+\end{proposition}
+\begin{proof}
+  \[\mu(B) = \mu(B \setminus A \cup A) = \mu(B \setminus A) + \mu(A) \geq \mu(A).\]
+\end{proof}
+
+\begin{corollary}
+  Si $A \subseteq B$ y $\mu(B),\mu(A) < \oo$, entonces
+  \[\mu(B \setminus A) = \mu(B) - \mu(A).\]
+\end{corollary}
+
+\begin{proposition}
+  Si $\{A_i\}_{i\in\N} \subseteq \A$, entonces
+  \[\mu\br{\bigcup_{i\in\N} A_i} \leq \sum_{i=1}^n \mu(A_i).\]
+\end{proposition}
+\begin{proof}
+  Sea $B_i = A_i \setminus \bigcup_{j=1}^{i-1} A_j$, entonces
+  \[\bigcup_{i\in\N} B_i = \bigcup_{i\in\N} A_i, \quad\land\quad \cor{i\neq j \implies B_i \cap B_j = \varnothing}.\]
+  Notemos que $B_i \subseteq A_i$. Luego
+  \begin{align*}
+    \mu\br{\bigcup_{i\in\N} A_i}
+    &= \mu\br{\bigcup_{i\in\N} B_i} \\
+    &= \sum_{i=1}^n \mu(B_i) \\
+    &\leq \sum_{i=1}^n \mu(A_i).
+  \end{align*}
+\end{proof}
+
+\begin{example}
+  Sea $X$ un conjunto cualquiera. Definimos
+  \[\mu(A) = \begin{cases}
+    0, &A = \varnothing \\
+    \abs A, &\abs A < \oo \\
+    \oo, &e.o.c.
+  \end{cases}\]
+\end{example}
+
+\begin{example}
+  Sea $X$ un conjunto. 
+  \[\mu(A) = \begin{cases}
+    0, &A = \varnothing \\
+    \oo, &A \neq \varnothing
+  \end{cases}\]
+\end{example}
+
+Objetivo: Queremos definir una medida en $\R$ tal que $$\mu([a,b]) = \mu((a,b]) = \mu ([a,b)) = \mu(a,b) = b-a.$$
+
+\newpage
+\fecha{Clase 11. Lunes 13 de Abril}
+\subsection{Medidas Exteriores}
+
+\begin{definition}
+  Sea $X$ un conjunto. Decimos que $\mu^* \colon \P(X) \to [0,\oo]$ es una \wea{medida exterior} si cumple:
+  \begin{enumerate}[(i)]
+    \item $\mu^*(\varnothing) = 0$,
+    \item $B \subseteq A \implies \mu^*(B) \leq \mu^*(A)$,
+    \item $\ds \mu^*\br{\bigcup_{n\in\N} A_n} \leq \sum_{n\in\N} \mu^*(A_n)$.
+  \end{enumerate}
+\end{definition}
+
+\begin{example}
+  \[\mu^*(A) = \begin{cases}
+    0, &A = \varnothing \\
+    \oo, &A \neq \varnothing.
+  \end{cases}\]
+\end{example}
+
+\begin{example}
+  Si $X$ es infinito,
+  \[\mu^*(A) = \begin{cases}
+    0, &A = \varnothing \lor \abs A = \aleph_0 \\
+    1, &si \ no.
+  \end{cases}\]
+\end{example}
+
+\begin{definition}
+  Sea $\lam^* \colon \P(\R) \to [0,\oo)$ dada por
+  \[\lam^*(A) = \inf\set{\sum_{i \in \N} (b_i-a_i) \colon A \subseteq \bigcup_{i \in \N} [a_i,b_i]}.\]
+  Esta es la \wea{medida exterior de Lebesgue}.
+\end{definition}
+
+\begin{proposition}
+  $\lam^*([a,b]) = \lam^*((a,b)) = \lam^*((a,b]) = \lam^*([a,b)) = b-a$.
+\end{proposition}
+
+\begin{proposition}
+  La medida exterior de Lebesgue es medida exterior.
+\end{proposition}
+\begin{proof}
+  Si $A = \varnothing$, entonces $\varnothing \subseteq [0,1/n]$ para todo $n \in \N$, luego
+  \[\lam^*(\varnothing) \leq \lam^*([0,1/n]) = 1/n, \quad \forall n \in \N.\]
+  \[\implies \lam^*(\varnothing) = 0.\]
+  Si $A \subseteq B$ y $B = \bigcup_{i \in \N} [a_i,b_i]$, entonces $A \subseteq \bigcup_{i \in \N} [a_i,b_i]$. Luego $\lam^*(A) \leq \lam^*(B)$.
+
+  So $\{A_i\}$ es una familia de conjuntos tal que $\sum_{i\in\N} \lam^*(A_i) \neq \oo$ (si fuera $\oo$ estamos listos), entonces existe $\{[a_k,b_k]\}_{k \in \N}$ tal que
+  \[\lam^*(A_i) \geq \sum_k (b_k-a_k) - \frac{\e}{2^i}\]
+  y $A_i \subseteq \bigcup_{k \in \N} [a_k^i, b_k^i]$.
+  Luego
+  \begin{align*}
+    \bigcup_{i \in \N} A_i
+    &\subseteq \bigcup_{i \in \N} \bigcup_{k \in \N} [a_k^i, b_k^i] \\
+    \lam^*\br{\bigcup_{i \in \N} A_i}
+    &\leq \sum_{i \in \N} \br{\sum_{k \in \N} (b_k^i - a_k^i)} \\
+    &\leq \sum_{i \in \N} \br{\lam^*(A_i) + \frac{\e}{2^i}} \\
+    &\leq \sum_{i\in\N} \lam^*(A_i) + \e.
+  \end{align*}
+  Como es $\forall \e>0$, tenemos el resultado.
+\end{proof}
+
+\begin{obs}
+  En $\R^n$ se puede definir $R_i = I_1 \times \dots \times I_n$ con $I_i$ intervalos, luego
+  \[\abs{R_i} = \lam^*(I_1) \cdots \lam^*(I_n).\]
+  \[\lam^*(A) = \inf \set{
+    \sum_{i\in\N} \abs{R_i} \colon A \subseteq \bigcup_{i \in \N} R_i
+  }\]
+\end{obs}
+
+\begin{definition}
+  [\wea{Criterio de Caratheodory}]
+  Decimos que $A$ es \wea{$\mu^*$--medible} si $\forall B \in \P(X)$
+  \[\mu^*(B) = \mu^*(B \cap A) + \mu^*(B \cap A^c).\]
+\end{definition}
+
+\begin{theorem}
+  Consideremos el conjunto
+  \[M^* = \{A \in \P(X) \colon \text{$A$ es $\mu^*$--medible}\}.\]
+  Entonces $M^*$ es \sialg\ y $\mu^*|_{M^*}$ es medida.
+\end{theorem}
+
+\begin{proposition}
+  Para todo $A \subseteq X$ tenemos que
+  \begin{enumerate}[(a)]
+    \item $A \in M^* \implies A^c \in M^*$.
+    \item $\mu^*(A) = 0 \implies A \in M^*$.
+  \end{enumerate}
+\end{proposition}
+\begin{proof}
+  [\dem{a}]
+  Si $A \in M^*$, entonces para cualquier $B$ tenemos $$\mu^*(B) = \mu^*(B \cap A) + \mu^*(B \cap A^c).$$ Luego $A^c \in M^*$.
+\end{proof}
+\begin{proof}
+  [\dem{b}]
+  Siempre se tiene $B = (B \cap A) \cup (B \cap A^c)$.
+  \[\implies \mu^*(B) \leq \mu^*(B \cap A) + \mu^*(B \cap A^c)\]
+  esto por la definición de medida exterior. Si $\mu^*(A) = 0$, como $B \cap A \subseteq A$, tenemos que
+  \[\mu^*(B \cap A) \leq \mu^*(A) = 0\]
+  \[\implies \mu^*(B \cap A) = 0.\]
+  Además $B \cap A^c \subseteq B$, luego
+  \[\mu^*(B) \geq \mu^*(B \cap A^c) = \mu^*(B \cap A^c) + \mu^*(B \cap A).\]
+\end{proof}
+
+\begin{theorem}
+  Para $\lam^*$, los borelianos son medibles.
+\end{theorem}
+
 %\fecha{Clase 12.}
 %\fecha{Clase 13.}
 %\fecha{Clase 14.}

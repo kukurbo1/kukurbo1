@@ -117,7 +117,8 @@
 
 \renewcommand{\a}{\alpha}
 \renewcommand{\b}{\beta}
-\renewcommand{\d}{\delta}
+\renewcommand{\d}{\mathrm{d}}
+\newcommand{\dd}{\delta} %% cambiar esto en los apuntes
 \newcommand{\e}{\varepsilon}
 \renewcommand{\t}{\tau}
 
@@ -449,5 +450,132 @@ Muestre que el plano de Moore es regular no normal.
 
   $L = \{(x,0) \inf\Gamma \colon x \in \R\}$ es el complemento del seiplano superior, por lo que es cerrado, y también con la topología subespacio es discreto. Luego las funciones continuas $g \colon L \to \R$ se extienden a $\bar g \colon \Gamma \to \R$, y entonces hay por lo menos $\abs\R^{\abs\R}$ funciones continuas. $\to\gets$
 \end{proof}
+
+\newpage
+\section{Ayudantía 4}
+\subsection{Problema 1}
+
+Sea $f \colon [a,b] \to \R$ continua. Si $\int_a^b f(x) x^n \d x = 0$ para todo $n \in \N$, entonces $f$ es idénticamente nula.
+\begin{proof}
+  Por Stone--Weierstrass, $p_k \to f$ para polinomios $p_k$.
+
+  Si $q(x) = \sum_{i=1}^N a_i x^i$ es un polinomio, entonces
+  \[\int_a^b f(x) q(x) \d x = \sum_{i=1}^N a_i \int_a^b f(x) \cdot x^i \d x = 0\]
+  \[\int_a^b f^2(x) \d x
+  = \int_a^b f(x) f(x) \dashcolon= \lim_{k\to\oo} \int_a^b f(x) p_k(x) \d x = 0\]
+  Luego $f(x) = 0$ para todo $x \in [a,b]$.
+\end{proof}
+
+\newpage
+\subsection{Problema 2}
+
+Sean $M,N \subseteq \R$ compactos Hausdorff. Toda función continua $f \colon M \times N \to \R$ se puede aproximar uniformemente por sumas de funciones del tipo $(x,y) \mapsto u(x)v(y)$ con $u \colon M \to \R$ y $v \colon N \to \R$ continuas.
+
+\begin{proof}
+  Definimos
+  \[A = \set{\sum_{k=1}^d u_k(x) v_k(y) \colon u_k \in C(M), \ v_k \in C(N)}.\]
+  Notemos que $A$ es un $\R$--espacio vectorial. Luego
+  \[\br{\sum_{k=1}^{d_1} u_k(x)v_k(y)}\br{\sum_{l=1}^{d_2} \tilde u_l(x) \tilde v_l(y)} \in A\]
+  No voy a tipear ese desarrollo.
+  Luego $A$ es una álgebra de funciones. Notemos también que si $c \in \R$, entonces $c \in C(M)$ y $1 \in C(N)$ nos da que $c \in A$.
+
+  Separa puntos:
+  Sean $(x,y) \neq (w,z)$. Supongamos que $x \neq w$. Como $X$ es compacto Hausdorff, $X$ es normal. Luego por Urysohn, $\exists f \colon M \to [0,1]$ continua tal que $f(x) = 1$ y $f(w) = 0$. Basta con $u(x) = f(x)$ y $v(y) = 1$. la función $u(x)v(y) = f(x)$ separa a $(x,y)$ de $(w,z)$. Por lo tanto $A$ separa puntos.
+
+  Finalmente, por Stone--Weierstrass tenemos que $A$ es denso en $C(X)$. Por lo tanto $f \colon M \times N \to \R$ se pueden aproximar unirofmemente por funciones de $A$.
+\end{proof}
+
+\newpage
+\subsection{Problema 3}
+Sea $X$ un espacio  métrico compacto y $\Fcal \subseteq C(X)$.
+\begin{enumerate}
+\item Muestre que $\Fcal$ es equicontinua si y solo si $\bar\Fcal$ es equicontinua.
+\begin{proof}
+  Si $\bar\Fcal$ es equicontinua, como $\Fcal \subseteq \bar\Fcal$, tenemos que $\Fcal$ es equicontinua.
+  Si $\Fcal$ es equicontinua:
+
+  Sea $f \in \bar\Fcal$, y sea $\{f_k\}_k$ tal que $f_k \xrightarrow{d_\oo} f$. Sea $\e>0$, entonces existe $\dd>0$ tal que
+  \begin{align*}
+    d(x,y) < \dd &\implies \abs{f_k(x) - f_k(y)} < \frac\e2 \\
+    &\implies \lim_{k\to\oo} \abs{f_k(x) - f_k(y)} \leq \frac\e2 \\
+    &\implies \abs{f(x) - f(y)} < \e.
+  \end{align*}
+  Como $f \in \bar\Fcal$ fue arbitrario, $\bar\Fcal$ es equicontinua.
+\end{proof}
+
+\item $\Fcal \subseteq C(X)$ es compacto si y solo si $\Fcal$ es una familia cerrada, uniformemente acotada y equicontinua.
+\begin{proof}
+  Visto en clases.
+\end{proof}
+
+\item Muestre que un subconjunto de $C(X)$ tiene clausura compacta si y solo si es equicontinua y uniformemente acotada.
+\begin{proof}
+  \begin{itemize}
+    \item \boxed{\impliedby} Arzela--Ascoli.
+    \item \boxed{\implies} $\Fcal$ tiene clausura compacta, entonces $\bar\Fcal$ es compacto. Luego $\bar\Fcal$ es equicontinua uniformemente acotara $\implies \Fcal$ es equicontinua uniformemente acotada.
+  \end{itemize}
+\end{proof}
+\end{enumerate}
+
+
+\newpage
+\subsection{Problema 4}
+Sea $K \in C([0,1] \times [0,1])$. Para $f \in C([0,1])$, sea $Tf(x) = \int_0^1 K(x,y)f(y) \d y$. Entonces, $Tf \in C([0,1])$ y $\Fcal = \{Tf \colon \norm{f}_\oo \leq 1\}$ tiene clausura compacta.
+
+\begin{proof}
+  Notemos que
+  \begin{align*}
+    &\abs{\int_0^1 (K(x+h,y) - K(x,y)) f(y) \d y} \\
+    &\leq \int_0^1 \abs{K(x+h,y) - K(x,y)} \cdot \abs{f(y)} \d y \\
+    &\leq \norm{f}_\oo \int_0^1 \abs{K(x+h,y) - K(x,y)} \d y \\
+    &< \norm{f} \cdot 1 = \e
+  \end{align*}
+  Por continuidad uniforme de $K$. Luego $Tf \in \C([0,1])$.
+
+  Veamos que $\Fcal$ tiene clausura compacta.
+  Sea $\ds M = \max_{(x,y) \in [0,1]^2} K(x,y)$
+  \begin{align*}
+    \abs{Tf(x)} &= \abs{\int_0^1 K(x,y) f(y) \d y} \\
+    &\leq \int_0^1 \abs{K(x,y) f(y)} \d y \\
+    &\leq \int_0^1 M \norm{f}_\oo \d y \\
+    &= M \norm{f}_\oo \leq M.
+  \end{align*}
+  Por lo tanto $\norm{Tf}_\oo \leq M$. Luego es uniformemente acotada.
+
+  \begin{align*}
+    \abs{Tf(x) - Tf(z)} 
+    &= \abs{\int_0^1 (K(x,y) - K(z,y)) f(y)} \d y \\
+    &\leq \norm{f}_\oo \int_0^1 \abs{K(x,y) - K(z,y)} \d y \\
+    &= \int_0^1 \abs{K(x,y) - K(z,y)} \d y
+  \end{align*}
+  $\forall \e>0, \exists \dd>0$ tal que
+  \[\abs{x-z} < \dd \implies \abs{K(x,y) - K(z,y)} < \e\]
+  y en tal caso
+  \[\abs{Tf(x) - Tf(z)} \leq \int_0^1 \frac\e2 \d y = \frac\e2 < \e\]
+  Luego como $f \in \Fcal$ arbitrario, tenemos que $\Fcal$ es equicontinua.
+\end{proof}
+
+\newpage
+\subsection{Problema 5}
+
+Sea $\{f_n\}_n \subseteq C([a,b])$.
+
+\begin{enumerate}
+\item Si $\{f_n\}_n$ es equicontinua, ¿necesariamente debe tener una subsucesión uniformemente convergente?
+\begin{proof}
+  Sean $f_n \colon [0,1] \to \R$ con $x \mapsto x^n$. Esta sucesión de funciones es uniformemente acotada, pues $\abs{f_n(x)} \leq 1$ para todo $x \in [0,1]$.
+  Notemos que $f_n \to f$ donde
+  \[f(x) = \begin{cases}
+    0, &x \in [0,1) \\
+    1, &x \in \{1\}
+  \end{cases}\]
+  la cual no es continua, así que no puede ser uniforme la convergencia.
+\end{proof}
+
+\item Si $\{f_n\}_n$ es uniformemente acotada, ¿necesariamente debe tener una subsucesión uniformemente convergente?
+\begin{proof}
+  No, Consideremos $f_n(x) = n$.
+\end{proof}
+\end{enumerate}
 
 \end{document}
