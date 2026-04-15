@@ -2098,11 +2098,62 @@ Otra definición equivalente a la del producto semidirecto es la siguiente:
   Si $\a \colon K \to \Aut(H)$ es una acción y $\vphi \colon K \to K$ es un automorfismo, entonces $H \rtimes_\a K \simeq H \rtimes_{\a \circ \vphi} K$.
 \end{proposition}
 
+\renewcommand{\H}{\mathcal{H}}
+
+\begin{example}
+  Consideremos
+  \[\H = \set{\matr{1 & a & c \\ 0 & 1 & b \\ 0 & 0 & 1} \colon a,b,c \in \Z}\]
+  Notemos que la operación es
+  \[\matr{1&a&b \\ 0&1&c \\ 0&0&1} \matr{1&x&y \\ 0&1&z \\ 0&0&1} = \matr{1 & a+x & az+b+y \\ 0 & 1 & cz \\ 0 & 0 & 1}\]
+  Notemos que $\H \simeq \Z^2 \ltimes_A \Z$.
+  \begin{align*}
+    \Z^2 &\simeq \set{\matr{1&a&b \\ 0 & 1 & 0 \\ 0 & 0 & 1} \colon a,b \in \Z} = H, \\
+    \Z &\simeq \set{\matr{1&0&0 \\ 0&1&c \\ 0&0&1} \colon c \in \Z} = K.
+  \end{align*}
+  \begin{itemize}
+    \item $\H = HK$ %% Comprobar
+    \item $H \cap K = \{I\}$ %% Comprobar
+    \item $H,K \normal \H$ %% comprobar
+  \end{itemize}
+  Consideramos la acción $\Z \actsby A \Z^2$ dada por
+  \[\vec x \mapsto A \vec x = \matr{1&0\\1&1} \vec x\]
+  Luego $\H = \Z^2 \rtimes_A \Z$.
+\end{example}
+
+\begin{exercise}
+  Considere $S_3 \rtimes \zmz2$, y sea $\sigma = (12)$. Muestre que hay un isomorfismo
+  \[S_3 \rtimes \znz 2 \simeq S_3 \times \znz 2.\]
+\end{exercise}
+
 \subsection{Producto en corona (wreath product)}
 
 Supongamos que tenemos un conjunto de índices $I$ y una acción $K \acts I$ (i.e.: un homomorfismo $\a \colon K \o B_{ij}(I,I)$). Este $\a$ induce una acción del grupo $K$ en cualquier grupo $H^I$, que envía $(h_j)_{j \in I}$ a $(h_{\a(j)})_{j \in I}$. El producto semidirecto $H^I \rtimes K$ se llama \wea{producto en corona}.
 
-%\fecha{Clase 12.}
+\fecha{Clase 12. Miércoles 15 de Abril}
+
+\begin{definition}
+  Supongamos que $H,K$ son grupos cualesquiera, y $J$ es un conjunto de índices para el cual hay una acción $K \acts J$. Luego $$\bigoplus _{j\in J} H$$ es un grupo cuyos elementos son tuplas $(h_j)_{j \in J}$ de elementos de $H$ en las que solo finitas de ellas son distintas de $1_H$.
+\end{definition}
+
+\begin{obs}
+  El grupo $K$ actúa sobre $\bigoplus_{j \in J} H$ permutando los elementos de una tupla según sus índices:
+  \[k \c (h_j)_{j \in J} \mapsto (h_{k \c j})_{j \in J}.\]
+  Esta se conoce como la \wea{representación de Koopman}.
+\end{obs}
+
+\begin{definition}
+  El producto semidirecto $\ds \bigoplus_{j \in J} H \rtimes K$ se denomina \wea{producto en corona} de $H$ y $K$, y se denota $H \wr K$.
+\end{definition}
+
+\begin{obs}
+  La restricción de ``soporte finito'' a veces no se considera en la definición.
+\end{obs}
+
+\begin{obs}
+  En general, si $\abs J = \oo$, $\ds \bigoplus_{j \in J} H$ no es finitamente generado.
+  Sin embargo, si $H$ y $K$ son finitamente generados, entonces $H \wr K$ también lo es.
+\end{obs}
+
 %\fecha{Clase 13.}
 %\fecha{Clase 14.}
 %\fecha{Clase 15.}

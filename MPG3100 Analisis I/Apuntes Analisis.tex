@@ -1302,7 +1302,7 @@ Esto escrito con abiertos es
 \end{corollary}
 
 \begin{definition}
-  Si $(X,\t)$ es un espacio topológico, la \sialg\ más pequeña que contiene a $\t$ se llama \wea{\sialg\ boreliana}.
+  Si $(X,\t)$ es un espacio topológico, la \sialg\ más pequeña que contiene a $\t$ se llama \wea{\sialg\ boreliana}. Los elementos de esta \sialg\ se llaman \wea{borelianos}.
 \end{definition}
 
 \begin{definition}
@@ -1480,6 +1480,7 @@ Objetivo: Queremos definir una medida en $\R$ tal que $$\mu([a,b]) = \mu((a,b]) 
   Entonces $M^*$ es \sialg\ y $\mu^*|_{M^*}$ es medida.
 \end{theorem}
 
+\newpage %% error mdframed, arreglar eventualmente
 \begin{proposition}
   Para todo $A \subseteq X$ tenemos que
   \begin{enumerate}[(a)]
@@ -1506,7 +1507,127 @@ Objetivo: Queremos definir una medida en $\R$ tal que $$\mu([a,b]) = \mu((a,b]) 
   Para $\lam^*$, los borelianos son medibles.
 \end{theorem}
 
-%\fecha{Clase 12.}
+\fecha{Clase 12. Miércoles 15 de Abril}
+
+\begin{exercise}
+  Ver lo mismo en $\R^n$.
+\end{exercise}
+
+\newpage
+\subsection{Medida de Lebesgue}
+
+\begin{theorem}
+  Si $A$ es $\lam$--medible en $\R^n$, entonces
+  \begin{enumerate}[(1)]
+    \item $\lam(A) = \inf\{\lam(U) \colon U \in \t \land A \subseteq U\}$.
+    \item $\lam(A) = \sup\{\lam(K) \colon K \subseteq A \text{ compacto}\}$.
+  \end{enumerate}
+\end{theorem}
+\begin{proof}
+  Si $A$ es medible, entonces existen $R_i = [a_1^i, b_1^i] \times \dots \times [a_n^i, b_n^i]$ con $i \in \N$ tales que
+  \[A \subseteq \bigcup_{i \in \N} R_i.\]
+  Luego
+  \[\lam(A) + \e \geq \sum_{i\in\N} \abs{b_1^i - a_1^i} \cdot \dots \cdot \abs{b_n^i - a_n^i}\]
+  Luego tomemos
+  \[\tilde R_i = (a_1^i - 1/k, b_1^i + 1/k) \times \dots \times (a_n^i - 1/k, b_n^i + 1/k)\]
+  Notemos que
+  \[A \subseteq \bigcup_{i \in \N} R_i \subseteq \bigcup_{i \in \N} \tilde R_i \in \t\]
+  Luego
+  \begin{align*}
+    \mu\br{\bigcup_{i \in \N} \tilde R_i}
+    &\leq \sum \abs{b_1^i - a_1^i + \frac{2}{k}} \cdot \dots \cdot \abs{b_n^i - a_n^i + \frac{2}{k}} \\
+    &\leq \sum \abs{b_1^i - a_1^i} \cdot \dots \cdot \abs{b_n^i - a_n^i}
+    + \frac{2}{k} \sum (\dots)
+    + \br{\frac{2}{k}}^2 \sum (\dots) + \dots + \br{\frac{2}{k}}^n.
+  \end{align*}
+  Si $\sum \abs{R_i} < \oo$, entonces
+  \[\mu\br{\bigcup_{i \in \N} \tilde R_i} \leq \sum_i \abs{b_1^i - a_1^i} \cdot \dots \cdot \abs{b_n^i - a_n^i} + \frac{2}{k} C
+  \leq \mu(A) + \e + \frac{2C}{k}.\]
+  Luego $\lam\br{\bigcup \tilde R_i} \leq \lam(A) + \tilde \e$ para cualquier $\tilde\e>0$. Entonces
+  \[\int\{\lam(U) \colon U \supseteq A\} \leq \lam(A).\]
+  Como $\lam$ es mootona, tenemos que $\lam(A) \leq \lam(U)$ para todo $U \supseteq A$.
+  Si $\abs{\sum \abs{R_i}}$ no es finita, entonces $\lam(A) = \oo$, y la igualdad se cumple automaticamente.
+
+  Para (2) tenemos dos casos:
+  \begin{itemize}
+    \item Si $A$ es acotado, existe $C$ cerrado de medida finita tal que $A \subseteq C$. Por la parte anterior, existe $U \supseteq C \setminus A$ abierto, luego
+    \[\lam(C \setminus A) + \e > \lam(U).\]
+    Queremos $K = \C \setminus U$. Notemos que $K \subseteq A$.
+    \begin{align*}
+      \lam(C) &\leq \lam(K) + \lam(U) \\
+      &\leq \lam(K) + \lam(C \setminus A) + \e \\
+      &\leq \lam(K) + \lam(C) - \lam(A) + \e
+    \end{align*}
+    \[\lam(A) \leq \lam(K) + \e\]
+    \[\implies \sup\{\lam(K) \colon A \supseteq K\} \geq \lam(A) \geq \lam(K), \quad \forall K \subseteq A.\]
+    \item Si $A$ no es acotado, queremos mostrar que $\forall b$ tal que $\lam(A) > b$, $\exists K \subseteq A$ tal que $\lam(K) + \e \geq b$.
+    Si $A_k = A \cap B_k(0)$ para $k \in \N$, afirmamos que
+    \[\lam(A_k) < \oo \quad\land\quad \lim_{k\to\oo} \lam(A_k) = \lam(A).\]
+    Basta demostrar esto, pues implicaría que $\exists k_0$ tal que $\lam(A_{k_0}) > b + \d$ con $\d$ pequeño, y por el caso anterior $\exists K \subseteq A_{k_0}$ tal que
+    \[\frac\d2 + \lam(K) > \lam(A_{k_0}).\]
+    Veamos la afirmación:
+    \[A = \bigcup_{k \in \N} A_k \implies \lam(A) = \lam\br{\bigcup_{k \in \N} A_k}.\]
+    Tomemos $\ds B_k = A_k \setminus \bigcup_{i=1}^{k-1} A_i$, luego
+    \[\bigcup_{k \in \N} B_k = \bigcup_{k \in \N} A_k.\]
+    \begin{align*}
+      \lam(A) &= \sum_{k \in \N} \lam(B_k) \\
+      &= \lim_{N\to\oo} \sum_{k=1}^N \lam(B_k) \\
+      &= \lim_{N\to\oo} \lam\br{\bigcup_{k=1}^N B_k} \\
+      &= \lim_{N\to\oo} \lam(A_N).
+    \end{align*}
+  \end{itemize}
+\end{proof}
+
+\begin{obs}
+  Una medida definida sobre los borelianos de un espacio topológico se llama \wea{regular} si cumple (1) y (2). %% cambiar a definición
+\end{obs}
+
+\begin{proposition}
+  $\forall x\in \R^n$, $\forall A \subseteq \R^n$:
+  \begin{enumerate}[(1)]
+    \item $\lam^*(x + A) = \lam^*(A)$,
+    \item $B$ es medible si y solo si $x + B$ es medible.
+  \end{enumerate}
+\end{proposition}
+\begin{proof}
+  [\dem{1}]
+  Viene de que $\abs{R_i} = \abs{R_i + x}$, directo de la definición. %% escribir eventualmente
+\end{proof}
+\begin{proof}
+  [\dem{2}]
+  $\lam^*(A-x) = \lam^*(A-x \cap B) + \lam^*(A-x \cap B^c), \quad \forall A \subseteq \R^n$.
+  \[\implies \lam^*(A) = \lam^*(A \cap B+x) + \lam^*(A \cap (B+x)^c).\]
+\end{proof}
+
+\begin{theorem}
+  $\exists A \subseteq (0,1)$ que no es $\lam$--medible.
+\end{theorem}
+\begin{proof}
+  Definimos la relación $x \sim y \iff x-y \in \Q$. Esta es relación de equivalencia.
+  Tomamos $E \subseteq [0,1]$ que contenga exactamente 1 representante de cada clase de equivalencia (depende del axioma de elección).
+  Tomemos $\{r_k\}_{k\in\N} \subseteq \Q \cap [-1,1]$ (enumeramos los racionales dentro de $[-1,1]$) y tomamos
+  \[E_k = r_k + E.\]
+  Afirmamos:
+  \begin{enumerate}[(1)]
+    \item $k \neq j \implies E_k \cap E_j = \varnothing$.
+    \item $\ds \bigcup_{k \in \N} E_k \subseteq (-1,2)$.
+    \item $(0,1) \subseteq \bigcup_{k \in \N} E_k$.
+  \end{enumerate}
+  Si tuvieramos estar 3 afirmaciones, entonces tendríamos que
+  \[\lam^*(0,1) \leq \lam^*\br{\bigcup_{k\in\N} E_k}.\]
+  Luego $E$ es medible $\iff E_k$ es medible, por lo que
+  \[\lam^*\br{\bigcup_{k \in \N} E_k}  = \sum_{k \in \N} \lam(E_k) = \sum_{k \in \N} \lam(E).\]
+  Pero $\lam\br{\bigcup_{k\in\N} E_k} \leq \lam(-1,2) = 3$, y entonces $\lam(E) = 0$, por lo que $\lam(0,1) = 0$. Contradicción, y por lo tanto $E$ no es medible.
+  Demostremos las afirmaciones:
+  \begin{enumerate}[(1)]
+    \item Sean $k \neq j$ y supongamos que existe $x \in E_k \cap E_j$.
+    \[\implies x = r_k + e_1 = r_j + e_j, \quad e_1, e_2 \in E, r_j \neq r_k.\]
+    Luego $e_1 - e_2 = r_k - r_j \in \Q$, y entonces $e_1 \sim e_2$, lo cual no puede ocurrir por la definición de $E$ (contiene un único representante de $[e_1] = [e_2]$).
+    \item Sea $\ds x \in \bigcup_{k \in \N} E_k$, entonces existe $k_0$ tal que $x = r_{k_0} + e$ con $e \in E$. Notemos que $r_{k_0} \leq 1$ y $e < 1$, por lo que $x < 2$. También, $r_k \geq -1$ y $e> 0$, por lo que $x > -1$. Luego $-1 < x < 2 \implies x \in (-1,2)$.
+    \item Sea $x \in (0,1)$. Si $x \in E$, entonces existe $k$ tal que $r_k = 0$, por lo que $x \in E_k$. Si $x \notin E$, entonces existe algún $e \in E$ tal que $x \sim e$. Por lo tanto $x-e=r \in \Q$, y si $r \in [-1,1]$, entonces $r = r_k$ para algún $k$. Luego $-1 < x-e < 1$ porque $x,e \in (0,1)$. Por lo tanto $x-e = r_k$ para algún $k$ y $x \in E_k$.
+  \end{enumerate}
+\end{proof}
+
 %\fecha{Clase 13.}
 %\fecha{Clase 14.}
 %\fecha{Clase 15.}
