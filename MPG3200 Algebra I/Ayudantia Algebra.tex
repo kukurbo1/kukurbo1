@@ -21,7 +21,7 @@
 \usepackage[framemethod = TikZ]{mdframed}
 
 %theorems
-\newtheorem{theorem}{Teorema}[section]
+\newtheorem{theorem}{Teorema}[subsection]
 
 \newtheorem{algorithm}{Algorithm}
 \newtheorem{axiom}{Axioma}
@@ -75,6 +75,8 @@
   skipbelow=\medskipamount
 ]{solution}
 
+%commands
+
 %Main letters
 \newcommand{\A}{\mathbb{A}}
 \newcommand{\B}{\mathbb{B}}
@@ -114,6 +116,11 @@
 \newcommand{\Ycal}{\mathcal{Y}}
 \newcommand{\Zcal}{\mathcal{Z}}
 
+\newcommand{\lam}{\lambda}
+\newcommand{\e}{\varepsilon}
+\newcommand{\w}{\omega}
+\renewcommand{\a}{\alpha}
+
 %symbols
 \newcommand{\vphi}{\varphi}
 \newcommand{\oo}{\infty}
@@ -141,7 +148,11 @@
 \newcommand{\Hom}{\mathrm{Hom}}
 \newcommand{\stab}{\mathrm{stab}}
 \newcommand{\Cent}{\mathrm{Cent}}
-\newcommand{\Fix}{\mathrm{Fix}}
+\newcommand{\ab}{\mathrm{ab}}
+\newcommand{\sop}{\mathrm{sop}}
+\newcommand{\Cay}{\mathrm{Cay}}
+\newcommand{\ord}{\mathrm{ord}}
+\newcommand{\lcm}{\mathrm{lcm}}
 
 %different bracket types
 \newcommand{\abs}[1]{\left| #1 \right|}
@@ -223,371 +234,163 @@ Ayudante: Valentina Moreno, correo: \texttt{valentina.moreno.1@ug.uchile.cl}
 \newpage
 \section{Ayudantía 1. Miércoles 11 de Marzo}
 
-\subsection{Problema 1}
-Demuestre que la intersección de grupos es grupo. ¿Será cierto para la unión?
-\begin{proof}
-    Sean $H,K \leqslant G$, y consideramos la intersección $H \cap K$. Como $H$ es subgrupo de $G$, tenemos que $e \in H$. De la misma forma $e \in K$, y entonces $e \in H \cap K$, y por lo tanto $H \cap K \neq \varnothing$.
 
-    Sean $h,k \in H \cap K$. Tenemos que $h,k \in H$, por lo que $hk^{-1} \in H$. Similarmente $h,k \in K$, y entonces $hk^{-1} \in K$. Por lo tanto $hk^{-1} \in H \cap K$, y como $h,k$ son arbitrarios, tenemos que $H \cap K \leqslant G$.
+\begin{enumerate}
+
+\item Demuestre que la intersección de grupos es grupo. ¿Puede decir lo mismo de la unión?
+\begin{proof}
+    Sean $H,K \leqslant G$. Veamos que $H \cap K \leqslant G$.
+    Notemos que $e \in H$ y $e \in K$, por lo que $e \in H \cap K$, y entonces $H \cap K \neq \varnothing$.
+
+    Sean $g,h \in H \cap K$. Luego $g,h \in H$, y como es subgrupo, $gh^{-1} \in H$. También $g,h \in K$, por lo que $gh^{-1} \in K$. Luego $gh^{-1} \in H \cap K$.
+
+    Para la unión, consideremos $2\Z, 3\Z \leqslant \Z$. Notemos que $2,3 \in 2\Z \cup 3\Z$, pero $2+3 = 5 \notin 2\Z \cup 3\Z$. Por lo tanto $2\Z \cup 3\Z$ no es grupo.
 \end{proof}
 
-\subsection{Problema 2}
-Decida si los siguientes grupos son finitamente generados:
-\begin{enumerate}[(a)]
-    \item $(\Z,+)$
-    \item $(\Z^n,+)$
-    \item $(\Q,+)$
-    \item $(\mu_n,\c)$
-    \item $(\Q^*,\c)$
+\item Decida si los siguientes grupos son finitamente generados. Justifique en ambos casos.
+
+\begin{enumerate}
+\item $(\mathbb{Z},+),$
+\begin{proof}
+    Consideremos el conjunto $S = \{1\} \subseteq \Z$. Sea $n \in \Z$, tenemos 3 casos:
+    \begin{itemize}
+        \item Si $n>0$, entonces $n = \sum_{i=1}^n 1 \in \gen{1}$.
+        \item Si $n<0$, entonces $n = \sum_{i=1}^n -1 \in \gen{1}$.
+        \item Si $n=0$, entonces $0 = 1-1 \in \gen{1}$.
+    \end{itemize}
+    Por lo tanto $\Z = \gen{1}$, y entonces es finitamente generado.
+\end{proof}
+
+\item $(\mathbb{Z}^{n},+),$
+\begin{proof}
+    Consideremos $e_1, \dots, e_n \in \Z^n$ la base canónica de $\Z^n$. Luego para todo $v \in \Z^n$, existen $\a_1, \dots, \a_n \in \Z$ tales que
+    \[v = \br{\sum_{i=1}^{\a_1} e_1, \dots, \sum_{i=1}^{a_n} e_n} \in \gen{e_1,\dots,e_n}.\]
+    Luego $\Z^n$ es finitamente generado.
+\end{proof}
+
+\item $(\mathbb{Q},+)$
+\item $(\mathbb{Q}^*,\cdot)$
+\item $(\mu_n=\{ z \in \mathbb{C} : z^n=1\}, \cdot)$
 \end{enumerate}
-\begin{proof}
-    [\dem{a}]
-    Notemos que todo entero $n >0$ se escribe de la forma
-    \[n = \underbrace{1+\dots+1}_{n \text{ veces}}.\]
-    También, todo entero $n<0$ se escribe de la forma
-    \[n = \underbrace{-1-\dots-1}_{n \text{ veces}}.\]
-    Además, $0 = 1-1$, y entonces $\Z = \gen{1}$, por lo que es finitamente generado.
-\end{proof}
-\begin{proof}
-    [\dem{b}]
-    Consideramos la base canónica de $\Z^n$
-    \[\{e_1,\dots,e_n\} = \{(1,0,\dots,0), \dots, (0,\dots,0,1)\}.\]
-    Sea $v = (a_1,\dots,a_n) \in \Z^n$, entonces
-    \[v = a_1 e_1 + \dots + a_n e_n.\]
-    Como $a_i \in \Z = \gen{1}$, tenemos que $a_i e_i \in \gen{e_i}$, y entonces $v \in \gen{e_1,\dots,e_n}$. Luego $\Z = \gen{e_1,\dots,e_n}$, y entonces es finitamente generado.
-\end{proof}
-\begin{proof}
-    [\dem{c}]
-    Veamos que $(\Q,+)$ no es finitamente generado. Por contradicción, supongamos que
-    $$\Q = \gen{\frac{p_1}{q_1}, \dots, \frac{p_n}{q_n}}$$
-    con $p_i,q_i \in \Z$ y $q_i \neq 0$ para todo $i$.
-    Sea $r \in \Q$, entonces existen $\alpha_1,\dots,\alpha_n \in \Z$ tales que
-    \[r = \sum_{i=1}^n \alpha_i \frac{p_i}{q_i}.\]
-    Sea $Q = q_1 \cdots q_n$, entonces notemos que
-    \[Qr = Q \sum_{i=1}^n \frac{\alpha_i p_i}{q_i} = \sum_{i=1}^n \alpha_i p_i \frac{Q}{q_i}.\]
-    Como $q_i \mid Q$, tenemos que $Q/q_i \in \Z$ para todo $i$, y entonces $Qr \in \Z$ para todo $r \in \Q$. Notemos que $1/(Q+1) \in \Q$, pero tenemos que $Q/(Q+1) \notin \Z$, contradicción. Por lo tanto $\Q$ no es finitamente generado.
-\end{proof}
 
-\subsection{Problema 3}
-Demuestre los siguientes isomorfismos.
-\begin{enumerate}[(a)]
-    \item $\ds \mu_n \simeq \znz n$
-    \item $\ds \Q^* \simeq \znz 2 \times \bigoplus_{p \text{ primo}} \Z$
-    \item $\ds \Aut(\Z^n) \simeq \GL_n(\Z)$
+\item \textbf{Demuestre los siguientes isomorfismos.}\\
+\textit{Nota. Si decide comenzar con este ejercicio, puede utilizar su resultado para resolver el ejercicio anterior.}
+\begin{enumerate}
+\item $\mu_n\cong \mathbb{Z}/n\mathbb{Z}$. \ Donde $\mu_n=\{ z \in \mathbb{C} : z^n=1\}$ .
+\item $\mathbb{Q}^* \cong \mathbb{Z}/2\mathbb{Z} \ \times \bigoplus\limits_{p \textnormal{ primo}} \mathbb{Z}.$ 
+\item $Aut(\mathbb{Z}^n) \cong GL(n,\mathbb{Z})$
 \end{enumerate}
+
+
+\end{enumerate}
+
+
 
 \newpage
 \section{Ayudantía 2 Miércoles 18 de Marzo}
-\subsection{Problema 1}
-\begin{enumerate}[(a)]
-\item Pruebe que el producto cartesiano de conjuntos no vacíos es vacío.
-\begin{proof}
-    Sea $\{X_i\}_{i \in I}$ una familia de conjuntos no vacíos. El producto de estos conjuntos es
-    \[X = \prod_{i\in I} X_i = \{f \colon I \to \bigcup_{i\in I} X_i \mid \forall i \in I (f(i) \in X_i)\}.\]
-    El Axioma de Elección dice que existe al menos una función perteneciente a este conjunto, por lo que $X \neq \varnothing$.
-\end{proof}
 
-\item Pruebe que para cualquier conjunto $X$ se tiene que $|X| \leq |X \times X|$. ¿Qué ocurre si $X$ es infinito?
-\begin{proof}
-    
-\end{proof}
 
-\item Considere ahora dos conjuntos $A,B$ infinitos ¿Qué se puede decir de $\abs{A \times B}$ respecto de $\abs A$ y $\abs B$?
-\begin{proof}
-    Supongamos que $\abs A \leq \abs B$. Fijamos $a \in A$, y consideremos la función
-    \begin{align*}
-        f \colon B &\to B \times A \\
-        x &\mapsto (x,a).
-    \end{align*}
-    Sean $x,y \in B$ tales que $f(x) = f(y)$. Entonces $(x,a) = (y,a)$, y por lo tanto $x=y$. Entonces $f$ es inyectiva y luego $\abs B \leq \abs{B \times A}$.
-    Como $\abs A \leq \abs B$, existe una función inyectiva $g \colon A \embbed B$. Luego definimos
-    \begin{align*}
-        h \colon B \times A &\to B \times B \\
-        (x,y) &\mapsto (g(x),y).
-    \end{align*}
-    Sean $(x_1,y_1), (x_2,y_2) \in A \times B$ tales que $h(x_1,y_1) = h(x_2,y_2)$.
-    \[\implies (g(x_1),y_1) = h(x_1,y_1) = h(x_2,y_2) = (g(x_2),y_2)\]
-    \[\implies g(x_1) = g(x_2), \quad y_1 = y_2\]
-    \[\implies x_1 = x_2, \quad y_1 = y_2\]
-    \[\implies (x_1,y_1) = (x_2,y_2).\]
-    Por lo tanto $h$ es inyectiva, y entonces $\abs{A \times B} = \abs{B \times B} = \abs B$.
-\end{proof}
+\begin{enumerate}
+\item \textbf{Calentando motores con álgebra de cardinales.}
+\begin{enumerate}
+\item Pruebe que el producto cartesiano de conjuntos no vacíos es no vacío.
+
+\item Pruebe que para cualquier conjunto $X$, se cumple que $|X| \leq |X \times X|$  ¿Qué ocurre si $X$ es infinito?
+
+\item Considere ahora dos conjuntos $A,B$ infinitos ¿Qué puede decir de $|A \times B|$ respecto de $|A|$ y $|B|$?
+
 \end{enumerate}
 
-\newpage
-\subsection{Problema 2}
-\begin{enumerate}[(a)]
-\item Pruebe que existe una biyección entre $\P(X)$ y $2^X$.
-\begin{proof}
-    Primero notemos que $2^X = \{f \colon X \to \{0,1\}\}$.
-    Consideremos la función
-    \begin{align*}
-        \chi \colon \P(X) &\to 2^X \\
-        A &\mapsto \chi_A(x) = \begin{cases}
-            1, &x \in A \\
-            0, &x \notin A
-        \end{cases}
-    \end{align*}
-    Veamos que es biyectiva.
-    \begin{itemize}
-        \item \wea{Inyectiva: }
-        Sean $A,B \in \P(X)$ tales que $\chi(A) = \chi(B)$. Entonces $\chi_A(x) = \chi_B(x)$ para todo $x \in X$. Notemos que
-        \[x \in A
-        \iff \chi_A(x) = 1
-        \iff \chi_B(x) = 1
-        \iff x \in B.\]
-        Por lo tanto $A = B$. Entonces $\chi$ es inyectiva.
-        \item \wea{Sobreyectiva: }
-        Sea $f \in 2^X$, y consideremos $S = \{x \in X \colon f(x) = 1\}$. Notemos que $\chi_S(x) = f(x)$ para todo $x \in X$, por lo que $S$ es preimagen de $f$. Entonces $\chi$ es sobreyectiva.
-    \end{itemize}
-    Concluimos entonces que $\chi$ es una biyección entre $\P(X)$ y $2^X$.
-\end{proof}
-
-\item Demeustre que $\abs X < \abs{2^X}$.
-\begin{proof}
-    Sea $f \colon X \embbed \P(X)$ dada por $f(x) = \{x\}$. Esta función es inyectiva, luego $\abs X \leq \abs{\P(X)}$.
-    Ahora supongamos que existe $g \colon X \to \P(X)$ sobreyectiva, y sea $$B = \{x \in X \colon x \notin g(x)\} \subseteq X.$$
-    Como $g$ es sobreyectiva, existe $b \in X$ tal que $g(b) = B$.
-    \begin{itemize}
-        \item Si $b \in B$, entonces por definición de $B$ tenemos que $b \notin g(b) = B$. $\to\gets$
-        \item Si $b \notin B = g(b)$
-    \end{itemize}
-\end{proof}
-
-\item Concluya que $\abs{X} \leq \abs{X^X}$. ¿En qué caso tenemos la igualdad?
-\begin{proof}
-    Si $\abs X \geq 2$, fijamos $a,b \in X$ y consideramos
-    \begin{align*}
-        \psi \colon \P(X) &\to X^X \\
-        A &\mapsto f_A(x) = \begin{cases}
-            a, &x \in A \\
-            b, &x \notin A
-        \end{cases}
-    \end{align*}
-\end{proof}
+\item \textbf{Considere un conjunto $X$.}
+\begin{enumerate}
+\item Pruebe que existe una biyección entre $\mathcal{P}(X)$ y $2^X$.
+\item Demuestre que $|X| <  |2^X|.$
+\item Concluya que $|X| \leq |X^X|$ ¿En que caso tenemos la igualdad?
 \end{enumerate}
+
+\item \textbf{Sea $V$ un espacio vectorial y sea $L \subseteq V$ un subconjunto linealmente independiente.
+Pruebe que existe una base de $V$ que contiene a $L$.}
+\end{enumerate}
+
+
+
 
 \newpage
 \section{Ayudantía 3. Miércoles 25 de Marzo}
 
-\begin{definition}
-    Dada una acción $G \acts X$, definimos
-    \[\Fix(g) = \{x \in X \colon g \c x = x\}.\]
-\end{definition}
 
-\begin{lemma}
-    [Burnside]
-    Sea $G$ un grupo finito tal que $G \acts X$.  Sea $X/G$ el conjunto de órbitas de la acción. Entonces
-    \[\abs{X \setminus G} = \frac{1}{\abs{G}} \sum_{g \in G} \abs{\Fix(g)}\]
-\end{lemma}
-\begin{proof}
-    \begin{align*}
-        \sum_{g\in G} \abs{\Fix(g)}
-        &= \sum_{g \in G} \abs{\{x \in X \colon g \c x = x \}} \\
-        &= \sum_{g \in G} \abs{\{(g,x) \in G \times X \colon g \c x = x\}} \\
-        &= \sum_{x \in X} \abs{\{g \in G \colon g \c x = x\}} \\
-        &= \sum_{x \in X} \abs{\stab_G(x)}.
-    \end{align*}
-    Para cada $x \in X$, existen biyecciones entre la órbita $\orb_G(x)$ y el conjunto de clases laterales izquierdas $G/\orb_G(x)$. Luego
-    \[\abs{\orb_G(x)} = [G \colon \orb_G(x)] = \frac{\abs G}{\abs{\orb_G(x)}}\]
-    \[\implies \sum_{x\in X} \abs{\orb_G(x)}
-    = \sum_{x \in X} \frac{\abs{G}}{\abs{\orb_G(x)}}
-    = \abs{G} \sum_{x \in X} \frac{1}{\orb_G(x)}.\]
-    Tenemos también que $X = \bigcupdot_{\Ocal \in X/G} \Ocal$
-    \begin{align*}
-        \implies \sum_{x \in X} \frac{1}{\orb_G(x)}
-        &= \sum_{\Ocal \in X/G} \sum_{x \in \Ocal} \frac{1}{\abs{\orb_G(x)}} \\
-        &= \sum_{\Ocal \in X/G} \sum_{x \in \Ocal} \frac{1}{\abs\Ocal} \\
-        &= \sum_{\Ocal \in X/G} \frac{\abs\Ocal}{\abs\Ocal} \\
-        &= \sum_{\Ocal \in X/G} 1 = \abs{X/G}
-    \end{align*}
-    \[\implies \abs{G} \sum_{x \in X} \frac{1}{\abs{\orb_G(x)}} = \abs{G} \c \abs{X/G}.\]
-\end{proof}
-
-\subsection{Problema 1}
 \begin{enumerate}
-\item Sea $\sigma \in S_n$. Muestre que $\sigma$ se escribe de manera única en producto de ciclos disjuntos (salvo permutación de ciclos).
-\begin{proof}
-    Sea $X = \{1,\dots,n\}$. Para $a \in X$, consideramos su órbita bajo $\sigma$:
-    \[a, \sigma(a), \sigma^2(a), \sigma^3(a), \dots\]
-    Como $\abs X = n < \oo$, existen $r<s \leq n$ tales que $\sigma^r(a) = \sigma^s(a)$. Luego $a = \sigma^{s-r}(a)$, y entonces
-    \[\{m \in \N \colon \sigma^m(a) = a\} \neq \varnothing.\]
-    Por lo tanto tiene un elemento mínimo. Sea $k$ el menor entero positivo tal que $\sigma^k(a) = a$. Entonces
-    \[a, \sigma(a), \dots, \sigma^{k-1}(a)\]
-    son todos distintos. Luego definimos el ciclo
-    \[\tau_1 = (a, \sigma(a),\dots, \sigma^{k-1}(a)).\]
-    Luego %% no entendi el como estaba escrito en la pizarra kfjgkfg lo escribo eventualmente
-\end{proof}
+\item \textbf{Considere el grupo de permutaciones de $n$ elementos $S_n$}.\\
 
-\item Muestre que $S_n$ es generado por transposiciones.
-\begin{proof}
-    Por la parte anterior, basta mostrar que todo ciclo se escribe como producto de transposiciones. Notemos que, para $a_1,\dots,a_k \in \{1,\dots,n\}$ tenemos
-    \[(a_1 \dots a_k) = (a_1 a_k) (a_1 a_{k-1}) \dots (a_1 a_3) (a_1 a_2).\]
-\end{proof}
+\begin{enumerate}
+\item Demuestre que toda permutación de $S_n$ se escribe de manera única como producto de ciclos disjuntos.
+\item Muestrte que $S_n$ está generado por transpocisiones.
+\item Muestrte que $S_n$ está generado por transpocisiones adyacentes, es decir, de la forma $(i \hspace{0.2cm} i+1)$.
+\item Pruebe que, dado una permutación $\sigma$ de $S_n$ y un ciclo $(a_1 \hspace{0.2cm} a_2 \cdots a_k)$,
+$$\sigma(a_1 \hspace{0.2cm} a_2 \cdots a_k)\sigma^{-1}=(\sigma(a_1) \hspace{0.2cm} \sigma(a_2) \cdots \sigma (a_k)).$$
+\item Demuestre que el grupo de permutaciones $S_n$ está generado por la transposición $(1 2)$ y el ciclo $(1 2 \cdots n)$.
+\end{enumerate}
+\item \textbf{Considere un polígono regular de \(n\) vértices numerados del \(1\) al \(n\) en sentido horario. El grupo de rotaciones del polígono está generado por la permutación \(\sigma = (1\;2\;\cdots\;n)\). Queremos colorear cada vértice con uno de \(k\) colores. Dos coloraciones se consideran equivalentes si una se obtiene de la otra mediante una rotación (es decir, aplicando alguna potencia de \(\sigma\)).}
 
-\item Muestre que las transposiciones de la forma $(i, i+1)$ generan $S_n$.
-\begin{proof}
-    Como toda permutación es generada por transposiciones, basta mostrar que toda transposición se puede escribir como producto de ciclos adyacentes, y en particular, basta comprobar para ciclos de la forma $(1k)$ con $k \in \{1,\dots,n\}$. Por inducción, tenemos como caso base $(12)$, el cual ya es una transposición adyacente.
-    Supongamos que $(1,k)$ se escribe como producto de transposiciones, veamos que
-    \[(1,k+1) = (k,k+1)(1,k)(k,k+1).\]
-    Usando la acción $S_n \acts \{1,\dots,n\}$, notamos que
-    \[(1,k+1) \c m = (k,k+1)(1,k)(k,k+1) \c m, \quad \forall m \in \{2,\dots,n\} \setminus \{1,k,k+1\}.\]
-    Notemos también que
-    \[(k,k+1)(1,k)(k,k+1) \c 1
-    = (k,k+1)(1,k) \c 1
-    = (k,k+1) \c k
-    = k+1 = (1,k+1) \c 1.\]
-    \[(k,k+1)(1,k)(k,k+1) \c k
-    = (k,k+1)(1,k) \c (k+1)
-    = (k,k+1) \c (k+1)
-    = k
-    = (1,k+1) \c k\]
-    \[a\]
-\end{proof}
-
-\item Sea $\sigma \in S_n$ y $(a_1 a_2 \dots a_k)$ un ciclo. Pruebe que $$\sigma(a_1 \dots a_k) \sigma^{-1} = (\sigma(a_1), \dots, \sigma(a_k)).$$
-
-\item Demuestre que $S_n$ está generado por $(12)$ y $(12 \dots n)$.
+\begin{enumerate}
+\item Para \(k=2\) colores, aplique el lema de Burnside para determinar el número de coloraciones distintas (módulo rotaciones) en función de \(n\).
+\item Calcule explícitamente para \(k\) colores cualesquiera con \(n = 4\), \(n = 5\) y \(n = 6\)
+\item Generalice para un polígono de \(n\) vértices y \(k\) colores cualesquiera. ¿Cuál es la fórmula general? (\textit{Sugerencia.}Puede expresarla en términos de la función \(\varphi\) de Euler).
+\end{enumerate}
 \end{enumerate}
 
 
-\newpage
-\subsection{Problema 2}
-
-Considere un polígono regular de $n$ vértices numerados del 1 al $n$ en el sentido horario. El grupo de rotaciones del polígono está generado por la permutación $\sigma = (12\dots n)$. Queremos colorear cada vértice con uno de $k$ colores. Dos coloraciones se consideran equivalentes si una se obtiene de la otra mediante una rotación (es decir, aplicando alguna potencia de $\sigma$).
-
-\begin{enumerate}
-\item Para $k = 2$ colores, aplique el lema de Burnisde para determinar el número de coloraciones distintas (módulo rotaciones) en función de $n$.
-\item Calcule explícitamente para $k$ colores cualesquiera con $n=4, 5,6$.
-\item Generalice para un polígono de $n$ vértices y $k$ colores cualesquiera. ¿Cuál es la fórmula general? (Sugerencia. Puede expresarla en términos de la función $\varphi$ de Euler).
-\end{enumerate}
 
 \newpage
 \section{Ayudantía 4. Miércoles 1 de Abril}
 
-\begin{definition}
-    Decimos que un grupo $G$ es \wea{soluble} si existe una secuencia $G_0, \dots, G_n$ subgrupos de $G$ tales que
-    \begin{itemize}
-        \item $G_0 = G$, $G_n = \{1_G\}$.
-        \item $G_i \normal G_{i-1}$, $\forall i$.
-        \item $G_i/G_{i-1}$ es abeliano $\forall i$.
-    \end{itemize}
-    Una \wea{serie central} de $G$ es una secuencia de subgrupos
-    \[G = H_0 \supseteq H_1 \supseteq \dots \supseteq H_k = \{1_G\}\]
-    tal que $\forall i$, $H_i \normal G$ y $H_{i-1}/H_i \subseteq Z(G/H_i)$.
 
-    $G$ es \wea{nilpotente} si existe una serie central para $G$.
-\end{definition}
+\begin{enumerate}
 
-\begin{obs}
-    Si escribimos $G^{(1)} = [G,G]$, $G^{(i+1)} = [G^{(i)},G]$ para $i \geq 1$, entonces tenemos que $G^{(i)} \normal G$ y $G^{(i)}/G^{(i+1)} \subseteq Z(G/G^{(i+1)})$ para todo $i$.
+\item \textbf{Sea $G$ el grupo de las ismometrías de un $n-$ágono regular.}
 
-    Luego $G$ es nilpotente si y solo si $\exists m \in \Z$ tal que $G^{(m)} = \{1_G\}$.
-\end{obs}
+\begin{enumerate}
+\item Muestre que $G \cong D_{2n}$ con 
+$$D_{2n}= \langle s,b \ | \ r^n=s^2=1, \ rs=sr^{-1} \rangle.$$
+\item Describa las clases de conjugación de $D_{2n}$.
 
-\newpage
-\subsection{Problema 1}
-Sea $G$ el grupo de las isometrías de un $n$--ágono regular.
-\begin{enumerate}[(a)]
-\item Muestre que $G \simeq D_{2n} \coloneqq \gen{s,r \mid r^n = s^2 = 1, rs = sr^{-1}}$.
-\begin{proof}
-    Denotamos la rotación por un ángulo $2\pi/n$ como $r^*$. Con esto tenemos que $(r^*)^n = 1$.
-    Denotamos la reflexión respecto a un eje fijo por $s^*$. Como reflejar dos veces no hace nada, tenemos $(s^*)^2 = 1$. Luego $G = \gen{r^*,s^*}$.
-    Notemos que $r^* s^* = s^* (r^*)^{-1}$.
-
-    Sea $F(\{r,s\})$ el grupo libre en 2 generadores. Consideramos la función
-    \begin{align*}
-        \vphi \colon F &\to G \\
-        r &\mapsto r^* \\
-        s &\mapsto s^*
-    \end{align*}
-    Como $s^* r^* s^* r^* = 1$, entonces $s^* r^* s^* r^* \in \ker\vphi$. Sea
-    \[N = \ll (r^*)n, (s^*)^2, s^* r^* s^* r^* \gg\]
-    No alcancé a anotar el resto, pero saqué foto. Lo tipeo eventualmente %% no olvidar
-\end{proof}
-
-\item Calcule las clases de conjugación de $D_{2n}$.
-
-\item Calcule el conmutador $[G,G]$.
-
+\item Calcule el conmutador $[G:G].$
 \item Pruebe que $G$ es soluble.
+\item Pruebe que $G$ es nilpotente si y solamente si $n$ es potencia de $2$.
 
-\item Pruebe que $G$ es nilpotente si y solo si $n$ es potencia de 2.
+\end{enumerate}
+\item \textbf{Sea $G$ un grupo simple de orden $n$, y sea $H$ un subgrupo propio de índice $K$. Muestre que $G$ es isomorfo a un subgrupo de $S_k$.}
+
+\item \textbf{Decida si lo siguientes grupos son solubles. Justifique su respuesta.}
+\begin{enumerate}
+\item El grupo simétrico $S_4.$
+\item El grupo alternante $A_4$.
+\item El grupo simétrico $S_5$.
+\item El grupo cíclico $\mathbb{Z}_{12}$.
+\item El grupo diedral $D_8$ (simetrías del cuadrado) .
+\item El grupo alternante $A_5$.
+\item El grupo $\mathbb{Z}_2 \times \mathbb{Z}_2$.
+\end{enumerate}
 \end{enumerate}
 
-\newpage
-\subsection{Problema 2}
 
-Sea $G$ un grupo simple de orden $n$, y sea $H$ un subgrupo propio de índice $k$.
-Muestre que $G \simeq L$ con $L \leqslant S_k$.
-
-\emph{Hint.} Se puede asumir: Sea $G$ un grupo con $H \leqslant G$ tal que $[G \colon H] = p$ donde $p$ es el menor primo que divide a $\abs G$. Entonces $H$ es normal. (Dummit, 4.2, corolario 5) %% citar bien
-
-
-
-\newpage
-\subsection{Problema 3}
-
-Decida si los siguientes grupos son solubles.
-\begin{enumerate}[(a)]
-\item $S_4$
-\item $A_4$
-\item $S_5$
-\item $\Z_{12}$
-\item $D_8$
-\item $A_5$
-\item $\Z_2 \times \Z_2$
-\end{enumerate}
 
 \newpage
 \section{Ayudantía 5. Miércoles 8 de Abril}
 
-\subsection{Problema 1}
-\textbf{Sea $G$ un grupo generado por un subconjunto $X$. Considere $g=x_1^{e_1} \cdots x_n^{e_n} \in X, \ e_i=\pm 1$ con $n\geq 2$ una palabra reducida. Si toda palabra reducida $g$ no es igual a $e_g$ entonces $G$ es libre.}
-\begin{proof}
-    Consideremos la función $f \colon X \to G$ dada por $x \mapsto x$. Por la propiedad fundamental de grupos libres, existe un homomorfismo $\vphi \colon F(X) \to G$ tal que $f(x) = \vphi(x)$ para todo $x \in X$.
-    
-    Notemos que $\vphi$ es sobreyectiva: Todo elemento $g \in G$ se escribe de la forma
-    \[g = x_1^{e_1} \dots x_n^{e_n}, \quad x_i \in X, \quad e_i \in \{\pm 1\}.\]
-    Luego
-    \begin{align*}
-        g &= x_1^{e_1} \dots x_n^{e_n} \\
-        &= f(x_1)^{e_1} \dots f(x_n)^{e_n} \\
-        &= \vphi(x_1)^{e_1} \dots \vphi(x_n)^{e_n} \\
-        &= \vphi(x_1^{e_1} \dots x_n^{e_n})
-    \end{align*}
-    y entonces todo elemento tiene preimagen.
-    Luego
-    \[F(X) \simeq \frac{F(X)}{\ker\vphi} \simeq G\]
-\end{proof}
 
-\subsection{Problema 2}
-\textbf{Cuaterniones y cuaterniones generalizados.}
 \begin{enumerate}
-    \item Pruebe que el grupo de los cuaterniones $Q_8 = \{ \pm 1, \pm i, \pm j \pm k\}$ es isomorfo al grupo con la presentación $$ \langle  i,j \ | \ i^4=1, \  j^2=i^2, \ j^{-1}ij=i^{-1} \rangle.$$
-    \begin{proof}
-        Notemos que
-        \[Q_8 = \gen{i,j,k \mid i^2 = j^2 = k^2 = -1, ij=k, jk=i, ki=j}.\]
-        Tomamos
-        \[G = \gen{a,b \mid a^4 = 1, b^2=a^2, b^{-1}ab = a^{-1}}.\]
-        Consideramos el homomorfismo
-        \begin{align*}
-            \vphi \colon G &\to Q_8 \\
-            a &\mapsto i \\
-            b &\mapsto j
-        \end{align*}
-    \end{proof}
+\item \textbf{Sea $G$ un grupo generado por un subconjunto $X$. Considere $g=x_1^{e_1} \cdots x_n^{e_n} \in X, \ e_i=\pm 1$ con $n\geq 2$ una palabra reducida. Si toda palabra reducida $g$ no es igual a $e_g$ entonces $G$ es libre.}
 
-    \item Considere ahora el grupo de \textit{cuaterniones generalizados}
-    $$Q_{2^n}=\langle a,b \ |\ a^{2^{n-1}}=1, \ bab^{-1}=a^{-1}, \ b^2=a^{2^{n-2}} \rangle.$$ Demuestre que $Q_{2^n}$ tiene orden $2^n$.
-    \begin{proof}
-        Notemos que 
-    \end{proof}
+\item \textbf{Cuaterniones y cuaterniones generalizados.}
+\begin{enumerate}
+\item Pruebe que el grupo de los cuaterniones $Q_8 = \{ \pm 1, \pm i, \pm j \pm k\}$ es isomorfo al grupo con la presentación $$ \langle  i,j \ | \ i^4=1, \  j^2=i^2, \ j^{-1}ij=i^{-1} \rangle.$$
+\item Considere ahora el grupo de \textit{cuaterniones generalizados}
+$$Q_{2^n}=\langle a,b \ |\ a^{2^{n-1}}=1, \ bab^{-1}=a^{-1}, \ b^2=a^{2^{n-2}} \rangle.$$ Demuestre que $Q_{2^n}$ tiene orden $2^n$.
 \end{enumerate}
 
-    
-\subsection{Problema 3}
-\textbf{Sea $G$ un grupo y sea $F \subseteq G$ el subconjunto de elementos de $G$ que nunca ayudan a generar $G$. Es decir,
+
+\item \textbf{Sea $G$ un grupo y sea $F \subseteq G$ el subconjunto de elementos de $G$ que nunca ayudan a generar $G$. Es decir,
 \[
 F = \{x \in G \mid \forall S \subseteq G,\ \langle S, x \rangle = G \Rightarrow \langle S \rangle = G \}.
 \]
@@ -603,6 +406,62 @@ donde $M \subsetneq G$ recorre todos los subgrupos propios de $G$ maximales con 
 \item Si $G$ es un $p$-grupo finito, con $p$ primo, entonces cada elemento no trivial de $G/F$ es de orden $p$.
 \end{enumerate}
 
+\end{enumerate}
+
+
+
+\newpage
+\section{Ayudantía 6. Miércoles 15 de Abril}
+
+\begin{lemma}
+    Sea $G$ un grupo finito de orden $p^n$ con $p$ primo. Entonces $Z(G) \neq \{e\}$.
+\end{lemma}
+\begin{proof}
+    La ecuación de clases es
+    \[p^3 = \abs G = \abs{Z(G)} + \sum_i [G \colon C_G(x_i)]\]
+    donde $Z(G)$ es el centro y $[G \colon C_G(x_i)]$ es el índice del centralizador, el cual es igual al tamaño de la clase de conjugación de $x_i$.
+
+    Por Lagrange, $\abs{C_G(x_i)} \mid p^3$, por lo que $\abs{C_G(x_i)} \in \{p,p^2,p^3\}$. Para $x_i \notin Z(G)$, tenemos que $C_G(x_i) \neq G$, por lo que $\abs{C_G(x_i)} < p^3$. Luego
+    \[[G \colon C_G(x_i)] = \abs G / \abs{C_G(x_i)} \in \set{\frac{p^3}{p}, \frac{p^3}{p^2}} = \{p,p^2\}.\]
+    Luego $p$ divide a $[G \colon C_G(x_i)]$ para todo $i$, y entonces $[G \colon C_G(x_i)] \equiv 0 \pmod p$. Por la ecuación de clases, obtenemos que
+    \[\abs{Z(G)} \equiv 0 \pmod p\]
+    y entonces $\abs{Z(G)} \in \{p, p^2, p^3\}$. Por lo tanto $\abs{Z(G)} \neq 1$, y entonces $Z(G) \neq \{e\}$.
+\end{proof}
+
+\begin{lemma}
+    Sea $G$ un grupo y $Z(G)$ su centro. Si $G/Z(G)$ es cíclico, entonces $G$ es abeliano.
+\end{lemma}
+\begin{proof}
+    
+\end{proof}
+
+\begin{enumerate}
+\item Encuentre todos los grupos (salvo isomorfismo) de los ordenes dados:
+\begin{enumerate}
+\item Orden $8$.
+\item Orden $p^3$, con $p$ un número primo.
+\item Orden $4p$, con $p$ un número primo.
+\end{enumerate}
+
+\item \textbf{Demuestre que los siguientes grupos pueden escribirse como productos semidirectos. En cada caso, identifique explícitamente los subgrupos involucrados y la acción. Además decida si la expresión como producto semidirecto es única salvo conjugación. Justifique su respuesta}
+
+\begin{enumerate}
+
+\item El grupo diedral $D_{2n}$.
+
+\item El grupo simétrico $S_n$ para $n \geq 2$.
+
+\item Un grupo $G$ finito de orden $mn$ con $(m,n)=1$, tal que posee un subgrupo $K \trianglelefteq G$ de orden $m$.\\
+\textit{Sugerencia: Demuestre que existe un subgrupo $H \leq G$ de orden $n$ tal que 
+$G \cong K \rtimes H.$}
+
+\end{enumerate}
+
+
+\item \textbf{Encuentre todos los subgrupos del grupo $S_4$. El grupo simétrico de orden $24$.\\}
+\textit{Observación. NO lo haremos hoy pero puede ser un buen ejercicio.}
+
+\end{enumerate}
 
 
 \end{document}
