@@ -125,7 +125,7 @@
 \newcommand{\vphi}{\varphi}
 \newcommand{\oo}{\infty}
 \newcommand{\longto}{\longrightarrow}
-\newcommand{\embbed}{\hookrightarrow}
+\newcommand{\embed}{\hookrightarrow}
 \newcommand{\acts}{\curvearrowright}
 \newcommand{\actsby}[1]{\stackrel{#1}{\acts}}
 \renewcommand{\c}{\cdot}
@@ -153,6 +153,8 @@
 \newcommand{\Cay}{\mathrm{Cay}}
 \newcommand{\ord}{\mathrm{ord}}
 \newcommand{\lcm}{\mathrm{lcm}}
+\newcommand{\Fix}{\mathrm{Fix}}
+\newcommand{\Norm}{\mathrm{Norm}}
 
 %different bracket types
 \newcommand{\abs}[1]{\left| #1 \right|}
@@ -921,12 +923,12 @@
 \end{proposition}
 
 \begin{definition}
-  Decimos que un grupo $H$ \wea{se incrusta en un grupo $G$} si $\exists \phi \colon H \to G$ monomorfismo. Se denota $H \embbed G$.
+  Decimos que un grupo $H$ \wea{se incrusta en un grupo $G$} si $\exists \phi \colon H \to G$ monomorfismo. Se denota $H \embed G$.
 \end{definition}
 
 \begin{theorem}
   [Cayley]
-  Sea $G$ grupo, entonces $G \embbed \Sym(G)$. Si $\abs G = n < \oo$, entonces $G \embbed S_n$.
+  Sea $G$ grupo, entonces $G \embed \Sym(G)$. Si $\abs G = n < \oo$, entonces $G \embed S_n$.
 \end{theorem}
 \begin{proof}
   Consideremos $\phi \colon G \to \Sym(G)$ dada por $$(\phi(g))\c(h) = gh, \quad \forall g,h \in G.$$
@@ -934,9 +936,9 @@
 \end{proof}
 
 \begin{exercise}
-  Sea $G$ grupo finito con $\abs G = n$. Pruebe que $$G \embbed \GL_n(\Z).$$
+  Sea $G$ grupo finito con $\abs G = n$. Pruebe que $$G \embed \GL_n(\Z).$$
 \end{exercise}
-%% demostrar. primero G \embbed \Sym(G) \simeq S_n \embbed \GL_n(\Z), este último por matrices de permutación.
+%% demostrar. primero G \embed \Sym(G) \simeq S_n \embed \GL_n(\Z), este último por matrices de permutación.
 
 \begin{theorem}
   [Órbita--Estabilizador]
@@ -962,7 +964,7 @@
 
 \begin{theorem}
   [Cauchy]
-  Sea $G$ grupo finito y sea $p$ primo tal que $p$ divide a $\abs G$. Entonces $\zmz p \embbed G$.
+  Sea $G$ grupo finito y sea $p$ primo tal que $p$ divide a $\abs G$. Entonces $\zmz p \embed G$.
 \end{theorem}
 \begin{proof}
   Consideremos $$X = \{(x_1,\dots,x_p) \in G^p \colon x_1 x_2 \cdots x_p = 1_G\}.$$
@@ -1844,7 +1846,7 @@ Vamos a ver solo el caso de grupos contables.
   Si $G$ es un grupo finitamente presentado, el problema de decirdir si $\w \in (S \cup S^{-1})^\star$ pertenece a $\mathrm{WP}_S(G)$ es indecidible.
 \end{theorem}
 
-Sea $G$ un grupo. ¿Cómo probar que $F_n \embbed G$? Hay una técnica bonita que permite hacer eso:
+Sea $G$ un grupo. ¿Cómo probar que $F_n \embed G$? Hay una técnica bonita que permite hacer eso:
 
 \begin{lemma}
   Sea $n \geq 2$, $X$ un conjunto y $a_1, \dots, a_n \in \Sym(X)$. Supongamos que existen subconjuntos de $X$ disjuntos a pares
@@ -1876,7 +1878,7 @@ Una versión más elegante del lema del Ping Pong es la siguiente:
 \end{theorem}
 
 \begin{theorem}
-  $F_2 \embbed \SL_2(\Z)$. Más precisamente,
+  $F_2 \embed \SL_2(\Z)$. Más precisamente,
   \[\gen{\matr{1 & 2 \\ 0 & 1}, \matr{1 & 0 \\ 2 & 1}} \simeq F_2.\]
 \end{theorem}
 
@@ -1911,10 +1913,10 @@ Una versión más elegante del lema del Ping Pong es la siguiente:
 \end{example}
 
 \begin{exercise}
-  Pruebe que $F_n \embbed F_2$ para $n \geq 2$.
+  Pruebe que $F_n \embed F_2$ para $n \geq 2$.
 
   \emph{Hint:} Consideremos el conmutador $[F_2,F_2]$. Pruebe que $[F_2,F_2] \simeq F_\oo$, luego
-  \[F_n \embbed F_\oo \simeq [F_2,F_2] \leqslant F_2.\]
+  \[F_n \embed F_\oo \simeq [F_2,F_2] \leqslant F_2.\]
 \end{exercise}
 
 \newpage
@@ -1950,7 +1952,7 @@ Vamos a ver una parte del Teorema de clasificación de grupos abelianos finitame
 \begin{obs}
   Si $G$ es finito, entonces $G$ es $p$--grupo si y solo si $\abs G = p^n$ para algún $n \geq 0$.
 
-  Si $\abs G$ no es potencia de $p$, entonces existe $q \neq p$ primo tal que $q \mid \abs G$. Por el Teorema de Cauchy, $\zmz q \embbed G$, y entonces $\exists a \in G$ tal que $\ord(a) = q$. $\to\gets$
+  Si $\abs G$ no es potencia de $p$, entonces existe $q \neq p$ primo tal que $q \mid \abs G$. Por el Teorema de Cauchy, $\zmz q \embed G$, y entonces $\exists a \in G$ tal que $\ord(a) = q$. $\to\gets$
 \end{obs}
 
 \begin{theorem}
@@ -2022,7 +2024,7 @@ Vamos a ver una parte del Teorema de clasificación de grupos abelianos finitame
   \[G \simeq G_{p_1^{r_1}} \times \dots \times G_{p_\ell^{r_\ell}}.\]
 \end{obs}
 \begin{proof}
-  Supongamos que $p_i \mid \abs{E_d(G)}$. Entonces $\zmz{p_i} \embbed E_d(G)$. Ñuego $\exists g \in E_d(G) \setminus \{1\}$ tal que $g^{p_i} =1$.
+  Supongamos que $p_i \mid \abs{E_d(G)}$. Entonces $\zmz{p_i} \embed E_d(G)$. Ñuego $\exists g \in E_d(G) \setminus \{1\}$ tal que $g^{p_i} =1$.
   Como $g \in E_d$, tenemos que $g = h^{p_i^{r_i}}$ para algún $h \in G \setminus \{1\}$.
   \[\implies 1 = g^{p_i} = h^{p_i^{r_i+1}}
   \implies \ord(h) = p_i^{r_i+1}.\]
@@ -2125,7 +2127,7 @@ Otra definición equivalente a la del producto semidirecto es la siguiente:
   \[S_3 \rtimes \znz 2 \simeq S_3 \times \znz 2.\]
 \end{exercise}
 
-\subsection{Producto en corona (wreath product)}
+\subsection{Producto en Corona (Wreath Product)}
 
 Supongamos que tenemos un conjunto de índices $I$ y una acción $K \acts I$ (i.e.: un homomorfismo $\a \colon K \o B_{ij}(I,I)$). Este $\a$ induce una acción del grupo $K$ en cualquier grupo $H^I$, que envía $(h_j)_{j \in I}$ a $(h_{\a(j)})_{j \in I}$. El producto semidirecto $H^I \rtimes K$ se llama \wea{producto en corona}.
 
@@ -2154,8 +2156,279 @@ Supongamos que tenemos un conjunto de índices $I$ y una acción $K \acts I$ (i.
   Sin embargo, si $H$ y $K$ son finitamente generados, entonces $H \wr K$ también lo es.
 \end{obs}
 
-%\fecha{Clase 13.}
-%\fecha{Clase 14.}
+\fecha{Clase 13. Lunes 20 de Abril}
+
+\begin{definition}
+  Sean $H$ y $K$ dos grupos. Sea $I$ un conjunto de índices y $K \actsby\a I$ acción de grupos.
+  \begin{itemize}
+    \item $\ds \bigoplus_{i \in I} H \coloneqq \{(h_i)_{i \in I} \colon h_i \in H \land \exists F \subseteq I, \forall i \in I \setminus F, h_i = 1_H\}.$ Este es un grupo con la operación elemento a elemento.
+    \item \wea{Representación de Koopman:} Acción $\ds \tilde\a \colon K \acts \bigoplus_{i \in I} H$ dada por $k \c (h_i)_{i \in I} = (h_{k^{-1} \c i})_{i \in I}$.
+    \item \wea{Producto en Corona (Wreath Product):} $\ds H \wr_\a K \coloneqq \bigoplus_{i \in I} H \rtimes_{\tilde\a} K$.
+  \end{itemize}
+\end{definition}
+
+Usualmente $I = K$ y la acción $\a$ es multiplicación por la izquierda, en cuyo caso omitimos el subíndice.
+
+\begin{example}
+  $W_d = \{\text{isometrías de $[0,1]^d$}\} \simeq \zmz2 \wr S_d$.
+\end{example}
+
+\begin{example}
+  [\wea{Lamplighter}]
+  $L = \zmz 2 \wr \Z$. Este es un grupo finitamente generado con un subgrupo no finitamente generado ``grande''.
+  \[L = \gen{\{s_i\}_{i \in \Z} \cup \{t\} \colon s_i^2 = 1, s_i t = ts_{i+1}} = \gen{s_0, t}.\]
+\end{example}
+
+\begin{obs}
+  Si $H$ y $K$ son finitamente generados, entonces $H \wr K$ también es finitamente generado.
+\end{obs}
+
+\newpage
+\subsection{Teoremas de Sylow}
+
+\begin{theorem}
+  [\wea{Estructura de grupos abelianos}]
+  Si $A$ es abeliano y finitamente generado, entonces $\exists r,d_1,\dots, d_n \in \N$ tales que $d_i \mid d_{i+1}$ y
+  \[A \simeq \Z^r \times \znz{d_1} \times \dots \times \znz{d_n}.\]
+\end{theorem}
+
+\begin{definition}
+  Un \wea{$p$--grupo} es un grupo $G$ en el que todos sus elementos tienen orden una potencia de $p$.
+\end{definition}
+
+\begin{example}
+  $\zmz{p^n}$ es un $p$--grupo. $\zmz2 \times \zmz2$ es un 2--grupo.
+\end{example}
+
+\begin{proposition}
+  Un $p$--grupo finito tiene orden $p^k$, y  recíprocamente si $\abs G = p^k$, entonces $G$ es un $p$--grupo.
+\end{proposition}
+
+\begin{theorem}
+  [\wea{Cauchy}]
+  Si $p$ es primo y divide a $\abs G < \oo$, entonces $G$ tiene un elemento de orden $p$.
+\end{theorem}
+
+El objetivo de hoy es encontrar una especie de recíproco para el teorema de Lagrange.
+
+\begin{lemma}
+  Sea $G$ un $p$--grupo finito y $G \actsby\a X$ una acción. Entonces
+  \[\abs X \equiv \abs{\Fix_G(X)} \pmod p\]
+  donde $\Fix_G(X) = \{x \in X \colon \forall g \in G, g \c x = x\}.$
+\end{lemma}
+\begin{proof}
+  Sea $X/G = \{\orb(x) \colon x \in X\}$ el espacio de órbitas. Luego $x \in \Fix_G(X) \iff \{x\} \in X/G$.
+  Por el teorema órbita--estabilizador, para todo $x \in X$ tenemos
+  \[\abs{\orb(x)} = \frac{\abs G}{\abs{\stab(x)}},\]
+  por lo que si $x$ no es un punto fijo, $\abs{\orb(x)}$ es una potencia de $p$, y luego $\abs{\orb(x)} \equiv 0 \pmod p$. Notemos que
+  \[X = \bigcupdot_{\Omega \in X/G} \Omega\]
+  \begin{align*}
+    \implies \abs X &= \sum_x \abs{\orb(x)} \\
+    &= \sum_{x \in \Fix_G(X)} 1 + \sum_{x \text{ no fijo}} \abs{\orb(x)} \\
+    &= \abs{\Fix_G(X)} + \sum_{x \text{ no fijo}} \underbrace{\abs{\orb(x)}}_{\equiv 0 \mod p} \\
+    &\equiv \abs{Fix_G(X)} \pmod p.
+  \end{align*}
+\end{proof}
+
+\begin{theorem}
+  [\wea{Primer Teorema de Sylow}]
+  Sea $G$ un grupo finito y supongamos que $\abs G = p^k m$ con $p \nmid m$ primo. Entonces $G$ posee un subgrupo de orden $p^k$.
+\end{theorem}
+
+\begin{definition}
+  Sea $G$ un grupo finito con $\abs G = p^k m$, donde $p \nmid m$ es primo. Un \wea{$p$--subgrupo de Sylow} de $G$ es un subgrupo de orden $p^k$.
+\end{definition}
+
+\begin{theorem}
+  [\wea{Segundo Teorema de Sylow}]
+  Si $H_1,H_2$ son $p$--subgrupos de Sylow, entonces son conugados (y en particular, isomorfos).
+\end{theorem}
+
+\begin{theorem}
+  [\wea{Tercer Teorema de Sylow}]
+  Sea $n_p$ el número de $p$--subgrupos de Sylow de un grupo finito $G$ (con $\abs G = p^k m$, $p \nmid m$).
+  Entonces
+  \begin{enumerate}[(i)]
+    \item $n_p \equiv 1 \pmod p$
+    \item $n_p \mid m$
+    \item Si $H$ es un $p$--subgrupo de Sylow de $G$, entonces $n_p = [G \colon \Norm_G(H)]$.
+  \end{enumerate}
+\end{theorem}
+
+\begin{example}
+  El siguiente subgrupo de $S_4$ es un grupo de orden 12 sin subgrupos de orden 6:
+  \[\{\id, (21)(43), (13)(24), \dots\} = A_4\]
+  Más generalmente, para $n \geq 5$, $A_n$ es un grupo de orden $n!/2$ que no puede poseer subgrupos de orden $n!/4$ ya que serían subgrupos normales, y $A_n$ es simple.
+\end{example}
+
+\newpage
+\fecha{Clase 14. Miércoles 22 de Abril}
+\subsection{Paradoja de Banach--Tarski}
+
+\begin{definition}
+  Sea $G \acts X$ una acción. Diremos que $A, B \subset X$ son \wea{$G$--equidescomponibles} si $\exists A_1, \dots, A_n, B_1, \dots, B_n \subset X$ y $g_1, \dots, g_n \in G$ tales que 
+  \[ A = \bigcupdot_{i=1}^n A_i, \quad B = \bigcupdot_{i=1}^n B_i, \quad B_i = g_i A_i, \quad \forall i. \]
+  Se denota $A \sim_{\mathrm{eq}} B$.
+\end{definition}
+
+\begin{example}
+  $G = \R^2$,  $X = \R^2$, $G \acts \R^2$ por traslación. Si tomamos $A = [-1,1)^2$ y $B = [0,2) \times [0,1)$, tenemos la descomposición 
+  \[ A_1 = [-1,1) \times [-1,0), \quad A_2 = [-1,1) \times [0,1), \quad B_1 = [0,1) \times [0,1), \quad [1,2) \times [0,1) \]
+  entonces tenemos que $B_1 = p_1 + A_1, \quad B_2 = p_2 + A_2$. %% la cague aca, arreglar los conjuntos. deberia cortar $A$ en dos trozos, y poner uno al lado del otro.
+\end{example}
+
+\begin{obs}
+  $\sim_\mathrm{eq}$ es relación de equivalencia.
+\end{obs}
+
+\begin{theorem}
+  [Banach--Tarski]
+  Sea $G = \R^3 \rtimes \mathrm{SO}_3(\R)$ y $G \acts \R^3$ la acción natural. Si $A,B \subset \R^3$ son acotados de interior no vacío, entonces $A \sim_{\mathrm{eq}} B$.
+\end{theorem}
+
+\begin{obs}
+  En particular $B \sim_\mathrm{eq} B_1(0) \cup ((3,0) + B_1(0))$.
+\end{obs}
+
+\begin{definition}
+  Sea $G \acts X$. Un conjunto $Y \subset X$ se duce \wea{$G$--paradojal} si $\exists A_1, \dots, A_n \subset X$, $B_1, \dots, B_m \subset X$, $g_1, \dots, g_n \in G$, $h_1, \dots, h_m \in G$ tales que
+  \[ Y = \bigcupdot_{i=1}^n A_i \cupdot \bigcupdot_{j = 1}^m B_j = \bigcupdot_{i=1}^n g_i A_i  = \bigcupdot_{j=1}^m h_j B_j.\]
+\end{definition}
+
+\begin{definition}
+  Un grupo $G$ se dice \wea{paradojal} si $G \acts G$ por traslación izquierda es $G$--paradojal.
+\end{definition}
+
+\begin{theorem}
+  $F_2$ es paradojal.
+\end{theorem}
+\begin{proof}
+  Tomamos $A_1$ como el conjunto de todas las palabras que empiezan con $a^{-1}$ y $A_2$ el conjunto de palabras que empiezan con $a$. Sea $B_1$ el conjunto de palabras que empiezan con $b^{-1}$ o que son potencia de $b$. Sea $B_2 = F_2 \setminus (A_1 \cup A_2 \cup B_1)$. Luego $F_2 = A_1 \cup A_2 \cup B_1 \cup B_2$, $g_1 = a$, $g_2 = 1$, $h_1 = b$, $h_2 = 1$. Entonces 
+  \[ F_2 = aA_1 \cupdot A_2 = bB_1 \cupdot B_2. \]
+\end{proof}
+
+\begin{proposition}
+  Sea $G$ un grupo paradojal y $G \acts X$ una acción libre. Entonces $X$ es $G$--paradojal.
+\end{proposition}
+\begin{proof}
+  Como $G$ es paradojal, existen $A_1, \dots, A_n, B_1, \dots, B_m, g_1, \dots, g_n, h_1, \dots, h_m$ que cumplen la propiedad de $G$ paradojal.
+  Sea $R \subset X$ tal que $\forall x \in X$ 
+  \[ \abs{\orb_G(x) \cap R} = 1 \]
+  (Esto se puede por axioma de elección)
+  Luego definimos $\forall i, \forall j$, 
+  \[ A_i' = A_i \c R, \quad B_j' = B_j \c R \]
+  Notemos que 
+  \[ X = G \c R = \bigcupdot_{i=1}^n A_i' \cupdot \bigcupdot_{j=1}^m B_j'
+  = \bigcup_{i=1}^n g_i A_i' = \bigcup_{j=1}^m h_j B_j' \]
+  donde $\bigcupdot_{i=1}^n A_i'$ y $\bigcupdot_{j=1}^m B_j'$ son disjuntos, ya que la acción es libre.
+\end{proof}
+
+\begin{corollary}
+  Si $H \embed G$ y $H$ es paradojal, entonces $G$ es paradojal.
+\end{corollary}
+
+\begin{corollary}
+  $\mathrm{SO}_n(\R)$ es paradojal para $n \geq 3$.
+\end{corollary}
+\begin{proof}
+  En el control 2 mostramos que $F_2 \embed \mathrm{SO}_3(\R) \embed \mathrm{SO}_n(\R)$ para $n \geq 3$. Eventualmente añadiré la demostración acá. %% no olvidar
+\end{proof}
+
+\begin{definition}
+  $S^2 = \{x \in \R^3 \colon \norm{x}_2 = 1\}$.
+\end{definition}
+
+\begin{proposition}
+  $\exists D \subset S^2$ contable tal que $S^2 \setminus D$ es $\mathrm{SO}_3(\R)$--paradojal.
+\end{proposition}
+\begin{proof}
+  Recordemos que $F_2 \embed \mathrm{SO}_3(\R)$. Sean $A,B \in \mathrm{SO}_3(\R)$ tales que 
+  \[ F_2 \simeq \gen{A,B} \leqslant \mathrm{SO}_3(\R). \]
+  Defino 
+  \[ D = \{x \in S^2 \colon \exists g \in \gen{A,B} \setminus \{1\}, g \c x = x\} \]
+  (Ejercicio: mostrar que $D$ es contable) %% no olvidar.
+  Consideremos el conjunto 
+  \[ \tilde D = \{z \in S^2 \colon \exists x \in D, \exists g \in \gen{A,B}, z = g \c x\}. \]
+  $\tilde D$ es contable. Luego $S^2 \setminus \tilde D$ es $\gen{A,B}$--invariante. $F_2 \simeq \gen{A,B} \acts S^2 \setminus \tilde D$ es libre, luego $\gen{A,B} \acts S^2 \setminus \tilde D$ es paradojal.
+  Por lo tanto $S^2 \setminus \tilde D$ es $\gen{A,B}$--paradojal, luego $S^2 \setminus \tilde D$ es $\mathrm{SO}_3(\mathbb{R})$--paradojal.
+\end{proof}
+
+\begin{proposition}
+  $S^2 \sim_\mathrm{eq} S^2 \setminus D$ para todo $D$ contable.
+\end{proposition}
+\begin{proof}
+  Como $D$ es contable, existe una recta $L \subset \R^3$ que pasa por 0 y $L \cap D = \varnothing$. Definimos 
+    \[ W = \left\{ \theta \in [0,2\pi) \colon \exists x \in D, \exists n \in \Z, \rho_\theta^n x \in D \right\} \]
+    donde $\rho_\theta$ es la rotación en ángulo $\theta$ en torno a $L$.
+
+    El conjunto $W$ es contable, luego existe \( \theta \in [0,2\pi) \setminus W  \). Como $\rho_\theta \in \mathrm{SO}_3(\R)$, tenemos que $\forall n \in \Z \setminus \{0\}$, $\rho_\theta^n D \cap D = \varnothing$. Definimos 
+    \[ \tilde D = \bigcup_{n \geq 0} \rho^n D \]
+    Luego 
+    \[ S^2 = \tilde D \cupdot (S^2 \setminus \tilde D) \sim_\mathrm{eq} \rho \tilde D \cupdot (S^2 \setminus \tilde D) = S^2 \setminus D \]
+    pues $\rho \tilde D = \bigcup_{n \geq 1} \rho^n D$.
+\end{proof}
+
+\begin{proposition}
+  Sea $G \acts X$ y $A,B \subset X$ tales que $A \sim_\mathrm{eq} B$. Entonces $A$ es $G$--paradojal $\iff B$ es $G$--paradojal.
+\end{proposition}
+
+\begin{corollary}
+  $\mathrm{SO}_3(\R) \acts \R^3 \implies S^2$ es $\mathrm{SO}_3(\R)$--paradojal.
+\end{corollary}
+
+\begin{theorem}
+  $\forall r > 0$, $B_r(0)$ es $\R^3 \rtimes \mathrm{SO}_3(\mathbb{R})$--paradojal.
+\end{theorem}
+
+\begin{obs}
+  Como $S^2$ es $\mathrm{SO}_3(\mathbb{R})$--paradojal, entonces $B_r(0) \setminus \{0\}$ es $\mathrm{SO}_3$--paradojal.
+
+  Para $0$, sea $\rho \in \R^3 \rtimes \mathrm{SO}_3$ una rotación de ángulo irracional en torno a la recta $\R \times \{1/2\} \times \{1/2\}$. Defino $D = \{\rho^n(0) \colon n \geq 0\}$, $\rho D = D \setminus \{0\}$.
+  Luego 
+  \[ B_r(0) = D \cup B_r(0) \setminus D \sim_\mathrm{eq} \rho D \cup B_r(0) \setminus D = B_r(0) \setminus \{0\} \]
+  Por lo tanto $B_r(0)$ es $\R^2 \rtimes \mathrm{SO}_3$--paradojal.
+\end{obs}
+
+\begin{definition}
+  Sea $G \acts X$ y $A,B \subset X$- Decimos que $A \leq_\mathrm{eq} B$ (\wea{subequidescomponible}) si $\exists C \subset B$ tal que $A \sim_\mathrm{eq} C$.
+\end{definition}
+
+\begin{proposition}
+  $(A \leq_\mathrm{eq} B \land B \leq_\mathrm{eq} A) \implies A \sim_\mathrm{eq} B$.
+\end{proposition}
+\begin{proof}
+  Sea $B_1 \subset B$ y $A_1 \subset A$ tales que $A \sim_\mathrm{eq} B_1$ y $B \sim_\mathrm{eq} A_1$. Sean $\varphi \colon A \to B_1$ y $\psi \colon B \to A_1$ biyecciones. Definimos $C_0 = A \setminus A_1$, y para todo $n \geq 0$ definimos $C_{n+1} = \psi(\vphi(C_n))$.
+
+  Definimos $C = \bigcup_{n \geq 0} C_n$. Luego $\psi^{-1}(A \setminus C) = B \setminus \vphi(C)$. De acá se puede mostrar que $A \setminus C \sim_\mathrm{eq} B \setminus \vphi(C)$ y $C \sim_\mathrm{eq} \vphi(C)$ (Ejercicio). %% no olvidar
+  Por lo tanto 
+  \[ A = A \setminus C \cupdot C \sim_\mathrm{eq} B \setminus \vphi(C) \cupdot \vphi(C) = B. \]
+\end{proof}
+
+Ahora demostraremos Banach--Tarski:
+\begin{proof}
+  Por la proposición anterior, basta probar que $A \leq_\mathrm{eq} B$. Como $A$ es acotado, $\exists r > 0$ tal que $A \subset B_r(0)$. Sea $x \in \mathrm{int}(B) \neq \varnothing$. Por lo tanto $\exists \varepsilon>0$ tal que $B_\varepsilon(x) \subset B$. Como $B_r(0)$ es compacto, entonces existen $x_1, \dots, x_n$ tales que 
+  \[ B_r(0) \subset \bigcup_{i=1}^n (x_i + B_\varepsilon(0)). \]
+  Sean $y_1, \dots, y_n \in \R^3$ tales que $(y_i + B_\e(x))$ son disjuntos de a pares. Luego 
+  \[ A \subset B_r(0) \subset \bigcup_{i=1}^n (x_i + B_\e(x))
+  \leq_\mathrm{eq} \bigcupdot_{i=1}^n (y_i + B_\e(x))
+  \sim_\mathrm{eq} B_\e(x) \subset B. \]
+  Por lo tanto $A \leq_\mathrm{eq} B$.
+\end{proof}
+
+\begin{obs}
+  En cualquier descomposición paradojal de $B_r(0)$ en $\R^3$ debe ser al menos un conjunto que no es Boreliano.
+\end{obs}
+
+\begin{definition}
+  $G$ es \wea{promediable} si $\forall K \subset G$ finito y $\forall \delta>0$, $\exists F \subset G$ finito tal que 
+  \[ \abs{FK \setminus F} \leq \delta \abs{F}. \]
+\end{definition}
+
+\begin{obs}
+  $G$ es paradojal si y solo si no es promediable. i.e.: $\exists K \subset G$ finito y $\exists \delta > 0$ tales que $\forall F \subset G$ finito 
+  \[ \abs{FK \setminus F} \geq \delta \abs F. \]
+\end{obs}
+
 %\fecha{Clase 15.}
 %\fecha{Clase 16.}
 %\fecha{Clase 17.}
