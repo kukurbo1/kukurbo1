@@ -1278,7 +1278,7 @@ Esto escrito con abiertos es
 \end{definition}
 
 \begin{obs}
-  Las topologías no son $\sigma$--álgebras.
+  Las topologías no son $\sigma$--álgebras en general.
 \end{obs}
 
 \begin{example}
@@ -1628,8 +1628,164 @@ Objetivo: Queremos definir una medida en $\R$ tal que $$\mu([a,b]) = \mu((a,b]) 
   \end{enumerate}
 \end{proof}
 
-%\fecha{Clase 13.}
-%\fecha{Clase 14.}
+\fecha{Clase 13. Lunes 20 de Abril}
+
+\begin{definition}
+  Una \sialg\ $\A$ se dice \wea{completa con respecto a la medida $\mu$} si
+  \[\forall B \in \A, \cor{\mu(B) = 0 \implies \forall C (C \subseteq B \implies C \in \A)}.\]
+  Otra forma de escribirlo:
+  \[\forall B \forall C \cor{\br{B \in \A \land \mu(B) = 0 \land C \subseteq B} \implies C \in \A}.\]
+\end{definition}
+
+\begin{obs}
+  En la clase pasada vimos que si $\mu^*$ es medida exterior, entonces
+  \[M_{\mu^*} = \{A \in \P(X) \colon \forall B \in \P(X), \quad \mu^*(B) = \mu^*(B \cap A) + \mu^*(B \cap A^c)\}\]
+  es \sialg, y además $\mu^*|_{M_{\mu^*}}$ es medida. También, si $\mu^*(A) = 0$, entonces $A \in M_{\mu^*}$.
+\end{obs}
+
+Dada cualquier \sialg\ $\A$ y $\mu$ medida sobre ella, ¿Es posible encontrar $\bar\A$ tal que sea $\mu$--completa y $\bar\A \supseteq \A$?
+
+Definimos
+\[\A_\mu = \{B \in \P(X) \colon \exists E, F \in \A, \quad E \subseteq B \subseteq F \land \mu(F \setminus E) = 0\}.\]
+
+
+\begin{theorem}
+  \
+  \begin{itemize}
+    \item $\A_\mu$ es \sialg.
+    \item $\A_\mu \supseteq \A$.
+    \item $\A_\mu$ es completa.
+    \item $\forall B \in \A_\mu$, $\bar\mu(B) = \mu(F) = \mu(E)$, donde $E \subseteq B \subseteq F$, $E,F \in \A$ y $\mu(F \setminus E) = 0$.
+    \item $\bar\mu$ es medida en $\A_\mu$ y extiende $\mu$.
+  \end{itemize}
+\end{theorem}
+\begin{proof}
+  Si $B \in \A$, basta tomar $E = F = B$ y $B \in \A_\mu$. Entonces $\varnothing \in \A \implies \varnothing \in \A_\mu$.
+
+  Si $B \in \A_\mu$, entonces $\exists E \subseteq B \subseteq F$ tal que $\mu(F \setminus E) = 0$, entonces $F^c \subseteq B^c \subseteq E^c$ y $E^c \setminus F^c = E^c \cap F = F \setminus E$. Luego $\mu(E^c \setminus F^c) = \mu(F \setminus E) = 0$.
+  Como $\A$ es \sialg, $E^c, F^c \in \A$, y entonces $B^c \in \A_\mu$.
+
+  Tomemos $\{B_n\}_n, B_n \in \A$. Entonces existen $E_n,F_n \in \A$ con $\mu(F_n \setminus E_n) = 0$ y $E_n \subseteq B_n \subseteq F_n$. Luego
+  \[\underbrace{\bigcup_n E_n}_{\in \A} \subseteq \bigcup_n B_n \subseteq \underbrace{\bigcup_n F_n}_{\in \A}\]
+  Como $\bigcup_n F_n \setminus \bigcup_n E_n \subseteq \bigcup_n (F_n \setminus E_n)$, tenemos que
+  \[\mu\br{\bigcup_n F_n \setminus \bigcup_n E_n} \leq \sum_n \mu(F_n \setminus E_n) = 0.\]
+
+  Veamos que $\bar\mu$ es medida.
+  $\varnothing \in \A \implies \bar\mu(\varnothing) = \mu(\varnothing)$ (tomando $E=F=\varnothing$).
+
+  Si $\{B_n\}_n \subseteq \A_\mu$ disjuntos de a pares, queremos mostrar
+  \[\bar\mu\br{\bigcup_n B_n} = \sum_n \bar\mu(B_n).\]
+  Notemos que $B_n \in \A_\mu \iff \exists E_n, F_n$ tal que $E_n \subseteq B_n \subseteq F_n$ y $\mu(F_n \setminus E_n) = 0$. Luego
+  \[\bar\mu(B_n) = \mu(E_n) = \mu(F_n)\]
+  Como $B_n \cap B_m = \varnothing$ si $n \neq m$, entonces $E_n \cap E_m = \varnothing$, y luego
+  \[\bar\mu\br{\bigcup_n B_n} = \mu\br{\bigcup_n E_n} = \sum_{n \in \N} \mu(E_n).\]
+  \[\implies \mu\br{\bigcup_n B_n} = \sum_n \mu(B_n).\]
+  Falta ver que está bien definida (que no depende de la elección de $F$ y $E$).
+  Veamos que si $E_1,F_1, E_2,F_2$ son tales que
+  \[E_i \subseteq B \subseteq F_i \quad\land\quad \mu(F_i \setminus E_i) = 0\]
+  \[\implies \mu(F_1) = \mu(F_2), \quad \mu(E_1) = \mu(E_2).\]
+  Si $E_i \subseteq B \subseteq F_j$ con $i,j \in \{1,2\}$, entonces
+  \[\mu(E_i) \leq \mu(F_j), \quad \mu(F_j) = \underbrace{\mu(F_j \setminus E_i)}_{0} + \mu(E_i) = \mu(E_i).\]
+  Supongamos que $\mu(F_1) \neq \mu(F_2)$. Entonces uno es más grande. Pero
+  \[\mu(E_2) \leq \mu(F_1) < \mu(F_2) = \mu(E_2). \quad \to\gets\]
+  Por lo tanto son todos iguales.
+\end{proof}
+
+\begin{theorem}
+  $M_{\lam^*}$ es la completación de $\B(\R^n)$ (borelianos) y $M_{\lam^*}(\R^n) \neq \B(\R^n)$ (respecto a $\lam$).
+\end{theorem}
+\begin{proof}
+  Sabemos que
+  \begin{itemize}
+    \item $\B(\R^n) \subseteq M_{\lam^*}(\R^n)$,
+    \item $M_{\lam^*}$ es completa,
+    \item $\lam$ es regular.
+  \end{itemize}
+  Queremos demostrar:
+  \begin{enumerate}[(i)]
+    \item $\forall B, B \in M_{\lam^*} \implies B \in \B_\lam(\R^n)$,
+    \item $\B_\lam \subseteq M_{\lam^*}$,
+    \item $\exists B \in M_{\lam^*}$ y $B \in \B(\R^n)$.
+  \end{enumerate}
+  Me rendí fkgjfgk
+\end{proof}
+
+\newpage
+\fecha{Clase 14. 22 de Abril}
+\subsection{Funciones Medibles}
+
+\begin{definition}
+  Sean $(X,\A,\mu)$ e $(Y,\B,\nu)$ espacios de medida. Una función $f \colon X \to Y$ se dice \wea{medible} si $\forall B \in \B$, $f^{-1}(B) \in \A$.
+\end{definition}
+
+\begin{proposition}
+  Si $\B$ es generada por $\mathcal{G}$ y $f^{-1}(G) \in \A$ para todo $G \in \mathcal{G}$, entonces $f$ es medible.
+\end{proposition}
+\begin{proof}
+  Sea $M = \{B \subset Y \colon f^{-1}(B) \in \A\}$. Veamos que $M$ es \( \sigma \)-álgebra.
+  \begin{itemize}
+    \item $\varnothing \in M$, pues $f^{-1}(\varnothing) = \varnothing \in \A$.
+    \item Si $B \in M$, entonces \( f^{-1}(B^c) = (f^{-1}(B))^c \), y como $f^{-1}(B) \in \A$, entonces $(f^{-1}(B))^c \in \A$. Luego $f^{-1}(B^c) \in \A \implies B^c \in M$.
+    \item Si $\{B_i\}_i \subseteq M$, entonces 
+    \[ f^{-1}\left( \bigcup_i B_i  \right) = \bigcup_i \underbrace{f^{-1}(B_i )}_{\in \A} \in \A \]
+    Luego como $f^{-1}\left( \bigcup_i B_i \right) \in \A$, tenemos que $\bigcup_i B_i \in M$.
+  \end{itemize}
+  Por hipótesis, $\mathcal{G } \subseteq M$, y entonces $M$ contiene a la \( \sigma \)-álgebra generada por \(\mathcal{G}\).
+\end{proof}
+
+\begin{obs}
+  Si $X,Y$ son espacios topológicos, entonces las funciones continuas son medibles. Pero las funciones medibles no son necesariamente continuas.
+
+  En general, si $Y = \R^n$, hay 2 opciones posibles de \( \sigma \)-álgebras naturales: $M_{\lam^*}$ (medibles respecto a $\lam^*$) o los Borelianos.
+
+  En general decimos que $f \colon X \to \R$ es \wea{medible} si es \wea{Borel--medible}. Si queremos considerar $M_{\lam^*}$ decimos \wea{Lebesgue--medible}.
+\end{obs}
+
+\begin{proposition}
+  $f \colon X \to \R$ es medible si $f^{-1}(-\oo,b] \in \A$ para todo $b \in \R$.
+\end{proposition}
+
+\begin{proposition}
+  Si $f,g \colon X \to \R$ son medibles, entonces
+  \begin{enumerate}[(1)]
+    \item $kf$ es medible $\forall k \in \R$.
+    \item $f+g$ es medible.
+    \item $f \cdot g$ es medible.
+    \item $f/g$ es medible (si $g \neq 0$).
+    \item $\max\{f,g\}$ es medible.
+    \item $\min\{f,g\}$ es medible.
+    \item $\abs f$ es medible.
+  \end{enumerate}
+\end{proposition}
+
+\begin{proposition}
+  Si $\{f_n\}_{n \in \N}$ es una familia de funciones medibles, entonces
+  \begin{enumerate}[(1)]
+    \item $\ds \sup_{n\in\N} f_n$ es medible.
+    \item $\ds \inf_{n\in\N} f_n$ es medible.
+    \item $\ds \limsup_{n\to\oo} f_n$ es medible.
+    \item $\ds \liminf_{n\to\oo} f_n$ es medible.
+  \end{enumerate}
+\end{proposition}
+\begin{proof}
+  \ \begin{enumerate}[(1)]
+    \item 
+    \begin{align*}
+        \br{\sup_{n\in\N} f_n}^{-1}(-\oo,b]
+        &= \{x \in X \colon \sup_{x \in X} f_n(x) \leq b\} \\
+        &= \bigcap_{n\in\N} \{x \in X \colon f_n(x) \leq b\} \\
+        &= \bigcap_{n\in\N} f_n^{-1}(-\oo,b] \in \A.
+    \end{align*}
+    \item 
+    \begin{align*}
+        \br{\inf_{n\in\N} f_n}^{-1}
+        &= \{x \in X \colon \inf_{n\in\N} f_n(x) \leq b\} \\
+        &= \bigcup_{n\in\N} \{x \in X \colon f_n(x) \leq b\}.
+    \end{align*}
+    
+  \end{enumerate}
+\end{proof}
+
 %\fecha{Clase 15.}
 %\fecha{Clase 16.}
 %\fecha{Clase 17.}
