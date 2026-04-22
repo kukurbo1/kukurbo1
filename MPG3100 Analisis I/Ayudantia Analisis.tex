@@ -81,6 +81,7 @@
 \newcommand{\C}{\mathbb{C}}
 \newcommand{\D}{\mathbb{D}}
 \newcommand{\F}{\mathbb{F}}
+\newcommand{\M}{\mathcal{M}}
 \newcommand{\N}{\mathbb{N}}
 \renewcommand{\O}{\mathcal{O}}
 \renewcommand{\P}{\mathcal{P}}
@@ -121,6 +122,7 @@
 \newcommand{\dd}{\delta} %% cambiar esto en los apuntes
 \newcommand{\e}{\varepsilon}
 \renewcommand{\t}{\tau}
+\newcommand{\lam}{\lambda}
 
 \newcommand{\vphi}{\varphi}
 \newcommand{\oo}{\infty}
@@ -577,5 +579,154 @@ Sea $\{f_n\}_n \subseteq C([a,b])$.
   No, Consideremos $f_n(x) = n$.
 \end{proof}
 \end{enumerate}
+
+\newpage
+\section{Ayudantía 5. Miércoles 22 de Abril}
+
+\subsection{Problema 0}
+
+Sea $X$ completo. No existe $A \subseteq X$ tal que $A$ y $A^c$ sean $G_\delta$ densos.
+
+\begin{proof}
+  Por contradicción, supongamos que existe $A \subseteq X$ tal que $A$ y $A^c$ sean $G_\delta$ densos. Entonces existe $\{U_n\}_n \subseteq \t$ tal que 
+  \[ A = \bigcap_{n \in \N} U_n. \]
+  Luego para todo $n$ tenemos 
+  \[ A \subseteq U_n \implies \bar A \subseteq \bar U_n \implies X = \bar U_n \]
+  y entonces $U_n$ es denso para todo $n \in \N$. De la misma manera, existe $\{V_n\}_n \subseteq \t$ tal que 
+  \[ A^c = \bigcap_{n \in \N} V_n  \]
+  y por el mismo argumento $V_n$ también es denso $\forall n \in \N$. Luego $\{U_n\}_{n\in\N} \cup \{V_n\}_{n\in\N}$ es una colección de abiertos densos. Luego 
+  \[ \varnothing= A \cap A^c = \left( \bigcap_{n\in\N} U_n \right) \cap \left( \bigcap_{n \in \N} V_n  \right) \]
+  y entonces $\varnothing$ sería denso. \(\to\gets\)
+\end{proof}
+
+\newpage
+\subsection{Problema 1}
+
+Sea $X$ un espacio métrico y $f \colon X \to \R$. Muestre que los puntos en que $f$ es continua son intersecciones numerables de abiertos. Concluya que no hay funciones $f \colon \R \to \R$ continuas solamente en los racionales.
+
+\begin{proof}
+  Sea $\Ccal \subseteq X$ el conjunto de los puntos donde $f$ es continua. Queremos ver que $\Ccal$ sea $G_\delta$. 
+  \begin{align*}
+      \Ccal &= \{x_0 \in X \colon \forall \e > 0, \exists \delta > 0, \forall y \in B_\delta(x_0) \implies \abs{f(y) - f(x_0)} < \e\}
+      % \\ &= \bigcap_{n\in\N} \set{x_0 \in X \colon \exists \delta>0, \forall y \in B_\delta(x_0), \abs{f(y) - f(x_0)} < 1/n}
+  \end{align*}
+  Tomamos 
+  \[ A_n = \set{x_0 \in X \colon \exists \delta>0, \forall y,z \in B_\delta(x_0), \abs{f(y) - f(z)} < \frac1n} \]
+  Queremos mostrar 
+  \[ \Ccal = \bigcap_{n\in\N} A_n. \]
+  Notemos que $A_n$ es abierto (demostrado por dibujo). Sea $n \in \N$, tomando $z = x_0$, tenemos $\forall n \in \N$, $\exists \delta_n>0$, $\forall y \in B_{\delta_n}(x_0)$, 
+  \[ \abs{f(y) - f(x_0)} < \frac1n. \]
+
+  Sea $x_0 \in \Ccal$, queremos que $x_0 \in A_n$ para todo $n$. Tenemos que, con $\e = 1/2n$, $\exists \delta>0$, $\forall y \in B_\delta(x_0)$, 
+  \[ \abs{f(y) - f(x_0)} < \frac{1}{2n}. \]
+  Luego, si $z \in B_\delta(x_0)$, tenemos que 
+  \[ \abs{f(y) - f(z)} \leq \abs{f(y) - f(x_0)} + \abs{f(x_0) - f(z)} < \frac{1}{2n} + \frac{1}{2n} = \frac{1}{n}. \]
+  Por lo tanto $\Ccal \subseteq \bigcap_n A_n \subseteq \Ccal \implies \Ccal = \bigcap_n A_n$. Luego $\Ccal$ es $G_\delta$.
+
+  Ahora, supongamos que existe $f \colon \R \to \R$ tal que $\Ccal = \Q$. Luego $\Q$ es un $G_\delta$, y además es denso. Por otro lado, $\R \setminus \Q$ es denso. También, $\Q = \bigcup_{q\in\Q} \{q\}$, por lo que es $F_\sigma$, y entonces $\R \setminus \Q$ es $G_\delta$. Es decir, $\Q$ y $\R \setminus \Q$ son $G_\delta$ densos, y por el problema anterior esto no puede pasar.
+\end{proof}
+
+\newpage
+\subsection{Problema 2}
+Sea $\{x_n\}_n \subseteq \R$ sucesión. Defina $\mu$ en $(\R, \B(\bar\R))$ por $\mu = \sum_n \delta_{x_n}$.
+
+\begin{enumerate}
+\item Muestre que $\mu$ asigna finitos valores en intervalos acotados de $\R$ si y solo si $\lim_{n\to\oo} \abs{x_n} = \oo$.
+
+\item ¿Para qué sucesiones $\{x_n\}_n$ es $\mu$ una medida $\sigma$--finita?
+\end{enumerate}
+
+\newpage
+\subsection{Problema 3}
+Sea $(X,\M,\mu)$ un espacio de medida.
+\begin{enumerate}
+  \item Muestre que si $E$ y $F$ son medibles, entonces $\mu(E \triangle F) = 0$ implica que $\mu(E) = \mu(F)$.
+  \item Muestre que si $\mu$ es completa ($A \subseteq E$ con $E \in \M$ y $\mu(E) = 0$, entonces $A \in \M$), $E \in \M$ y $\mu(E \triangle F) = 0$, entonces $F \in \M$.
+  \item Defina en $\M$ la relación $E \sim F$ si y solo si $\mu(E \triangle F) = 0$. Muestre que $\sim$ es relación de equivalencia.
+  \item Muestre que $\rho(E,F) = \mu(E \triangle F)$ cumple $\rho(E,F) \leq \rho(E,G) + \rho(G,F)$. (Con esto, acaba de equipar una métrica al espacio $\M/{\sim}$).
+\end{enumerate}
+\begin{proof}
+  \ \begin{enumerate}
+    \item 
+    \begin{align*}
+        \mu(E) &= \mu((E \setminus F) \cup (E \cap F)) \\
+        &= \mu(E \setminus F) + \mu(E \cap F) \\
+        &\leq \mu(E \setminus F \cup F \setminus F) + \mu(E \cap F) \\
+        &= \mu(E \triangle F) + \mu(E \cap F) \\
+        &= \mu(E \cap F).
+    \end{align*}
+    De la misma forma, $\mu(F) = \mu(E \cap F) = \mu(E)$.
+
+    \item Primero notemos que implícitamente asumimos que $E \triangle F \in \M$. Ahora, como $E \setminus F \cup F \setminus E = E \triangle F$ y $\mu(E \triangle F) = 0$, tenemos que $E \setminus F, F \setminus E \in \M$. Notemos que 
+    \begin{align*}
+        &(F \setminus E) \cup \cor{E \setminus (E \setminus F)} \\
+        &= (F \cap E^c) \cup \cor{E \cap (E \cap F^c)^c} \\
+        &= (F \cap E^c) \cup \cor{E \cap (E^c \cup F)} \\
+        &= (F \cap E^c) \cup (E \cap F) \\
+        &= F
+    \end{align*}
+    En particular tenemos 
+    \[ F = \underbrace{(F \cap E^c)}_{\in\M} \cup \underbrace{(\underbrace{E}_{\in\M} \cap \underbrace{(\underbrace{E \cap F^c}_{\in\M})^c}_{\in\M})}_{\in\M} \in \M \]
+
+    \item Notemos que $\mu(E \triangle E) = \mu(\varnothing) = 0 \implies E \sim E$. Por lo tanto es reflexiva. Notemos también que 
+    \[ E \sim F \implies 0 = \mu(E \triangle F) = \mu(F \triangle E) \implies F \sim E. \]
+    Luego para transitividad asumimos la parte 4, por lo que tenemos 
+    \begin{align*}
+        E \sim F \sim G
+        &\implies \rho(E,F) = \rho(F,G) = 0  \\
+        &\implies 0 \leq \rho(E,G) \leq \rho(E,F) + \rho(F,G) = 0 \\
+        &\implies E \sim G.
+    \end{align*}
+    
+    \item Notemos que 
+    \begin{align*}
+        \rho(E,F) &= \mu(E \triangle F) \\
+        &= \mu(E \cap F^c) + \mu(E^c \cap F) \\
+        &= \mu(E \cap F^c \cap G) + \mu(E \cap F^c \cap G^c) + \mu(E^c \cap F \cap G) + \mu(E^c \cap F \cap G^c) \\
+        &\leq \mu(E^c \cap G) + \mu(E \cap G^c) + \mu(F^c \cap G) + \mu(F \cap G^c) \\
+        &= \mu(E \triangle G) + \mu(F \triangle G) \\
+        &= \rho(E,G) + \rho(F,G).
+    \end{align*}
+  \end{enumerate}
+\end{proof}
+
+\newpage
+\subsection{Problema 4}
+
+Sea $\P(\Z^+)$ la \( \sigma \)-álgebra en $\Z^+$ de todos los subconjuntos de $\Z^+$.
+
+\begin{enumerate}
+  \item Suponga que $\mu$ es una medida en $(\Z^+,\P(\Z^+))$. Muestre que existe una sucesión $(w_n)_n$ en $[0,\oo]$ tal que 
+  \[ \mu(E) = \sum_{k \in E} w_k \]
+  para cada $E \subseteq \Z^+$.
+  \item De un ejemplo de alguna medida $\mu$ en $(\Z^+,\P(\Z^+))$ tal que 
+  \[ \{\mu(E) \colon E \subseteq \Z^+\} = [0,1]. \]
+\end{enumerate}
+
+
+\newpage
+\subsection{Problema 5}
+
+Muestre que $B \subseteq \R$ es Lebesgue--medible si y solo si 
+\[ \lam^*(I) = \lam^*(I \cap B) + \lam^*(I \cap B^c) \]
+para todo intervalo abierto acotado $I \subseteq \R$.
+
+\begin{proof}
+  \ \begin{itemize}
+    \item \boxed{\impliedby} Sea $B \subseteq \R$. Queremos 
+    \[ \lam^*(B \cap A) + \lam^*(B \cap A^c) \leq \lam^*(B). \]
+    Sea $\e > 0$. Sea $\{(a_n,b_n)\}_{n\in\N}$ subrimiento de $B$ tal que $\ds \sum_{n \in \N} (b_n - a_n) \leq \lam^*(B) + \e$. 
+    \begin{align*}
+        \lam^*(B) + \e &\geq \sum_{n\geq0} (b_n-a_n) \\
+        &= \sum_{n\geq0} \lam^*(a_n,b_n) \\
+        &= \sum_{n\geq0} \lam^*((a_n,b_n) \cap A) + \sum_{n\geq0} lam^*((a_n,b_n) \cap A^c) \\
+        &= \lam^*\br{\bigcup_{n\geq0} ((a_n,b_n) \cap A)} + \lam^*\br{\bigcup_{n\geq0} ((a_n,b_n) \cap A)} \\ 
+        &= \lam^*\br{A \cap \bigcup_n (a_n,b_n)} + \lam^*\br{A^c \cap \bigcup_n (a_n,b_n)} \\
+        &\geq \lam^*(B \cap A) + \lam^*(B \cap A^c)
+    \end{align*}
+    Esto para todo $\e>0$. Concluimos que $\lam^*(B \cap A) + \lam^*(B \cap A^c) \leq \lam^*(B)$.
+  \end{itemize}
+\end{proof}
+
 
 \end{document}
