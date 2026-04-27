@@ -2429,7 +2429,167 @@ Ahora demostraremos Banach--Tarski:
   \[ \abs{FK \setminus F} \geq \delta \abs F. \]
 \end{obs}
 
-%\fecha{Clase 15.}
+\newpage
+\fecha{Clase 15. Lunes 27 de Abril}
+\subsection{Automorfismos de \texorpdfstring{$\zmz n$}{Z/nZ}}
+
+\begin{obs}
+  Notemos que $\zmz0 \simeq \zmz2$, por lo que basta analizar $n \geq 1$.
+\end{obs}
+
+\begin{definition}
+  Durante esta sección, $(p_n)_n$ será al sucesión de números primos, ordenados de menor a mayor.
+\end{definition}
+
+\begin{obs}
+  $nm = \gcd(m,n) \c \lcm(m,n)$.
+\end{obs}
+
+\begin{lemma}[Bezout]
+  Si $a,b \geq 1$ son enteros, entonces existen $x,y \in \Z$ tales que $ax+by = \gcd(a,b)$.
+\end{lemma}
+
+\begin{definition}
+  Sea $n \geq 2$ entero. 
+  \[ \br{\znz n}^* = \{k \in \znz n \colon \gcd(k,n) = 1\}. \]
+\end{definition}
+
+\begin{proposition}
+  $(\zmz n)^*$ es grupo con la multiplicación módulo $n$.
+\end{proposition}
+
+\begin{example}
+  $((\zmz8)^*, \c) \simeq (\zmz2 \times \zmz2, +)$.
+\end{example}
+
+\begin{obs}
+  Si $p \geq 2$ es primo, entonces 
+  \[ \br{\znz p}^* = \{1,\dots, p-1\}. \]
+\end{obs}
+
+\begin{theorem}
+  Sea $n \geq 2$, entonces 
+  \[ \Aut\br{\znz n} \simeq \br{\znz n}^*. \]
+\end{theorem}
+\begin{proof}
+  Sea $k \in \Z$, definimos $m_k \colon \zmz n \to \zmz n$ dada por $m_k(a) = ak \mod n$.
+  Notemos que $m_k$ es endomorfismo. Además, $\gcd(k,n) = 1 \iff m_k$ es automorfismo.
+  Sea $k$ coprimo con $n$, basta verificar que $\ker(m_k) = \{0\}$. 
+  \[ \ker(m_k) = \set{a \in \znz n \colon ak = 0 \mod n}. \]
+  Notemos que como $\gcd(k,n) = 1$, entonces existe $\ell \in \Z$ tal que $$k \c \ell = 1 \mod n.$$
+  Sea $a \in \znz n$ tal que $ak = 0 \mod n$, entonces
+  \[ 0 = ak \ell = a \mod n. \]
+  Si $\gcd(k,n) > 1$, entonces 
+  \[ \underbrace{\frac{n}{\gcd(n,k)}}_{\in \zmz n} \c k = n \c \underbrace{\frac{k}{\gcd(n,k)}}_{\in \Z} = 0 \mod n \]
+  y luego $n/\gcd(k,n) \in \ker(m_k)$.
+
+  Ahora, definimos la función 
+  \begin{align*}
+      M \colon \br{\znz n}^* &\to \Aut\br{\znz n} \\ 
+      k &\mapsto m_k
+  \end{align*}
+  Esta función está definida. Es homomorfismo: 
+  \[ M(k \c k') = m_{k \c k'} = m_k \circ m_{k'} = M(k) \circ M(k'). \]
+  Es inyectiva: Si $k >1$, entonces $m_k(1) = k \neq 1$. Luego 
+  \[ \ker(M) = \set{k \in \znz n \olon m_k = \id} = \{1\}. \]
+  Es sobreyectiva, ya que si $\a \in \Aut(\zmz n)$ y $\ell \in \zmz n$, entonces 
+  \[ \a(\ell) = \underbrace{\a(1) + \dots + \a(1)}_{\ell \ veces} = \ell \c \a(1). \]
+  Luego $\forall \ell \in \zmz n$, $\a(\ell) = \ell \c \a(1)$, y entonces $\a = m_{\a(1)}$. Como $\a \in \Aut(\zmz n)$, entonces $\a(1) \in (\zmz n)^*$. Por lo tanto $\a = M(\a(1))$.
+
+  Concluimos entonces que $M$ es isomorfismo.
+\end{proof}
+
+\newpage
+\section{Anillos}
+
+\begin{definition}
+  Un conjunto $A$ dotado de dos operaciones $+$ y $\c$ se llama \wea{anillo} si
+  \begin{enumerate}
+    \item $(A,+)$ es grupo abeliano (con neutro $0_A$),
+    \item $(A,\c)$ es semigrupo, %% definir semigrupo
+    \item $\c$ distribuye sobre $+$: $\forall a,b,c \in A$, 
+    \[ a\c (b+c) = ab + ac, \quad (b+c) \c a = ba + ca. \]
+  \end{enumerate}
+\end{definition}
+
+\begin{definition}
+  Sea $(A,+,\c)$ un anillo. Decimos que es \wea{anillo con unidad} si $(A,\c)$ es monoide, es decir, $\exists 1_A \in A$ tal que $\forall a \in A$, $a \c 1_A = 1_A a = a$.
+\end{definition}
+
+\begin{obs}
+  En general consideraremos anillos con unidad. A menos que se diga lo contrario, todos los anillos tendrán unidad.
+\end{obs}
+
+\begin{definition}
+  Sea $(A,+,\c)$ anillo. Decimos que es \wea{conmutativo} si $\forall a,b \in A$, $ab = ba$.
+\end{definition}
+
+\begin{definition}
+  $A$ es un \wea{anillo de división} si tiene unidad y $\forall a \in A \setminus \{0\}$ se cumple que $\exists a^{-1} \in A$ tal que $a a^{-1} = a^{-1} a = 1$.
+\end{definition}
+
+\begin{definition}
+  $A$ es \wea{cuerpo} si es un anillo conmutativo y de división.
+\end{definition}
+
+\begin{definition}
+  Dado un anillo $(A,+,\c)$ con unidad, decimos que $a \in A \setminus \{0\}$ es una \wea{unidad} si $\exists a^{-1} \in A$ tal que $aa^{-1} = a^{-1} a = 1$. Escribimos 
+  \[ A^\times = \{a \in A \setminus \{0\}+ \colon a \text{ es unidad}\}. \]
+\end{definition}
+
+\begin{definition}
+  Decimos que $a \in A$ es \wea{divisor de cero a la izquierda} si $\exists b \setminus \{0\}$ tal que $ab = 0$.
+\end{definition}
+
+\begin{obs}
+  Sea $(A,+,\c)$. \begin{enumerate}
+    \item $\forall a \in A, \quad a \c 0 = 0 \c a = 0$.
+    \item Si $A$ tiene unidad 1 y $1=0$, entonces $\abs A = 1$.
+  \end{enumerate}
+\end{obs}
+
+\begin{example}
+  $(\Z,+,\c)$ es un anillo conmutativo con unidad. No es anillo de división, ya que $\Z^\times = \{\pm 1\}$.
+\end{example}
+
+\begin{example}
+  $(\Q,+,\c)$, $(\R,+,\c)$ y $(\C,+,\c)$ son cuerpos.
+\end{example}
+
+\begin{example}
+  Sea $\xi \in \C$, definimos 
+  \[ \Q(\xi) = \{a + b \xi \in \C \colon a,b \in \Q\}. \]
+  Esto es un anillo.
+\end{example}
+
+\begin{exercise}
+  Muestre que $\Q(\xi)$ es cuerpo.
+\end{exercise}
+
+\begin{example}
+  $\Z(i) = \{a+bi \in \C \colon a,b \in \Z\}$.
+\end{example}
+
+\begin{example}
+  Si $X$ es un conjunto, entonces $\R^X = \{f \colon X \to \R\}$ es un anillo con la suma punto a punto y multiplicación punto a punto.
+\end{example}
+
+\begin{example}
+  Sea $\ds A = \{(a_n)_{n \geq 0} \in \R^\N \colon \lim_{n\to\oo} a_n = 0\}$ con la $+$ y $\c$ coordenada a coordenada. Este es un anillo sin unidad.
+\end{example}
+
+\begin{example}
+  $M_n(\R)$ el conjunto de matrices $n \times n$ con coeficientes en $\R$. Este es un anillo no conmutativo.
+\end{example}
+
+\begin{example}
+  $\R[x]$ el conjunto de polinomios con coeficientes en $\R$.
+\end{example}
+
+\begin{example}
+  $(\zmz n,+,\c)$ es anillo conmutativo. Si $n$ es primo, entonces este es un cuerpo.
+\end{example}
+
 %\fecha{Clase 16.}
 %\fecha{Clase 17.}
 %\fecha{Clase 18.}
