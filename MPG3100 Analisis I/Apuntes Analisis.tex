@@ -1786,7 +1786,150 @@ Definimos
   \end{enumerate}
 \end{proof}
 
-%\fecha{Clase 15.}
+\newpage
+\fecha{Clase 15. Lunes 27 de Abril}
+\subsection{Funciones Simples}
+
+\begin{definition}
+  Dado un conjunto $A$, definimos la \wea{función característica de $A$} como 
+  \[ \chi_A(x) = \begin{cases}
+    1, &x \in A \\
+    0, &x \in A^c
+  \end{cases} \]
+\end{definition}
+
+\begin{definition}
+  Sea $(X,A,\mu)$ un espacio de medida. Decimos que $f \colon X \to [-\oo,\oo]$ es una \wea{función simple} si 
+  \[ f = \sum_{i=1}^N c_i \chi_{E_i} \]
+  donde los $E_i$ son $A$--medibles.
+\end{definition}
+
+\begin{obs}
+  La representación no es única. Por ejemplo 
+  \[ \chi_{[0,1]} + 2 \chi_{[0,2]}
+  = 3 \chi_{[0,1]} + 2 \chi_{(1,2]}
+  = 3 \chi_{[0,2]} - \chi_{[1,2]}
+  = 3 \chi_{[0,1/2]} + 3 \chi_{(1/2,1]} - \chi_{[1,2]}. \]
+\end{obs}
+
+\begin{definition}
+  Decimos que la representación de $f$ es una \wea{representación canónica} si los $E_i$ son disjuntos de a pares. i.e.: $i \neq j \implies E_i \cap E_j = \varnothing$.
+\end{definition}
+
+\begin{theorem}
+  Sea $f \colon X \to [0,\oo]$ medible. Existe una sucesión de funciones simples $\chi_n \colon X \to [-\oo,\oo]$ tales que:
+  \begin{itemize}
+    \item $\chi_n(x) \to f(x)$ puntualmente,
+    \item Si $f$ es acotada, la convergencia es uniforme.
+  \end{itemize}
+\end{theorem}
+
+\subsection{Propiedades en Casi Todo Punto}
+
+\begin{proposition}
+  Sea $(X,A,\mu)$ espacio de medida completo. Sean $f,g \colon X \to \R$. Si $f=g$ salvo en un conjunto de medida 0 y $f$ es medible, entonces $g$ es medible.
+\end{proposition}
+\begin{proof}
+  Sea $A = \{x \in X \colon f(x) \neq g(x)\}$. Tenemos que $\mu(A) = 0$. Luego 
+  \[ g^{-1}(a,b) = (g^{-1}(a,b) \cap A) \cup (g^{-1}(a,b) \cap A^c). \]
+  Como $A$ es completa, $g^{-1}(a,b) \cap A$ es medible y $g^{-1}(a,b) \cap A^c = f^{-1}(a,b) \cap A^c$ es medible. Luego $g^{-1}(a,b)$ es medible.
+\end{proof}
+
+\begin{notation}
+  Si $f = g$ salvo un conjunto de medida 0, anotamos $f=g$ a.e. (c.t.p.).
+\end{notation}
+
+\newpage
+\subsection{Integral de Lebesgue}
+
+\begin{definition}
+  Dada $\phi \colon X \to [0,\oo]$ simple con representación canónica 
+  \[ \phi = \sum_{i=1}^N c_i \chi_{E_i} \quad\land\quad (i \neq j \implies E_i \cap E_j = \varnothing) \]
+  Definimos 
+  \[ \int_X \phi \ d\mu = \sum_{i=1}^N c_i \mu(E_i). \]
+\end{definition}
+
+\begin{obs}
+  $c_i \geq 0$. En general podemos asumir $c_i > 0$.
+\end{obs}
+
+Para que la integral esté bien definida, necesitamos que sea independiente de la representación canónica elegida:
+Si tenemos $\{E_i\}_{i=1}^N$ y $\{F_j\}_{j=1}^M$ tales que 
+\[ \phi = \sum_{i=1}^N C_i \chi_{E_i} = \sum_{j=1}^M d_j \chi_{F_j} \]
+podemos asumir $c_i, d_j > 0$ y además $\bigcup_{i=1}^N E_i = \bigcup_{j=1}^M F_j$.
+Si $x \in E_i \cap F_j$, entonces $c_i = d_j$. Luego 
+\[ \phi = \sum_{i=1}^N c_i \chi_{E_i}(x) = \sum_{i,j} c_i \chi_{E_i \cap F_j}(x) = \sum_{i,j} d_j \chi_{E_i \cap F_j}(x) \]
+
+\begin{align*}
+    \implies \int_X \phi \ d\mu
+    &= \sum_{i=1}^N c_i \mu(E_i) \\
+    &= \sum_{i=1}^N c_i \mu\br{\bigcup_{j=1}^M (E_i \cap F_j)} \\
+    &= \sum_{i=1}^N c_i \sum_{j=1}^M \mu(E_i \cap F_j) \\
+    &= \sum_{i,j} d_j \mu(E_i \cap F_j) \\
+    &= \sum_{j=1}^M d_j \sum_{i=1}^N \mu(F_j \cap E_i) \\
+    &= \sum_{j=1}^M d_j \mu\br{\bigcup_{i=1}^N (F_j \cap E_i)} \\
+    &= \sum_{j=1}^M d_j \mu(F_j).
+\end{align*}
+
+\begin{proposition}
+  Si $\ds \phi = \sum_{i=1}^N c_i \chi_{E_i} \geq 0$ y $E_i$ no son necesariamente disjuntos, entonces 
+  \[ \int_X \phi \ d\mu = \sum_{i=1}^N c_i \mu(E_i). \]
+  i.e.: La representación no tiene que ser necesariamente canónica.
+\end{proposition}
+
+\begin{obs}
+  Si $\mu(E_i) = \oo$ y $c_i = 0$ vamos a asumir en este contexto $c_i \mu(E_i) = 0$.
+\end{obs}
+
+\begin{example}
+  Si $E = \Q$ 
+  \[ \int_\R \chi_E d\lam = \lam(\Q) = 0. \]
+  $\chi_E$ es Lebesgue integrable pero no Riemann integrable.
+\end{example}
+
+\begin{proposition} %% ejercicio: demostrar
+  Sean $\psi,\phi \colon X \to [0,\oo]$ simples. Entonces
+  \begin{enumerate}[(1)]
+    \item $\ds \int_X k\phi \ d\mu = k \int_X \phi \ d\mu$ para $k \in [0,\oo)$.
+    \item $\ds \int_X (\phi + \psi) \ d\mu = \int_X \phi \ d\mu + \int_X \psi \ d\mu$.
+    \item $\ds 0 \leq \phi \leq \psi \implies 0 \leq \int_X \phi \ d\mu \leq \int_X \psi \ d\mu$.
+  \end{enumerate}
+\end{proposition}
+
+\begin{definition}
+  Sea $f \colon X \to [0,\oo]$ medible. Definimos 
+  \[ \int_X f \ d\mu = \sup\set{\int_X \phi \ d\mu \colon \phi \text{ simple} \land \phi \leq f}. \]
+\end{definition}
+
+\begin{obs}
+  El primer teorema de hoy dice que el conjunto es no vacío.
+\end{obs}
+
+\begin{definition}
+  Decimos que $f \colon X \to [0,\oo]$ es \wea{integrable} si 
+  \[ \int_X f \ d\mu < \oo. \]
+\end{definition}
+
+\begin{definition}
+  Si $A \subseteq X$ es medible, entonces 
+  \[ \int_A f \ d\mu = \int_X f \chi_A \ d\mu. \]
+\end{definition}
+
+\begin{proposition}
+  Sean $f,g \colon X \to [0,\oo]$ medibles.
+  \begin{enumerate}[(1)]
+    \item $\ds \int_X k f \ d\mu = k \int_X f \ d\mu$ para $k \in [0,\oo)$.
+    \item $\ds \int_X (f+g) \ d\mu = \int_X f \ d\mu + \int_X g \ d\mu$.
+    \item $\ds 0 \leq f \leq g \implies 0 \leq \int_X f \ d\mu \leq \int_X g \ d\mu$.
+  \end{enumerate}
+\end{proposition}
+
+\begin{theorem}
+  [Convergencia Monótona]
+  Sean $f_n$ medibles tales que $0 \leq f_n(x) \leq f_{n+1}(x)$ para todo $x$ y $\ds f(x) = \lim_{n\to\oo} f_n(x)$. Entonces 
+  \[ \lim_{n\to\oo} \int_X f_n(x) \ d\mu = \int_X f(x) \ d\mu. \]
+\end{theorem}
+
 %\fecha{Clase 16.}
 %\fecha{Clase 17.}
 %\fecha{Clase 18.}
