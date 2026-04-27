@@ -729,4 +729,101 @@ para todo intervalo abierto acotado $I \subseteq \R$.
 \end{proof}
 
 
+\newpage
+\section{Ayudantía 6. Lunes 27 de Abril}
+
+\subsection{Problema 1}
+Sea $(X,\M,\mu)$ espacio de medida, y sea 
+\[ \Ncal = \{N \in \M \colon \mu(N) = 0\}. \]
+Definimos 
+\[ \bar\M = \{E \cup F \colon E \in \M \land \exists N (F \subseteq N \land N \in \Ncal)\}. \]
+Mostrar que $\bar\M$ es \( \sigma \)-álgebra y que existe una única extensión $\bar\mu$ de $\mu$ a una medida completa.
+\begin{proof}
+  El Fer mandará la solución eventualmente.
+\end{proof}
+
+
+\newpage
+\subsection{Problema 2}
+En la guía 4, tendrá que si $\vphi \colon \Ccal \to \R$ es una función de $\Ccal \subseteq \P(X)$, entonces $\mu^* \colon \P(X) \to [0,\oo]$ definida por 
+\[ \mu^*(S) = \inf\set{\sum_{i=1}^\oo \phi(T_i) \colon S \subseteq \bigcup_{i=1}^\oo T_i, T_i \in \Ccal} \]
+es medida exterior. Considere ahora $(X,\M_{\mu^*},\mu)$ el espacio de medida restringida a los medibles de $\mu^*$ (tomando $\mu = \mu^*|_{\M_{\mu^*}}$).
+Sea $E \subseteq X$ tal que $\mu^*(E) < \oo$. Muestre que existe $A \in \Ccal_{\sigma\delta}$ (intersección numerable de elementos de $\Ccal_\sigma$) tal que 
+\[ E \subseteq A \quad\land\quad \mu^*(E) = \mu^*(A). \]
+Si además $E \in \M_{\mu^*}$ y $\Ccal \subseteq \M_{\mu^*}$, muestre que $A \in \M_{\mu^*}$ y $\mu(A \setminus E) = 0$.
+
+\begin{proof}
+  Para $n \in \N$, existe $\{C_i^{(n)}\} \subseteq \Ccal$ tal que $F \subseteq \bigcup_{i=1}^\oo C_i^{(n)} \eqqcolon A_n$ y 
+  \[ \sum_{i=1}^\oo \vphi(C_i^{(n)}) \leq \mu^*(E) + \frac{1}{n}. \]
+  Afirmamos que $A = \bigcap_{n=1}^\oo A_n$ cumple lo pedido.
+  Notemos que 
+  \[ \mu^*(A_n) = \sum_{i=1}^\oo \vphi(C_i) = \sum_{i=1}^\oo \mu^*(C_i) \geq \mu^*\br{\bigcup_{i=1}^\oo C_i} \geq \mu^*(E) \]
+  y juntando esto con lo anterior, tenemos 
+  \[ \mu^*(E) \leq \mu^*(A_n) \leq \mu^*(E) + \frac1n. \]
+  Además 
+  \[ \mu^*(E) \leq \mu^*(A) \leq \mu^*(A_n) \leq \mu^*(E) + \frac{1}{n}. \]
+  Con $n \to \oo$ obtenemos $\mu^*(E) = \mu^*(A)$.
+
+  Por último, si $E \in \M_{\mu^*}$ y $\Ccal \subseteq \M_{\mu^*}$, entonces $A$ es medible al ser intersección de unión de medibles. Luego
+  \[ \mu(A \setminus E) = \mu(A) - \mu(E) \]
+  \[ \mu(A) = \mu(A \cap E) + \mu(A \cap E^c) = \mu(E) + \mu(A \cap E^c). \]
+\end{proof}
+
+\newpage
+\subsection{Problema 3}
+Sea $\{f_n \colon X \o \R\}_n$ una colección de funciones medibles. Muestre que 
+\[ \{x \in X \colon \lim_{n\to\oo} f_n(x) \text{ existe}\} \]
+es medible.
+
+\begin{proof}
+  
+  \begin{align*}
+      &\{x \in X \colon \lim_{n\to\oo} f_n(x) \text{ existe}\} \\
+      = &\{x \in X \colon \{f_n(x)\}_n \text{ es de Cauchy}\} \\
+      = &\{x \in X \colon \forall \e>0, \exists N \in \N, \forall m,n \geq N, \abs{f_n(x) - f_m(x)} < \e\} \\
+      = &\bigcap_{n=1}^\oo \set{x \in X \colon \exists N \in \N, \forall m,n \geq N, \abs{f_n(x) - f_m(x)} < \frac{1}{n}} \\
+      = &\bigcap_{n=1}^\oo \bigcup_{N \in \N} \set{x \in X \colon \forall n,m \geq N, \abs{f_n(x) - f_m(x)} < \rac{1}{n}} \\
+      = &\bigcap_{n=1}^\oo \bigcup_{N \in \N} \bigcap_{m,n \geq N} \set{x \in X \colon \abs{f_n(x) - f_m(x)} < \frac{1}{n}} \\
+      = &\underbrace{\bigcap_{n=1}^\oo \underbrace{\bigcup_{N \in \N} \underbrace{\bigcap_{m,n \geq N} \underbrace{\underbrace{\abs{f_n - f_m}^{-1}}_{medible}((-\oo,1/n))}_{medible}}_{medible}}_{medible}}_{medible}. \\
+  \end{align*}
+  Tenemos entonces que el conjunto es intersección numerable de unión numerable de intersección numerable de preimágenes de intervalos bajo funciones medibles, por lo que es medible.
+\end{proof}
+
+\newpage
+\subsection{Problema 4}
+
+Sea $X = A \cup B$, con $A,B \in \M$. Sea $f \colon X \to \R$. Muestre que $f$ es medible en $X$ si y solo si $f$ es medible en $A$ y en $B$.
+\begin{proof}
+  Sabemos que $f$ es medible en $X$ si y solo si $f^{-1}((a,\oo)) \in \M$ para todo $a \in \R$. Esto es si y solo si 
+  \[ (f^{-1}((a,\oo)) \cap A) \cup (f^{-1}((a,\oo)) \cap B) \in \M, \quad \forall a \in \R. \]
+  \begin{itemize}
+    \item \boxed{\impliedby} Si $f|_A$ es medible y $f|_B$ también, entonces 
+    \[ f^{-1}((a,\oo)) \cap A , f^{-1}((a,\oo)) \cap B \in \M \]
+    y su unión $f^{-1}((a,\oo))$ también.
+
+    \item \boxed{\implies} Tenemos que $f^{-1}((a,\oo)) \in \M$. Luego $f^{-1}((a,\oo)) \cap A \in \M$. Por lo tanto $f|_A$ es medible. Lo mismo para $f|_B$.
+  \end{itemize}
+\end{proof}
+
+\newpage
+\subsection{Problema 5}
+El mapa de Gauss es $T \colon [0,1) \to [0,1)$ dado por 
+\[ T(x) = \begin{cases}
+  0, &x = 0 \\
+  x - \lfloor x \rfloor , &x > 0
+\end{cases} \]
+Muestre que $T$ es medible.
+\begin{proof}
+  Notemos que 
+  \[ X = [0,1) = \{0\} \cup \left( \frac{1}{2},1 \right) \cup \bigcup_{n=2}^\oo \left( \frac{1}{n+1}, \frac{1}{n} \right]. \]
+  Vemos que 
+  \begin{align*}
+      T|_{\{0\}} &= 0 \\
+      T|_{(1/2,1)} &= \frac{1}{x} - 1 \\
+      T|_{(1/(n+1), 1/n]} &= \frac{1}{x} - n.
+  \end{align*}
+  Son todas continuas, y entonces son medibles. Por el problema 4 (versión numerable) $T$ es medible.
+\end{proof}
+
+
 \end{document}
