@@ -155,6 +155,7 @@
 \newcommand{\lcm}{\mathrm{lcm}}
 \newcommand{\Fix}{\mathrm{Fix}}
 \newcommand{\Norm}{\mathrm{Norm}}
+\newcommand{\gr}{\mathrm{gr}}
 
 %different bracket types
 \newcommand{\abs}[1]{\left| #1 \right|}
@@ -2501,6 +2502,7 @@ Ahora demostraremos Banach--Tarski:
 
 \newpage
 \section{Anillos}
+\subsection{Definiciones Básicas}
 
 \begin{definition}
   Un conjunto $A$ dotado de dos operaciones $+$ y $\c$ se llama \wea{anillo} si
@@ -2590,7 +2592,198 @@ Ahora demostraremos Banach--Tarski:
   $(\zmz n,+,\c)$ es anillo conmutativo. Si $n$ es primo, entonces este es un cuerpo.
 \end{example}
 
-%\fecha{Clase 16.}
+\fecha{Clase 16. Miércoles 29 de Abril}
+
+\begin{definition}
+  Sea $(R,+,\c)$ un anillo. El \wea{anillo de polinomios con coeficientes en $R$} es 
+  \[ R[x] = \{(a_n)_{n \geq 0} \in R^\N \colon \exists k \geq 0, \forall \ell \geq k, a_\ell = 0_R\}. \]
+  Definimos las siguientes operaciones en $R[x]$: Si $a = (a_n)_n$ y $b = (b_n)_n$
+  \[ a + b = (a_n + b_n)_{n \geq 0}, \quad (a \c b)_n = \sum_{k \leq n} a_k b_{n-k}. \]
+\end{definition}
+
+\begin{proposition}
+  $R[x]$ es un anillo.
+\end{proposition}
+
+\begin{obs}
+  Existe una función evaluación natural $\mathrm{ev} \colon R[x] \times R \to R$ 
+  \[ \mathrm{ev}(p,r) = \sum_{n \geq 0} (p_n) r^n. \]
+\end{obs}
+
+\begin{notation}
+  Escribimos $(a_n)_{n \geq 0} = \sum_{n \geq 0} a_n x^n$.
+\end{notation}
+
+\begin{definition}
+  Sea $p \in R[x]$ con $p \neq 0$, el \wea{grado de $p$} es 
+  \[ \gr(p) = \min\{k \geq 0 \colon \forall \ell \geq k, p_\ell = 0\}. \]
+\end{definition}
+
+\begin{definition}
+  Sea $(R,+,\c)$ un anillo. El \wea{anillo de matrices de $n \times n$ con coeficientes en $R$} es
+  $$M_n(R) = \{(a_{ij})_{1 \leq i,j \leq n} \colon a_{i,j} \in R\}.$$
+  Definimos las operaciones 
+  \[ (A + B)_{ij} = A_{ij} + B_{ij}, \quad (A \c B)_{ij} = \sum_{k=1}^n A_{ik} \c B_{kj}. \]
+\end{definition}
+
+\begin{proposition}
+  $(M_n(R),+,\c)$ es un anillo.
+\end{proposition}
+
+\begin{definition}
+  Sea $(R,+,\c)$ un anillo. Diremos que $A \subset R$ es \wea{subanillo} si $(A,+, \c)$ es un anillo con las operaciones restringidas a $A \times A$.
+\end{definition}
+
+\begin{definition}
+  Sea $(R,+,\c)$ un anillo y $S \subset R$. El \wea{anillo generado por $S$ en $R$} es 
+  \[ \gen{S}_R = \gen{S} = \bigcap_{\substack{A \subset R \\ A \text{ subanillo} \\ S \subset A}} A. \]
+\end{definition}
+
+\begin{proposition}
+  $\gen{S}$ es un subanillo de $R$.
+\end{proposition}
+
+\begin{example}
+  Consideremos el cuerpo $(\C,+,\c)$ y $S = \{1,i\}$, entonces $\gen{S} = \Z[i]$.
+\end{example}
+
+\begin{definition}
+  Sean $(A,+,\c)$ y $(B,+,\c)$ anillos. Una función $\vphi \colon A \to B$ se dice \wea{homomorfismo de anillos} si $\forall a,a' \in A$, 
+  \[ \vphi(a+a') = \vphi(a) + \vphi(a') \quad\land\quad \vphi(aa') = \vphi(a) \vphi(a'). \]
+\end{definition}
+
+\begin{exercise}
+  Sea $\vphi \colon A \to B$ homomorfismo de anillos. Muestre que $(\im(\vphi),+,\c)$ es subanillo de $B$.
+\end{exercise}
+\begin{proof}
+  Como $\vphi \colon A \to B$ es homomorfismo de anillos, entonces $\vphi$ es homomorfismo de grupos entre $(A,+)$ y $(B,+)$. Luego $(\im(\vphi),+) \leqslant (B,+)$. Sean $b = \vphi(a)$ y $b' = \vphi(a')$, entonces 
+  \[ bb' = \vphi(a) \vphi(a') = \vphi(aa') \in \im(\vphi). \]
+  También el producto es claramente asociativo. Veamos distributividad: 
+  \begin{align*}
+      \vphi(a)(\vphi(b) + \vphi(c))
+      &= \vphi(a)\vphi(b+c) \\
+      &= \vphi(a(b+c)) \\
+      &= \vphi(ab + ac) \\
+      &= \vphi(ab) + \vphi(ac) \\
+      &= \vphi(a)\vphi(b) + \vphi(a) \vphi(c).
+  \end{align*}
+\end{proof}
+
+\begin{obs}
+  De la definición de homomorfismo \wea{no} se concluye que $\vphi(1_A) = 1_B$. 
+  \[ \vphi(1_A) = \vphi(1_A \c 1_A) = \vphi(1_A) \vphi(1_A) = \vphi(1_A)^2. \]
+\end{obs}
+
+\begin{example}
+  Sea $R = (\Z,+,\c)$ y consideremos el anillo $R^2 = R \times R$. Sea $\vphi \colon R \to R^2$ dado por 
+  \[ \vphi(a) = (a,0) \]
+  tenemos que $\vphi$ es homomorfismo de anillos, pero $\vphi(1_R) \neq 1_{R^2}$.
+  Ojo, $\vphi(1_R)$ es unidad en $\vphi(R)$, pero no es la unidad de $R^2$.
+\end{example}
+
+\begin{definition}
+  Dado $\vphi \colon A \to B$ homomorfismo de anillos. El \wea{kernel de $\vphi$} es 
+  \[ \ker(\vphi) = \{x \in A \colon \vphi(x) = 0_B\}. \]
+\end{definition}
+
+\begin{obs}
+  $(\ker(\vphi),+_A) \normal (A,+)$.
+  Además, si $a,b \in \ker(\vphi)$: 
+  \[ \vphi(ab) = \vphi(a) \vphi(b) = 0 \ 0 = 0 \]
+  \[ \implies ab \in \ker(\vphi). \]
+  Por lo tanto, $(\ker(\vphi),+,\c)$ es un subanillo de $A$.
+
+  Notemos que si $a \in \ker(\vphi)$ y $b \in A$, entonces 
+  \begin{align*}
+      \vphi(ab) &= \vphi(a) \vphi(b) = 0_B \c \vphi(b) = 0_B, \\
+      \vphi(ba) &= \vphi(b) \vphi(a) = \vphi(b) \c 0_B = 0_B.
+  \end{align*}
+  Por lo tanto $ab,ba \in \ker(\vphi)$.
+\end{obs}
+
+\begin{exercise}
+  Pruebe que si $C$ es subanillo de $B$ y $\vphi \colon A \to B$ es homomorfismo de anillos, entonces $\vphi^{-1}(C)$ es subanillo de $A$.
+\end{exercise}
+
+\begin{definition}
+  Si $\vphi \colon A \to B$ es homomorfismo de anillos biyectivo, se dice \wea{isomorfismo de anillos}. %% escribir las definiciones de epimorfismo, endomorfismo, monomorfismo.
+\end{definition}
+
+\begin{exercise}
+  Si $\vphi \colon A \to B$ es isomorfismo de anillos, entonces $\vphi(1_A) = 1_B$.
+\end{exercise}
+
+\begin{definition}
+  Dado un anillo $(R,+,\c)$, definimos el \wea{anillo de series formales} como 
+  \[ R[[x]] = R^\N \]
+  con la suma componente a componente y la multiplicación de polinomios 
+  \[ (a \c b)_n = \sum_{k \leq n} a_k b_{n-k}. \]
+\end{definition}
+
+\begin{exercise}
+  Pruebe que las unidades de $R[x]$ son las secuencias $(a_n)_{n \geq 0}$ con $a_0 \in R^\times$ y $a_\ell$ nilpotente $\forall \ell \geq 1$.
+\end{exercise}
+
+\begin{definition}
+  Sea $(R,+,\c)$ un anillo. Un subconjunto $I \subset R$ se dice
+  \begin{enumerate}[(1)]
+    \item \wea{Absorbente a la izquierda} si $\forall a \forall x (a \in R \land x \in I \implies ax \in I)$.
+    \item \wea{Absorbente a la derecha} si $\forall a \forall x (a \in R \land x \in I \implies xa \in I)$.
+  \end{enumerate}
+\end{definition}
+
+\begin{definition}
+  Sea $(R,+,\c)$ anillo. Un subconjunto $I \subset R$ se dice: 
+  \begin{enumerate}[(1)]
+    \item \wea{Ideal a la izquierda} si $(I,+) \leqslant (R,+)$ e $I$ es absorbente a la izquierda.
+    \item \wea{Ideal a la derecha} si $(I,+) \leqslant (R,+)$ e $I$ es absorbente a la derecha.
+    \item \wea{Ideal} (\wea{bilatero}) si cumple (1) y (2).
+  \end{enumerate}
+\end{definition}
+
+\begin{obs}
+  Sea $(R,+,\c)$ un anillo, entonces $\{0\}$ y $R$ son ideales.
+\end{obs}
+
+\begin{exercise}
+  Sea $(I_\a)_{\a \in \Lambda}$ una colección de ideales (izq,der,bil) de $(R,+,\c)$. Muestre que $\ds \bigcap_{\a \in \Lambda} I_\a$ es ideal (izq,der,bil).
+\end{exercise}
+
+\begin{example}
+  $R = M_2(\R)$. 
+  \[ I = \set{\matr{a & 0 \\ b & 0} \colon a,b \in \R} \]
+  $I$ es ideal izquierdo de $M_2(\R)$, pero no es absorbente por la derecha. 
+  \[ \matr{1&0\\1&0} \matr{1&1\\1&1} = \matr{1&1\\1&1} \notin I. \]
+\end{example}
+
+\begin{proposition}
+  Sea $I \subset A$ ideal bilátero, entonces $A/I$ tiene estructura de anillo: Dado $A/I = \{a + I \colon a \in A\}$ 
+  \[ (a+I) + (b+I) = (a+b) + I \quad\land\quad (a+I)(b+I) = ab + I. \]
+\end{proposition}
+
+\begin{theorem}
+  [\wea{Propiedad Fundamental de Ideales}]
+  $I \subset A$ es ideal bilátero $\iff \exists \vphi \colon A \to B$ homomorfismo de anillos tal que $I = \ker(\vphi)$.
+\end{theorem}
+\begin{proof}
+  \ \begin{itemize}
+    \item \boxed{\impliedby} Ya comprobado.
+    \item \boxed{\implies} Consideremos $B = A/I$ con la projección canónica $\pi \colon A \to B$ dado por $\pi(a) = a + I$. Luego $\ker(\pi) = I$.
+  \end{itemize}
+\end{proof}
+
+\begin{theorem}
+  Un anillo $(R,+,\c)$ no trivial es anillo de división si y solo si los únicos ideales izquierdos (y derechos) son los triviales ($\{0\}$ y $R$).
+\end{theorem}
+\begin{proof}
+  \ \begin{itemize}
+    \item \boxed{\implies} Supongamos que $(R,+,\c)$ es anillo de división, y sea $I \subset R$ un ideal izquierdo. Supongamos que $I \neq \{0\}$, entonces existe $a \in I \setminus \{0\}$. COmo $R$ es de división, tenemos que $a \in R^\times$. Luego $\exists a^{-1}$ tal que $aa^{-1} = 1_R$. Luego por absorción tenemos que $\forall b \in R$, $b = b \c 1_R \in I$. Por lo tanto $R \subset I$, y entonces $I = R$.
+    \item \boxed{\impliedby} Supongamos que $R$ es anillo tal que sus únicos ideales (izquierdos) son $\{0\}$ y $R$. Sea $b \in R \setminus \{0\}$. Sea $(b)$ el ideal más pequeño que contiene a $b$ (la intersección de todos los ideales que lo contienen), entonces $(b) = R$.
+    
+    Notemos que $Rb = \{ab \colon a \in R\}$ es ideal izquierdo que contiene a $b$, y entonces $Rb = R$, y luego $1 \in Rb$, por lo que existe $a \in R$ tal que $ab = 1$, y entonces $b$ es unidad. Como $b$ es arbitrario, tenemos que $R$ es anillo de división.
+  \end{itemize}
+\end{proof}
+
 %\fecha{Clase 17.}
 %\fecha{Clase 18.}
 %\fecha{Clase 19.}

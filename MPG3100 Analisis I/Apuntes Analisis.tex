@@ -1924,13 +1924,172 @@ Si $x \in E_i \cap F_j$, entonces $c_i = d_j$. Luego
   \end{enumerate}
 \end{proposition}
 
+\fecha{Clase 16. Miércoles 29 de Abril}
 \begin{theorem}
   [Convergencia Monótona]
   Sean $f_n$ medibles tales que $0 \leq f_n(x) \leq f_{n+1}(x)$ para todo $x$ y $\ds f(x) = \lim_{n\to\oo} f_n(x)$. Entonces 
   \[ \lim_{n\to\oo} \int_X f_n(x) \ d\mu = \int_X f(x) \ d\mu. \]
 \end{theorem}
+\begin{proof}
+  Sabemos que $f$ es medible y 
+  \begin{align*}
+      0 \leq f_n(x) &\leq f(x), \quad \forall x \in X \\
+      \implies \int_X f_n \ d\mu &\leq \int_X f \ d\mu \\
+      \implies \lim_{n\to\oo} \int_X f_n \ d\mu &\leq \int_X f \ d\mu
+  \end{align*}
+  Tomemos $\phi$ simple tal que $0 \leq \phi \leq f$. Consideremos también $t \in (0,1)$. 
+  \[ A_n = \{x \in X \colon f_n(x) \geq t \phi\}. \]
+  Tenemos que $\forall x \in X, \exists n$ tal que $x \in A_n \iff x \in A_{n+1}$. Notemos que 
+  \[ X = \bigcup_{n\in\N} A_n \quad\land\quad A_{n+1} \supseteq A_n \]
+  Luego 
+  \[ \int_X f_n \ d\mu \geq \int_{A_n} f_n \ d\mu \geq t \int_{A_n} \phi \ d\mu \]
+  Por otro lado, $\ds \phi(x) = \sum_{i=1}^M c_i \chi_{E_i}(x)$ 
+  \begin{align*}
+      \implies \int_{A_n} \phi \ d\mu &= \int_X \phi \chi_{A_n} \ d\mu \\
+      &= \int_X \chi_{A_n} \sum_{i=1}^M c_i \chi_{E_i} \ d\mu \\
+      &= \int_X \sum_{i=1}^M c_i \chi_{E_i}\chi_{A_n} \ d\mu \\
+      &= \int_X \sum_{i=1}^M c_i \chi_{E_i \cap A_n} \ d\mu \\
+      &= \sum_{i=1}^M c_i \mu(E_i \cap A_n).
+  \end{align*}
+  Notemos que
+  \[ \lim_{n\to\oo} \mu(E_i \cap A_n) = \mu(E_i) \] %% no entendi como demostrar esto
+  Luego 
+  \[ \int_X f_n \ d\mu \geq t \int_{A_n} \phi \ d\mu \geq t \sum_{i=1}^M c_i \mu(E_i) \] 
+  \[ \implies \lim_{n \to \oo} \int_X f_n \ d\mu \geq t int_X \phi \]
+  Luego tomamos $t \to 1$ y obtenemos que $\forall \phi \leq f$
+  \[ \int_X \phi \ d\mu \leq \lim_{n\to\oo} \int_X f_n \ d\mu. \]
+  Tomando supremo en $\phi$ 
+  \[ \int_X f \ d\mu \leq \lim_{n\to\oo} \int_X f_n \ d\mu. \]
+\end{proof}
 
-%\fecha{Clase 16.}
+\newpage
+\subsection{Integrales de funciones medibles}
+
+\begin{definition}
+  Sea $f \colon X \to [-\oo,\oo]$ medible. Definimos 
+  \[ f_+(x) = \max\{f(x),0\}, \quad f_-(x) = -\min\{f(x),0\} \]
+  La \wea{integral de $f$} es 
+  \[ \int_X f \ d\mu \coloneqq \int_X f_+ \ \mathrm{d}\mu - \int_X f_- \ \mathrm{d}\mu \]
+  Decimos que la integral existe si $\ds \int_X f_+$ o $\ds \int_X f_-$ es finita. Decimos que $f$ es \wea{integrable} si ambas son finitas.
+\end{definition}
+
+\begin{obs}
+  $\abs f = f_+ + f_-$. Luego, si $f$ es integrable, entonces $\ds \int_X \abs f \ \mathrm{d}\mu$ existe.
+\end{obs}
+
+\begin{definition}
+  El \wea{conjunto de funciones integrables} es 
+  \[ \mathcal{L }_\mu^1 = \{f \colon X \to [-\oo,\oo] \text{ medible e integrable}\}. \]
+\end{definition}
+
+\begin{proposition}
+  Sean $f,g \colon X \to \R$ medibles. 
+  \begin{enumerate}[(1)]
+    \item $\ds \int_X k f \ \mathrm{d}\mu = k \int_X f \ \mathrm{d}\mu$ para todo $k \in \R$.
+    \item $\ds \int_X (f+g) \ \mathrm{d}\mu = \int_X f \ \mathrm{d}\mu + \int_X g \ \mathrm{d}\mu$.
+    \item $\ds f \leq g \implies \int_X f \ \mathrm{d}\mu \leq \int_X g \ \mathrm{d}\mu$.
+    \item $\ds \abs{\int_X f \ \mathrm{d}\mu} \leq \int_X \abs f \ \mathrm{d}\mu$.
+  \end{enumerate}
+\end{proposition}
+\begin{proof}
+  \ 
+  \begin{enumerate}[(1)]
+    \item Si $k \geq 0$ y $f = f_+ - f_-$, entonces 
+    \[ (kf)_+ = kf_+, \quad (kf)_- = kf_- \]
+    \begin{align*}
+        \implies \int_X kf \ \mathrm{d}\mu
+        &= \int_X (kf)_+ \ \mathrm{d}\mu - \int_X (kf)_- \ \mathrm{d}\mu \\
+        &= \int_X kf_+ \ \mathrm{d}\mu - \int_X kf_- \ \mathrm{d}\mu \\
+        &= k \int_X f_+ \ \mathrm{d}\mu - k \int_X f_- \ \mathrm{d}\mu \\
+        &= k \br{\int_X f_+ \ \mathrm{d}\mu - \int_X f_- \ \mathrm{d}\mu} \\
+        &= k \int_X f \ \mathrm{d}\mu.
+    \end{align*}
+    Si $k = -1$m entonces $kf = -f = f_- - f_+$. Se hace lo mismo.
+    
+    \item Si $f = f_+ - f_-$ y $g = g_+ - g_-$, entonces $f+g = f_+ + g_+ - (f_- + g_-)$, pero $f_+ + g_+ \neq (f+g)_+$. Lo que sí se cumple es 
+    \[ (f_+ + g_+) - (f_- + g_-) = (f+g)_+ - (f+g)_- \]
+    \[ \implies f_+ + g_+ + (f+g)_- = (f+g)_+ + (f_- + g_-). \]
+    Como todas son positivas, tenemos 
+    \begin{align*}
+        \int f_+ + \int g_+ + \int (f+g)_-
+        &= \int (f+g)_+ + \int f_- + \int g_- \\
+        \implies \int f + \int g = \int (f+g).
+    \end{align*}
+    \item Usar que $g-f \geq 0$.
+    \item $-\abs f \leq f \leq \abs f$.
+  \end{enumerate}
+\end{proof}
+
+\begin{example}
+  Si en $\N$ consideramos la medida discreta, entonces $f \colon \N \to \R$ es una sucesión en $\R$, $a_n = f(n)$. Luego 
+  \[ \int_X f \ \mathrm{d}\mu = \sum_{n\in\N} a_n. \]
+  En este contexto, absolutamente convergente es equivalente a ser integrable.
+\end{example}
+
+\begin{example}
+  Notemos que 
+  \[ \frac{\mathrm{d}}{\mathrm{d}x} x \cos \frac1x = \frac1x \sin\frac1x + \cos\frac1x. \]
+  Con integrald de Riemann tenemos 
+  \[ \int_0^1 \br{\rac1x \sin\frac1x + \cos\frac1x} \ \mathrm{d}x = \cos1. \]
+  Esta integral no existe en el sentido de Lebesgue.
+\end{example}
+
+\begin{example}
+  $\ds \int_{-1}^1 \frac1x \ \mathrm{d}x$ no existe ni en sentido de Riemann ni Lebesgue. Existe en sentido de valor principal. 
+  \[ \lim_{\e \to 0} \br{\int_{-1}^{-\e} \frac{\mathrm{d}x}{x} + \int_\e^1 \frac{\mathrm{d}x}{x}} = 0. \]
+\end{example}
+
+\begin{proposition}
+  Si $f \colon X \to [-\oo,\oo]$ es medible e integrable, entonces $f$ es finita a.e.
+\end{proposition}
+\begin{proof}
+  Basta asumir $f \geq 0$ (en general, aplicar para $f_+$ y $f_-$). Consideremos 
+  \[ A = \{x \in X \colon f(x) = \oo\}. \]
+  Queremos mostrar que $\mu(A) = 0$. Tomemos 
+  \[ f_n(x) = \begin{cases}
+    f(x), &si \ f(x) \leq n \\
+    n, &si \ f(x) > n.
+  \end{cases} \]
+  Notemos que $f_n(x) \to f(x)$ y $f_n(x)$ es creciente en $n$. Luego
+  \[ \int_X f \ \mathrm{d}\mu= \int_X (f - f_n) \ \mathrm{d}\mu + \int_X f_n \ \mathrm{d}\mu \]
+  \[ 0 \leq \int_{\{f(x) \leq n\}} f(x) + n \int \chi_{\{f \geq n\}} \ \mathrm{d}\mu \geq n \mu(A) \]
+  \[ \implies \mu(A) \leq \frac1n \int_X f \ \mathrm{d}\mu + \frac1n \int_X (f - f_n) \ \mathrm{d}\mu \]
+  La integral $\int f$ es finita, y la integral $\int (f-f_n)$ tiende a 0 por convergencia monótona. Luego con $n \to \oo$ obtenemos 
+  \[ \mu(A) \leq 0 \implies \mu(A) = 0. \]
+\end{proof}
+
+\begin{proposition}
+  Sea $f$ integrable, entonces 
+  \[ \int_X \abs f \ \mathrm{d}\mu = 0 \iff f = 0 \text{ a.e.} \]
+\end{proposition}
+\begin{proof}
+  \ \begin{itemize}
+    \item \boxed{\implies} $A_n = \{x \colon \abs{f(x)} > 1/n\}$. Basta ver el caso $f \geq 0$, ya que 
+    \[ \int \abs f = 0 \iff \int f_+ = \int f_- = 0. \]
+    Notemos que 
+    \[ 0 = \int_X f \ \mathrm{d}\mu = \int_{A_n} f \ \mathrm{d}\mu + \int_{X \setminus A_n} f \ \mathrm{d}\mu \geq \frac1n \mu(A_n) \]
+    \[ \implies \mu(A_n) = 0, \quad \forall n \in \N \]
+    \[\implies f = 0 \text{ a.e.}\]
+
+    \item \boxed{\impliedby} Supongamos que $f = 0$ a.e., y sea $\phi \leq f$ simple. 
+    \[ \phi = \sum_{i=1}^N c_i \chi_{E_i}. \]
+    Si $c_i \neq 0$, entonces $\mu(E_i) = 0$, y entonces $\int \phi = 0$. Luego 
+    \[ \int f = \sup\{\int \phi \colon \phi \leq f \text{ simple}\} = 0. \]
+  \end{itemize}
+\end{proof}
+
+\begin{obs}
+  Si $f=g$ a.e., entonces 
+  \[ \int f \ \mathrm{d}\mu = \int g \ \mathrm{d}\mu. \]
+  Si tomamos la relación de equivalencia $f \sim g \iff f=g$ a.e., entonces definimos
+  \[ L_\mu^1(X) = \mathcal{L}_\mu^1/\sim. \]
+\end{obs}
+
+\begin{proposition}
+  Si $f \colon X \to \R$ es integrable, entonces 
+  \[ \forall \e>0, \exists \delta>0 \br{\mu(A) < \delta \implies \abs{\int_A f \ \mathrm{d}\mu < \e}}. \]
+\end{proposition}
+
 %\fecha{Clase 17.}
 %\fecha{Clase 18.}
 %\fecha{Clase 19.}
