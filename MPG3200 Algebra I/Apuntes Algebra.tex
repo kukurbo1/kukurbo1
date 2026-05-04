@@ -2543,6 +2543,10 @@ Ahora demostraremos Banach--Tarski:
   Decimos que $a \in A$ es \wea{divisor de cero a la izquierda} si $\exists b \setminus \{0\}$ tal que $ab = 0$.
 \end{definition}
 
+\begin{definition}
+  Decimos que $A$ es un \wea{dominio de integridad} si es un anillo conmutativo sin divisores de cero.
+\end{definition}
+
 \begin{obs}
   Sea $(A,+,\c)$. \begin{enumerate}
     \item $\forall a \in A, \quad a \c 0 = 0 \c a = 0$.
@@ -2720,9 +2724,50 @@ Ahora demostraremos Banach--Tarski:
   \[ (a \c b)_n = \sum_{k \leq n} a_k b_{n-k}. \]
 \end{definition}
 
-\begin{exercise}
-  Pruebe que las unidades de $R[x]$ son las secuencias $(a_n)_{n \geq 0}$ con $a_0 \in R^\times$ y $a_\ell$ nilpotente $\forall \ell \geq 1$.
-\end{exercise}
+\begin{definition}
+  Sea $R$ un anillo. Decimos que $x \in R$ es \wea{nilpotente} si $\exists k \geq 1$ tal que $x^k = 0$.
+\end{definition}
+
+\begin{proposition}
+  Sea $R$ un anillo. Si $a \in R$ es nilpotente, entonces $1-a$ es unidad. %% demostrar
+\end{proposition}
+
+\begin{proposition}
+  Sea $R$ anillo conmutativo. Sea 
+  \[ p = a_0 + \sum_{i=1}^n a_i x^i. \]
+  Entonces $p \in \br{R[x]}^\times \iff a_0 \in R^\times \land a_1,\dots,a_n$ son nilpotentes.
+\end{proposition}
+
+\begin{corollary}
+  Si $R$ es dominio de integridad, entonces $R^\times \simeq (R[x])^\times$.
+\end{corollary}
+
+\begin{obs}
+  Si $A,S$ son dos anillos conmutativos, $f \colon A \to S$ es un homomorfismo de anillos y $s \in S$, entonces existe un único homomorfismo de anillo 
+  \[ \psi \colon A[x] \to S \]
+  tal que $\psi(a) = f(a) \land \psi(x) = s$.
+\end{obs}
+\begin{proof}
+  $A[x] = \gen{A,x}$.
+\end{proof}
+
+\begin{example}
+  Sea $K$ un cuerpo y $p \in K[x]$. Entonces $a$ es raíz de $p \iff x-a \mid p$.
+  En particular, $p$ tiene a lo más $\deg(p)$ raíces.
+\end{example}
+
+\begin{proposition}
+  Sea $K$ un cuerpo y $(G,\c) \leqslant (K^\times,\c)$ subgrupo multiplicativo finito. Entonces existe $n \geq 1$ tal que 
+  \[ G \simeq \znz n. \]
+\end{proposition}
+\begin{proof}
+  Como $K$ es cuerpo, es conmutativo. Luego $G$ es abeliano y finito. Por lo tanto existe $g \in G$ tal que $\ord(g) = \exp(G)$. Sea $p \in K[x]$ dado por $p = x^{\exp(G)} - 1$. Este es un polinomio de grado $\exp(G)$, y entonces tiene a lo más $\exp(G)$ raíces.
+  Por otro lado, si $h \in G$, entonces 
+  \[ p(h) = h^{\exp(G)} - 1 = 0
+  \implies \abs G \leq \exp(G) \implies G = \gen g. \]
+\end{proof}
+
+\subsection{Ideales y Cocientes}
 
 \begin{definition}
   Sea $(R,+,\c)$ un anillo. Un subconjunto $I \subset R$ se dice
@@ -2777,14 +2822,116 @@ Ahora demostraremos Banach--Tarski:
 \end{theorem}
 \begin{proof}
   \ \begin{itemize}
-    \item \boxed{\implies} Supongamos que $(R,+,\c)$ es anillo de división, y sea $I \subset R$ un ideal izquierdo. Supongamos que $I \neq \{0\}$, entonces existe $a \in I \setminus \{0\}$. COmo $R$ es de división, tenemos que $a \in R^\times$. Luego $\exists a^{-1}$ tal que $aa^{-1} = 1_R$. Luego por absorción tenemos que $\forall b \in R$, $b = b \c 1_R \in I$. Por lo tanto $R \subset I$, y entonces $I = R$.
+    \item \boxed{\implies} Supongamos que $(R,+,\c)$ es anillo de división, y sea $I \subset R$ un ideal izquierdo. Supongamos que $I \neq \{0\}$, entonces existe $a \in I \setminus \{0\}$. Como $R$ es de división, tenemos que $a \in R^\times$. Luego $\exists a^{-1}$ tal que $aa^{-1} = 1_R$. Luego por absorción tenemos que $\forall b \in R$, $b = b \c 1_R \in I$. Por lo tanto $R \subset I$, y entonces $I = R$.
     \item \boxed{\impliedby} Supongamos que $R$ es anillo tal que sus únicos ideales (izquierdos) son $\{0\}$ y $R$. Sea $b \in R \setminus \{0\}$. Sea $(b)$ el ideal más pequeño que contiene a $b$ (la intersección de todos los ideales que lo contienen), entonces $(b) = R$.
     
     Notemos que $Rb = \{ab \colon a \in R\}$ es ideal izquierdo que contiene a $b$, y entonces $Rb = R$, y luego $1 \in Rb$, por lo que existe $a \in R$ tal que $ab = 1$, y entonces $b$ es unidad. Como $b$ es arbitrario, tenemos que $R$ es anillo de división.
   \end{itemize}
 \end{proof}
 
-%\fecha{Clase 17.}
+\fecha{Clase 17. Lunes 4 de Mayo}
+
+\begin{corollary}
+  Si $A$ es un anillo conmutativo, entonces $A$ es cuerpo si y solo si sus únicos ideales son $\{0\}$ y $A$.
+\end{corollary}
+
+\begin{obs}
+  Un anillo no conmutativo podría no contener ideales biláteros no triviales, y aún así no ser anillo de división.
+\end{obs}
+
+\begin{example}
+  $M_2(\R)$ no es anillo de división. Sea $I \subset M_2(\R)$ un ideal no trivial, entonces existe $A \in I$ con alguna entrada distinta de 0. Bajo multiplicación por la matriz $\matr{0&1\\1&0}$ podemos permutar las filas entre si, y podemos permutar las columnas entre sí, por lo que podemos asumir que $A_{11} \neq 0$. Luego 
+  \[ \matr{1&0\\0&0} A \matr{1&0\\0&0} = \matr{A_{11} & 0 \\ 0 & 0}. \]
+  Luego para todo $r \in \R$, tenemos que $\matr{r & 0 \\ 0 & 0} \in I$. Al multiplicar por $\matr{0&1\\1&0}$, obtenemos 
+  \[ \matr{r&0\\0&0}, \matr{0&r\\0&0}, \matr{0&0\\r&0}, \matr{0&0\\0&r} \in I, \quad \forall r \in \R. \]
+  Luego $I = M_2(\R)$.
+\end{example}
+
+\begin{definition}
+  Un anillo $A$ se dice \wea{simple} si no contiene ideales biláteros no triviales.
+\end{definition}
+
+\begin{obs}
+  Si $A$ es anillo conmutativo, entonces $A$ es simple si y solo si $A$ es cuerpo.
+\end{obs}
+
+\begin{definition}
+  Sea $R$ un anillo. Un ideal $I \subset R$ se dice \wea{maximal} si 
+  \[ I \neq R \land \forall J ((I \subset J \subset R) \land J \text{ ideal}) \implies (J = I \lor J = R). \]
+\end{definition}
+
+\begin{obs}
+  La definición admite cambiar ``ideal'' por ``ideal izquierdo'', ``ideal derecho'' e ``ideal bilátero''.
+\end{obs}
+
+\begin{example}
+  $R = (\Z,+,\c)$. Los ideales en $R$ son de la forma $I_k = k\Z$, para $k \geq 0$ entero. Tenemos que $I_k$ es ideal maximal si y solo si $k$ es primo.
+\end{example}
+
+\begin{definition}
+  Sea $A$ un anillo. El \wea{radical de Jacobson} es 
+  \[ \mathfrak{J}(A) = \bigcap_{\substack{I \subset A \\ \text{ideal maximal}}} I. \]
+\end{definition}
+
+\begin{proposition}
+  Sea $R$ anillo no trivial e $I \subset R$ ideal bilátero. $R/I$ es simple $\iff I$ es maximal.
+\end{proposition}
+\begin{proof}
+  $R/I$ es anillo. Sea $J \subset R/I$ ideal bilátero. Consideremos la proyección canónica $\pi \colon R \to R/I$. Entonces $\pi^{-1}(J)$ es ideal bilátero en $R$ y además $I \subset \pi^{-1}(J)$.
+  Como $I$ es maximal, entonces $\pi^{-1}(J) \in \{I,R\}$. Luego $J \in \{I,R/I\}$.
+\end{proof}
+
+\begin{lemma}
+  [Zorn] Sea $(X,\leq)$ un conjunto parcialmente ordenado, con $X \neq \varnothing$.
+  Si toda cadena admite cota superior en $X$, entonces $\exists m \in X$ maximal.
+\end{lemma}
+
+\begin{theorem}
+  Todo anillo admite un cociente simple.
+\end{theorem}
+\begin{proof}
+  Sea $R$ anillo no trivial. Definimos 
+  \[ \Ical = \{I \subset R \colon I \text{ es ideal propio}\} \]
+  $\Ical \neq \varnothing$ pues $\{0\} \in \Ical$. Dotamos a $\Ical$ del orden parcial $\subset$. Sea $\Gcal \subset \Ical$ una cadena. Consideremos 
+  \[ C = \bigcup_{I \in \Gcal} I \]
+  por definición, para todo $I \in \Gcal$, tenemos que $I \subset C$. Veamos que $C \in \Ical$:
+
+  Sea $r \in R$ y $a \in C$, entonces existe $I \in \Gcal$ tal que $a \in I$ y entonces $ra \in I$ o $ar \in I$ (dependiendo del tipo de absorbencia que pidamos). Por lo tanto $C$ es absorbente (por el lado que pidamos).
+
+  Si $a,b \in C$, entonces existen $I,J \in \Gcal$ tales que $a \in I$ y $b \in J$. Como $I,J \in \Gcal$, tenemos que $I \subset J$ o $J \subset I$. Sin pérdida de generalidad, $I \subset J$. Luego $a \in J$, y entonces $a+b \in J \subset C$.
+
+  Por lo tanto $C$ es ideal. Si $C = R$, entonces $1 \in C$, luego existe $I \in \Gcal$ tal que $1 \in I$, y entonces $I = R$, contradicción pues $I \in \Ical$. Por lo tanto $C$ es un ideal propio de $R$, y entonces $R \in \Ical$, y es maximal.
+
+  En el caso bilátero, $C$ es un ideal bilátero maximal, y entonces $R/C$ es simple.
+\end{proof}
+
+\begin{example}
+  Sea $X$ un conjunto arbitrario no vacío y $\R^X = \{f \colon X \to \R\}$. Este es un anillo con suma y producto coordenada a coordenada.
+  Sea $Y \subset X$. 
+  \begin{enumerate}[(1)]
+    \item $I_Y = \{f \in \R^X \colon f(x) = 0, \forall x \in Y\}$ es ideal.
+    \item $\abs Y = 1 \implies I_Y$ es maximal.
+    \item $\ds \frac{\R^X}{I_{\{y\}}} \simeq \R$.
+  \end{enumerate}
+\end{example}
+\begin{proof}
+  \ 
+  \begin{enumerate}[(1)]
+    \item Trivial.
+    \item Sea $Y = \{x_0\}$. Entonces 
+    \[ I_Y = \{f \in \R^X \colon f(x_0) = 0\}. \]
+    Sea $J$ ideal tal que $I_Y \subsetneq J$. Luego existe $g \in J$ tal que $g(x_0) \neq 0$. Sea $f \in \R^X$. Definimos $h \in \R^X$ dada por 
+    \[ h(x) = \begin{cases}
+      0, &x = x_0 \\
+      -g(x), &x \neq x_0.
+    \end{cases} \]
+    $h \in I_Y \implies h+g \in J$. Luego $g(x_0)^{-1}(h+g) = \chi_{\{x_0\}} \in J$. Podemos escribir 
+    \[ f = \underbrace{f(x_0) \c \chi_{\{x_0\}}}_{\in J} + \underbrace{f \c \chi_{X \setminus \{x\}}}_{\in I_Y \subset J} \in J \]
+
+    \item Definimos $\psi \colon \R \to \R^X/I_{\{x_0\}}$ dada por $\psi(a) = a \chi_{\{x_0\}} + I_{\{x_0\}}$. $\psi$ es isomorfismo. %% demostrar
+  \end{enumerate}
+\end{proof}
+
 %\fecha{Clase 18.}
 %\fecha{Clase 19.}
 %\fecha{Clase 20.}
