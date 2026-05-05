@@ -117,7 +117,7 @@
 
 \renewcommand{\a}{\alpha}
 \renewcommand{\b}{\beta}
-\renewcommand{\d}{\delta}
+\renewcommand{\d}{\mathrm{d}}
 \newcommand{\e}{\varepsilon}
 \renewcommand{\t}{\tau}
 \newcommand{\lam}{\lambda}
@@ -168,8 +168,8 @@
 
 \newcommand{\dem}[1]{\textbf{Demostración (#1)}}
 
-\newcommand{\sialg}{\text{$\sigma$--álgebra}}
-\newcommand{\sialgs}{\text{$\sigma$--álgebras}}
+\newcommand{\sialg}{\text{$\sigma$-álgebra}}
+\newcommand{\sialgs}{\text{$\sigma$-álgebras}}
 
 %title
 \title{MPG3100 -- Análisis I}
@@ -283,7 +283,7 @@
 \end{example}
 
 \begin{example}
-  Consideremos la \wea{2--esfera}
+  Consideremos la \wea{2-esfera}
   \[\S^2 = \{(x,y,z) \in \R^3 \colon x^+ y^2 + z^= 1\}.\]
   El conjunto
   \[\{(x,y,z) \in \S^2 \colon z>0\}\]
@@ -448,10 +448,10 @@
   Queremos ver
   \[d(b,F_1) \leq d(b,p_1), \quad \forall p_1 \in F_1.\]
   Notemos que $d(b,F_1) \leq d(a,b) + d(a,p_1)$. Luego $\forall d >0$, $\exists p_1 \in F_1$ tal que
-  \[d(a,p_1) \leq \dist(a,F_1) + \d.\]
-  Luego $\forall \d>0$,
-  \[d(b,F_1) \leq d(a,b) + \dist(a,F_1) + \d.\]
-  Tomando $\d \to 0$
+  \[d(a,p_1) \leq \dist(a,F_1) + \delta.\]
+  Luego $\forall \delta>0$,
+  \[d(b,F_1) \leq d(a,b) + \dist(a,F_1) + \delta.\]
+  Tomando $\delta \to 0$
   \begin{align*}
     \dist(b,F_1) &\leq d(a,b) + \dist(a,F_1) \\
     &\leq d(a,b) + \dist(a,F_1) - \dist(a,F_2) + \dist(a,F_2).
@@ -549,12 +549,12 @@
 \subsection{Funciones Continuas}
 
 \begin{definition}
-  Si $(X,d)$ e $(Y,\rho)$ son espacios métricos, un función $f \colon X \to Y$ se dice \wea{continua en $a \in X$} si $\forall \e>0, \exists \d>0$ tal que $$d(a,b) < \d \implies \rho(f(a),f(b)) < \e.$$
+  Si $(X,d)$ e $(Y,\rho)$ son espacios métricos, un función $f \colon X \to Y$ se dice \wea{continua en $a \in X$} si $\forall \e>0, \exists \delta>0$ tal que $$d(a,b) < \delta \implies \rho(f(a),f(b)) < \e.$$
   La función se dice \wea{continua} si es continua en todo $a \in X$.
 \end{definition}
 
 \begin{obs}
-  Esto es equivalente a que $\forall \e>0, \exists \d>0$ tal que $$b \in B_\d(a) \implies f(b) \in B_\e(f(a)).$$
+  Esto es equivalente a que $\forall \e>0, \exists \delta>0$ tal que $$b \in B_\delta(a) \implies f(b) \in B_\e(f(a)).$$
 \end{obs}
 
 \begin{obs}
@@ -984,7 +984,7 @@ Esto escrito con abiertos es
 \newpage
 \fecha{Clase 7. Lunes 30 de Marzo}
 \subsection{Teoremas Importantes de Espacios Métricos}
-\subsubsection{Teorema de Stone--Weierstrass}
+\subsubsection{Teorema de Stone-Weierstrass}
 
 \begin{definition}
   Sea $(X,\tau)$ un espacio topológico.
@@ -998,7 +998,7 @@ Esto escrito con abiertos es
 \end{definition}
 
 \begin{obs}
-  $C(X)$ es un $\R$--espacio vectorial.
+  $C(X)$ es un $\R$-espacio vectorial.
 \end{obs}
 
 \begin{definition}
@@ -1009,7 +1009,7 @@ Esto escrito con abiertos es
   Se dice que $A \subseteq C(X)$ \wea{separa puntos} si $$\forall u,v \in X, \exists f \in A \colon f(u) \neq f(v).$$
 \end{definition}
 
-\begin{theorem}[Stone--Weierstrass]
+\begin{theorem}[Stone-Weierstrass]
   Si $X$ es compacto y Hausdorff, y $A$ es un álgebra que separa puntos y que contiene las constantes, entonces $A$ es denso en $C(X)$ con la topología uniforme.
 \end{theorem}
 
@@ -1038,7 +1038,7 @@ Esto escrito con abiertos es
 \end{lemma}
 
 \begin{proof}
-  [\dem{Stone--Weierstrass}]
+  [\dem{Stone-Weierstrass}]
   \begin{claim}
     Basta considerar $f \in C(X)$ tales que $0 \leq f(x) \leq 1$.
   \end{claim}
@@ -1088,12 +1088,12 @@ Esto escrito con abiertos es
 \end{proof}
 
 \newpage
-\subsubsection{Teorema de Arzela--Ascoli}
+\subsubsection{Teorema de Arzela-Ascoli}
 
 \begin{definition}
   Sea $(X,d)$ un espacio métrico. $F \subseteq C(X)$ se dice \wea{equicontinua} si
-  \[\forall \e>0, \exists \d>0, \forall f \in F \cor{
-    d(u,v)<\d \implies \abs{f(u) - f(v)} < \e
+  \[\forall \e>0, \exists \delta>0, \forall f \in F \cor{
+    d(u,v)<\delta \implies \abs{f(u) - f(v)} < \e
   }.\]
 \end{definition}
 
@@ -1103,7 +1103,7 @@ Esto escrito con abiertos es
 \end{definition}
 
 \begin{theorem}
-  [Arzela--Ascoli]
+  [Arzela-Ascoli]
   Si $(X,d)$ es un espacio métrico compacto y $\{f_n\}_{n\in\N} \subseteq C(X)$ es equicontinua y uniformemente acotada, entonces $\{f_n\}_{n\in\N}$ tiene una subsucesión convergente.
 \end{theorem}
 \begin{proof}
@@ -1256,7 +1256,7 @@ Esto escrito con abiertos es
 \newpage
 \fecha{Clase 10. Miércoles 8 de Abril}
 \section{Teoría de la Medida}
-\subsection{Álgebras y \texorpdfstring{$\sigma$}{sigma}--álgebras}
+\subsection{Álgebras y \texorpdfstring{$\sigma$}{sigma}-álgebras}
 
 \begin{definition}
   Dado $X$ un espacio cualquiera, $\A \subseteq \P(X)$ se dice \wea{álgebra} si
@@ -1273,20 +1273,20 @@ Esto escrito con abiertos es
 \end{obs}
 
 \begin{definition}
-  Si $X$ es un espacio cualquiera, $\A \subseteq \P(X)$ se dice \wea{$\sigma$--álgebra} si es un álgebra y además
+  Si $X$ es un espacio cualquiera, $\A \subseteq \P(X)$ se dice \wea{$\sigma$-álgebra} si es un álgebra y además
   \[\{A_i\}_{i\in\N} \subseteq \A \implies \bigcup_{i\in\N} A_i \in \A.\]
 \end{definition}
 
 \begin{obs}
-  Las topologías no son $\sigma$--álgebras en general.
+  Las topologías no son $\sigma$-álgebras en general.
 \end{obs}
 
 \begin{example}
   \begin{itemize}
-    \item $\P(X)$ y $\{\varnothing,X\}$ es $\sigma$--álgebra.
-    \item $\{\varnothing,X\}$ es $\sigma$--álgebra.
+    \item $\P(X)$ y $\{\varnothing,X\}$ es $\sigma$-álgebra.
+    \item $\{\varnothing,X\}$ es $\sigma$-álgebra.
     \item Si $X$ es infinito, $\{C \subseteq X \colon \abs{C^c} < \oo\}$ no es álgebra.
-    \item $\{C \colon \abs{C}<\oo \lor \abs{C^c} < \oo\}$ es álgebra pero no es $\sigma$--álgebra.
+    \item $\{C \colon \abs{C}<\oo \lor \abs{C^c} < \oo\}$ es álgebra pero no es $\sigma$-álgebra.
   \end{itemize}
 \end{example}
 
@@ -1348,7 +1348,7 @@ Esto escrito con abiertos es
 
 \begin{definition}
   Decimos que $\mu$ es \wea{finita} si $\mu(X) < \oo$.
-  Si $X = \bigcup_{i\in\N} A_i$ con $A_i$ tales que $\mu(A_i)<\oo$, se dice que $\mu$ es \wea{$\sigma$--finita}.
+  Si $X = \bigcup_{i\in\N} A_i$ con $A_i$ tales que $\mu(A_i)<\oo$, se dice que $\mu$ es \wea{$\sigma$-finita}.
 \end{definition}
 
 \begin{proposition}
@@ -1470,13 +1470,13 @@ Objetivo: Queremos definir una medida en $\R$ tal que $$\mu([a,b]) = \mu((a,b]) 
 
 \begin{definition}
   [\wea{Criterio de Caratheodory}]
-  Decimos que $A$ es \wea{$\mu^*$--medible} si $\forall B \in \P(X)$
+  Decimos que $A$ es \wea{$\mu^*$-medible} si $\forall B \in \P(X)$
   \[\mu^*(B) = \mu^*(B \cap A) + \mu^*(B \cap A^c).\]
 \end{definition}
 
 \begin{theorem}
   Consideremos el conjunto
-  \[M^* = \{A \in \P(X) \colon \text{$A$ es $\mu^*$--medible}\}.\]
+  \[M^* = \{A \in \P(X) \colon \text{$A$ es $\mu^*$-medible}\}.\]
   Entonces $M^*$ es \sialg\ y $\mu^*|_{M^*}$ es medida.
 \end{theorem}
 
@@ -1517,7 +1517,7 @@ Objetivo: Queremos definir una medida en $\R$ tal que $$\mu([a,b]) = \mu((a,b]) 
 \subsection{Medida de Lebesgue}
 
 \begin{theorem}
-  Si $A$ es $\lam$--medible en $\R^n$, entonces
+  Si $A$ es $\lam$-medible en $\R^n$, entonces
   \begin{enumerate}[(1)]
     \item $\lam(A) = \inf\{\lam(U) \colon U \in \t \land A \subseteq U\}$.
     \item $\lam(A) = \sup\{\lam(K) \colon K \subseteq A \text{ compacto}\}$.
@@ -1563,8 +1563,8 @@ Objetivo: Queremos definir una medida en $\R$ tal que $$\mu([a,b]) = \mu((a,b]) 
     \item Si $A$ no es acotado, queremos mostrar que $\forall b$ tal que $\lam(A) > b$, $\exists K \subseteq A$ tal que $\lam(K) + \e \geq b$.
     Si $A_k = A \cap B_k(0)$ para $k \in \N$, afirmamos que
     \[\lam(A_k) < \oo \quad\land\quad \lim_{k\to\oo} \lam(A_k) = \lam(A).\]
-    Basta demostrar esto, pues implicaría que $\exists k_0$ tal que $\lam(A_{k_0}) > b + \d$ con $\d$ pequeño, y por el caso anterior $\exists K \subseteq A_{k_0}$ tal que
-    \[\frac\d2 + \lam(K) > \lam(A_{k_0}).\]
+    Basta demostrar esto, pues implicaría que $\exists k_0$ tal que $\lam(A_{k_0}) > b + \delta$ con $\delta$ pequeño, y por el caso anterior $\exists K \subseteq A_{k_0}$ tal que
+    \[\frac\delta2 + \lam(K) > \lam(A_{k_0}).\]
     Veamos la afirmación:
     \[A = \bigcup_{k \in \N} A_k \implies \lam(A) = \lam\br{\bigcup_{k \in \N} A_k}.\]
     Tomemos $\ds B_k = A_k \setminus \bigcup_{i=1}^{k-1} A_i$, luego
@@ -1600,7 +1600,7 @@ Objetivo: Queremos definir una medida en $\R$ tal que $$\mu([a,b]) = \mu((a,b]) 
 \end{proof}
 
 \begin{theorem}
-  $\exists A \subseteq (0,1)$ que no es $\lam$--medible.
+  $\exists A \subseteq (0,1)$ que no es $\lam$-medible.
 \end{theorem}
 \begin{proof}
   Definimos la relación $x \sim y \iff x-y \in \Q$. Esta es relación de equivalencia.
@@ -1643,7 +1643,7 @@ Objetivo: Queremos definir una medida en $\R$ tal que $$\mu([a,b]) = \mu((a,b]) 
   es \sialg, y además $\mu^*|_{M_{\mu^*}}$ es medida. También, si $\mu^*(A) = 0$, entonces $A \in M_{\mu^*}$.
 \end{obs}
 
-Dada cualquier \sialg\ $\A$ y $\mu$ medida sobre ella, ¿Es posible encontrar $\bar\A$ tal que sea $\mu$--completa y $\bar\A \supseteq \A$?
+Dada cualquier \sialg\ $\A$ y $\mu$ medida sobre ella, ¿Es posible encontrar $\bar\A$ tal que sea $\mu$-completa y $\bar\A \supseteq \A$?
 
 Definimos
 \[\A_\mu = \{B \in \P(X) \colon \exists E, F \in \A, \quad E \subseteq B \subseteq F \land \mu(F \setminus E) = 0\}.\]
@@ -1738,7 +1738,7 @@ Definimos
 
   En general, si $Y = \R^n$, hay 2 opciones posibles de \( \sigma \)-álgebras naturales: $M_{\lam^*}$ (medibles respecto a $\lam^*$) o los Borelianos.
 
-  En general decimos que $f \colon X \to \R$ es \wea{medible} si es \wea{Borel--medible}. Si queremos considerar $M_{\lam^*}$ decimos \wea{Lebesgue--medible}.
+  En general decimos que $f \colon X \to \R$ es \wea{medible} si es \wea{Borel-medible}. Si queremos considerar $M_{\lam^*}$ decimos \wea{Lebesgue-medible}.
 \end{obs}
 
 \begin{proposition}
@@ -1801,7 +1801,7 @@ Definimos
 \begin{definition}
   Sea $(X,A,\mu)$ un espacio de medida. Decimos que $f \colon X \to [-\oo,\oo]$ es una \wea{función simple} si 
   \[ f = \sum_{i=1}^N c_i \chi_{E_i} \]
-  donde los $E_i$ son $A$--medibles.
+  donde los $E_i$ son $A$-medibles.
 \end{definition}
 
 \begin{obs}
@@ -2087,10 +2087,73 @@ Si $x \in E_i \cap F_j$, entonces $c_i = d_j$. Luego
 
 \begin{proposition}
   Si $f \colon X \to \R$ es integrable, entonces 
-  \[ \forall \e>0, \exists \delta>0 \br{\mu(A) < \delta \implies \abs{\int_A f \ \mathrm{d}\mu < \e}}. \]
+  \[ \forall \e>0, \exists \delta>0 \br{\mu(A) < \delta \implies \abs{\int_A f \ \d\mu < \e}}. \]
 \end{proposition}
 
-%\fecha{Clase 17.}
+\fecha{Clase 17. Miércoles 4 de Mayo}
+
+\subsection{Ideas de Convergencia}
+
+\begin{example}
+  Consideremos la función
+  \[ f_n(x) = \begin{cases}
+    x^p, &x \in [0,1/n] \\
+    0, &si \ no.
+  \end{cases} \]
+  Notemos que $f_n(x) \to 0$ a.e., y 
+  \[ \int_\R f_n(x) \d\mu = n^{p-1} \]
+  Dependiendo de $p$, la integral tiende a $\oo$ o converge a 0.
+\end{example}
+
+\begin{example}
+  Si $f_n \to f$ uniformemente en $\R$ y $X$ es de medida finita, entonces 
+  \[ \abs{\int_X f_n \d\mu - \int_X f \d\mu} \leq \sup \abs{f-f_n} \mu(x) \xrightarrow{n\to\oo} 0. \]
+  Si $X$ es de medida finita, entonces convergencia uniforme implica convergencia de integrales.
+\end{example}
+
+\begin{example}
+  $$f_n(x) = \begin{cases}
+    \dfrac{1}{n}, &x \in [0,n] \\
+    0, &si \ no.
+  \end{cases}$$
+  $f_n(x) \to 0$ uniformemente en $\R$. Pero 
+  \[ \int_\R f_n \d\mu = 1. \]
+\end{example}
+
+\begin{lemma}
+  [\wea{Fatou}]
+  Si $f_n$ es una sucesión de funciones medibles no-negativas, entonces 
+  \[ \liminf \int_X f_n \d\mu \geq \int_X \liminf_{n\to\oo} f_n \d\mu. \]
+\end{lemma}
+
+\begin{obs}
+  Como soy lento para estas cosas, por definición de $\liminf$ queda 
+  \[ \lim_{n\to\oo} \br{\inf_{m\geq n} \int_X f_m \d\mu} \geq \int_X \lim_{n\to\oo} \br{\inf_{m \geq n} f_m} \d\mu \]
+  o también 
+  \[ \sup_{n \geq 0} \inf_{m \geq n} \int_X f_m \d\mu \geq \int_X \sup_{n \geq 0} \inf_{m \geq n} f_m \d\mu. \]
+\end{obs}
+
+\begin{theorem}[\wea{Convergencia Dominada}]
+  Sea $\{f_n\}$ una familia de funciones medibles tales que $\abs{f_n(x)} \leq g(x)$ a.e. y $g$ integrable. Si $\lim_{n\to\oo} f_n(x)$ existe (a.e.) y $f(x) = \lim_{n\to\oo} f_n(x)$, entonces $f$ es integrable.
+\end{theorem}
+
+\begin{obs}
+  En convergencia monótona, lema de Fatou, la hipótesis de positividad se puede reemplazar por $f_n \geq 0$ con $g$ integrable.
+\end{obs}
+
+\newpage
+\subsection{Riemann Integrable vs Lebesgue Integrable}
+
+\begin{theorem}
+  Sea $[a,b]$ un intervalo cerrado. Entonces 
+  \begin{enumerate}[(a)]
+    \item $f$ es Riemann integrable si y solo si es continua en casi todo punto.
+    \item Si $f$ es Riemann integrable, entonces es Lebesgue interable y las integrales coinciden.
+  \end{enumerate}
+\end{theorem}
+
+
+
 %\fecha{Clase 18.}
 %\fecha{Clase 19.}
 %\fecha{Clase 20.}
