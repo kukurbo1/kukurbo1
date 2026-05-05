@@ -152,6 +152,8 @@
 \newcommand{\znz}[1]{\frac{\Z}{#1 \Z}}
 \newcommand{\zmz}[1]{\Z/ #1 \Z}
 
+\newcommand{\Chi}[1]{\chi_{\raisebox{-.5ex}{$\scriptstyle #1$}}}
+
 % Por si me equivoco al escribir
 \newcommand{\rac}[2]{\frac{#1}{#2}}
 \newcommand{\olon}{\colon}
@@ -824,6 +826,150 @@ Muestre que $T$ es medible.
   \end{align*}
   Son todas continuas, y entonces son medibles. Por el problema 4 (versión numerable) $T$ es medible.
 \end{proof}
+
+
+\newpage
+\section{Ayudantía 7. Lunes 4 de Mayo}
+
+\subsection{Problema 1}
+Sea $\ds X = \bigcup_{n=1}^\oo X_n$, con $X_n \subseteq X_{n+1}$. Sea $f \colon X \to [0,\oo]$ medible. Muestre que $f$ es integrable en $X$ si y solo si $\exists M>0$ tal que 
+\[ \int_{X_n} f \d\mu \leq M, \quad \forall n \in \N. \]
+
+\begin{proof}
+  \ \begin{itemize}
+    \item \boxed{\implies} Supongamos que $f$ es integrable en $X$. Tomamos $\ds M = \int f \d\mu$. Entonces $\forall n \in \N$ tenemos
+    \[ f\chi_{X_n} \leq f \implies \int_{X_n} f \d\mu = \int f\chi_{X_n} \d\mu \leq \int f \d\mu = M. \]
+    \item \boxed{\impliedby} Sea $F_N = f \chi_{X_N}$. Entonces, como $X_n \subseteq X_{n+1}$ y $\ds X = \bigcup_{n=1}^\oo X_n$, tenemos que $F_N \nearrow f$. De aquí, 
+    \[ \int f \d\mu = \lim_{N\to\oo} \int f \chi_{X_n} \d\mu < M < \oo. \]
+    Luego $f$ es integrable.
+  \end{itemize}
+\end{proof}
+
+\newpage
+\subsection{Problema 2}
+Sea $f \colon X \to [0,\oo]$ integrable. Para todo $E \subset X$ definimos 
+\[ \nu(E) = \int_E f \d\mu. \]
+Muestre que: 
+\begin{enumerate}[(a)]
+  \item $\nu$ es medida.
+  \item $\ds \int g \d\nu = \int fg \d\mu$ para todo $g \colon X \to [0,\oo]$ integrable.
+\end{enumerate}
+\begin{proof}
+  \ 
+  \begin{enumerate}[(a)]
+    \item Primero notemos que $\ds \nu(\varnothing) = \int_\varnothing f \d\mu = 0$.
+    
+    Sean $(E_n)_{n=1}^\oo$ disjuntos medibles. Tenemos que 
+    \begin{align*}
+        \nu\br{\bigcup_{n=1}^\oo E_n}
+        &= \int_{\bigcup_{n=1}^\oo E_n} f \d\mu \\
+        &= \int f \chi_{\bigcup_{n=1}^\oo E_n} \d\mu \\
+        &= \int \sum_{n=1}^\oo \chi_{E_n} \d\mu \\
+        &= \int \sum_{n=1}^\oo f \chi_{E_n} \d\mu \\
+        &= \int \lim_{N\to\oo} \sum_{n=1}^N f \chi_{E_n} \d\mu \\
+        &= \lim_{N\to\oo} \int \sum_{n=1}^N f \chi_{E_n} \d\mu \quad \text{(TCM)} \\
+        &= \lim_{N\to\oo} \sum_{n=1}^N \int f \chi_{E_n} \d\mu \\
+        &= \sum_{n=1}^\oo \int f \chi_{E_n} \d\mu \\
+        &= \sum_{n=1}^\oo \int_{E_n} f \d\mu \\
+        &= \sum_{n=1}^\oo \nu(E_n).
+    \end{align*}
+
+    \item Si $g$ fuese simple, 
+    \[ g = \sum_{n=1}^N c_n \chi_{E_n} \]
+    con $\{E_n\}_{n=1}^N$ disjuntos de a pares. En este caso $g f$ es $\mu$-integrable. Luego 
+    \begin{align*}
+        \int g \d\nu &= \sum_{n=1}^N c_n \nu(E_n) \\
+        &= \sum_{n=1}^N c_n \int_{E_n} f \d\mu \\
+        &= \sum_{n=1}^N c_n \int f \chi_{E_n} \d\mu \\
+        &= \sum_{n=1}^N \int c_n f \chi_{E_n} \d\mu \\
+        &= \int \br{\sum_{n=1}^N c_n f \chi_{E_n}} \d\mu \\
+        &= \int f \cdot \br{\sum_{n=1}^N c_n \chi_{E_n}} \d\mu \\
+        &= \int fg \d\mu.
+    \end{align*}
+    En general, si $S_n \nearrow g$ con $S_n$ simples, por convergencia monótona 
+    \[ \int g\d\nu = \lim_{n\to\oo} \int S_n \d\nu = \lim_{n\to\oo} \int f S_n \d\mu = \int fg \d\mu. \]
+  \end{enumerate}
+\end{proof}
+
+\newpage
+\subsection{Problema 3}
+
+Sea $X$ localmente compacto Hausdorff. Sea $\mu$ medida regular en $\B(X)$. Para $U \subseteq X$ y $f \in \Ccal_c(X)$ denotemos 
+\[ f \prec U \iff (\mathrm{supp}(f) \subseteq U \ \land \ 0 \leq f \leq \Chi{U}) \]
+Si $U$ es abierto en $X$, muestre que 
+\[ \mu(U) = \sup\set{\int f\d\mu \colon f \in \Ccal_c(X) \land f \prec U}. \]
+
+\begin{proof}
+  Sea $I = \sup\set{\int f \d\mu \colon f \in \Ccal(X) \land f \prec U}$. Queremos mostrar que $\mu(U) = I$.
+
+  Si $f \prec U$, entonces $$\mu(U) = \int \Chi U \d\mu \geq \int f \d\mu.$$
+  Tomando supremo 
+  \[ mu(U) \geq I. \]
+  Como $\mu$ es regular, 
+  \[ \mu(U) = \sup\set{\mu(K) \colon K \subseteq U \text{ compacto}}. \]
+  Existen $\{K_n\}_{n=1}^\oo$ compactos con 
+  \[ \mu(U) - \frac{1}{n} \leq \mu(K_n) \leq \mu(U). \]
+  Como $K_n \subseteq U$, afirmamos que existe $V_n$ abierto de clausura compacta tal que 
+  \[ K_n \subseteq V_n \subseteq \bar{V_n} \subseteq U. \]
+  Asumiendo la afirmación, $\bar{V_n}$ es normal (compacto Hausdorff).
+  Tenemos que $K_n$ y $\bar{V_n} \setminus V_n$ son cerrados en $\bar{V_n}$. Luego por Urysohn, existe $f_n \colon V_n \to [0,1]$ continua con $f_n(K_n) = \{1\}$ y $f_n(\bar{V_n} \setminus V_n) = \{0\}$.
+  Definimos $F_n \colon X \to [0,1]$ dada por 
+  \[ F_n(x) = \begin{cases}
+    f_n(x), &x \in \bar{V_n} \\
+    0, &x \in V_n^c.
+  \end{cases} \]
+  Es continua, dado que $f_n$ y 0 en $V_n^c$ son continuas e iguales en el cerrado $\bar{V_n} \setminus V_n$. Por construcción, $F_N \prec U$. Luego $\Chi{K_n} \leq F \leq \Chi{U}$, y entonces 
+  \[ \int \Chi{K_n} \d\mu \leq \int F_n \d\mu \leq \int \Chi{U} \d\mu \]
+  \[\implies \mu(U) - \frac{1}{n} \leq \mu(K_n) \leq \int F_n \d\mu \leq \mu(U).\]
+  Luego 
+  \[ \lim_{n\to\oo} \int F_n \d\mu = \mu(U). \]
+\end{proof}
+
+\newpage
+\subsection{Problema 4}
+
+Sea $(X,\M,\mu)$ un espacio de medida, y sea $f \colon X \to [0,\oo]$ medible.
+
+\begin{enumerate}
+  \item Muestre que si $f$ solo toma valores enteros no negativos o $\oo$, entonces 
+  \[ \int f \d \mu = \sum_{n=1}^\oo \mu(\{x \colon f(x) \geq n\}). \]
+  \item Muestre que si $f$ toma valores arbitrarios de $[0,\oo]$ y $\mu$ es finita, entonces la integrabilidad de $f$ es equivalente a la convergencia de 
+  \[ \sum_{n=1}^\oo \mu(\{x \colon f(x) \geq n\}). \]
+\end{enumerate}
+
+\begin{proof}
+  \ 
+  \begin{enumerate}
+    \item Definimos para $n \in \N$: 
+    \begin{align*}
+        F_n &= \{x \colon f(x) \geq n\} \\
+        E_n &= \{x \colon f(x) = n\} \\
+        f_n &= \min\{f,n\}.
+    \end{align*}
+    Entonces $f_n \nearrow f$. Definimos $F_n^N = \{x \in X \colon n \leq f(x) \leq N\}$. Entonces
+    \begin{align*}
+        \int f_N &= \int \sum_{n=1}^N \Chi{E_n} \d\mu \\
+        &= \int \sum_{n=1}^N n \Chi{E_n} \d\mu \\
+        &= \sum_{n=1}^N n \mu(E_n) \\ 
+        &= \sum_{n=1}^N \sum_{k=n}^N \mu(E_k) \\
+        &= \sum_{n=1}^N \mu\br{\bigcup_{k=n}^N E_k} \\
+        &= \sum_{n=1}^N \mu \br{\bigcup_{k=n}^N \{x \colon f(x) = n\}} \\
+        &= \sum_{n=1}^N \mu \br{\{x \colon n \leq f(x) \leq N\}} \\
+        &= \sum_{n=1}^N \mu (F_n^N)
+    \end{align*}
+    En $\N$ tomamos la medida discreta $\nu$ tal que si $f \in \R^\N$ es una sucesión $a_n = f(n)$, entonces 
+    \[ \int_X f \d\nu = \sum_{n\in\N} a_n. \]
+    Sea $a^N \colon \N \to [0,\oo]$ dada por 
+    \[ n \mapsto \begin{cases}
+      \mu(F_n^N), &n \leq N \\
+      0, &n > N.
+    \end{cases} \]
+    $a \colon \N \to [0,\oo]$, $n \mapsto \mu(F_n)$. Luego 
+    \[ a^N(n) = \mu(F_n^N) \nearrow \mu(F_n) = a(n). \]
+    Luego no entendí que pasa
+  \end{enumerate}
+\end{proof}
+
 
 
 \end{document}
