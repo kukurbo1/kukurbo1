@@ -464,4 +464,72 @@ $G \cong K \rtimes H.$}
 \end{enumerate}
 
 
+\newpage
+\section{Ayudantía 7. Miércoles 29 de Abril}
+
+
+\begin{enumerate}
+    
+\item Clasifique todos los grupos de orden 2012.
+\begin{proof}
+  Sea $G$ un grupo de orden $2012 = 2^2 \c 503$. Sea $n_{503}$ la cantidad de 503--Sylows de $G$. Por el 3er teorema de Sylow, $n_{503} \mid 4$ y $n_{503} \equiv 1 \mod{503}$. Luego $n_{503} = 1$, y entonces $\exists! K \normal G$ con $K$ un 503--Sylow.
+
+  Por otra parte, por Sylow I, existe al menos un 2--Sylow $H \leqslant G$ de orden 4. 
+  \[ n_2 \mid 503 \quad\land\quad n_2 \equiv 1 \mod2 \]
+  Luego $n_2 = 1 \lor n_2 = 503$. Notemos que por Lagrange, $K \cap H = \{1_G\}$, y $\abs{KH} = 2012$, por lo que $KH = G$.
+
+  Sea $\vphi_i \colon H \to \Aut(\Z_{503}) \simeq (\Z_{503})^* \simeq \Z_{502}$.
+\end{proof}
+
+\item ¿Para qué números primos p cumple que el subconjuto de definido como
+$$\mathbb{Z}[\omega] = \{a+ b\omega \ |\ a,b \in \mathbb{Z}\},$$
+donde $\omega= \tfrac{1 + \sqrt{p}}{2}$ es un anillo?
+
+\item Demuestre que un anillo $A$ con dos o más elementos contiene una copia de $\mathbb{Z}$ o de $\mathbb{Z}/n\mathbb{Z}$ para $n \geq 2$ ¿Pueden darse ambos casos? ¿De existir $n$ es único?
+
+\item Sea $f : A\to B$ un morfismo de anillos, $\mathfrak{a}$ un ideal de $A$ y $\mathfrak{b}$ un ideal de $B$.
+
+\begin{enumerate}
+    \item Pruebe que $f^{-1}(\mathfrak{b})$ es un ideal de $A$.
+    \item ¿Cuándo $f(\mathfrak{a})$ es un ideal de $B$?
+\end{enumerate}
+\begin{proof}
+  \ 
+  \begin{enumerate}[(a)]
+    \item Consideremos $\pi \colon B \to B/\mathfrak{b}$ la proyección canónica. Notemos que 
+    \begin{align*}
+        x \in \ker(\pi \circ f)
+        &\iff f(x) + \mathfrak{b } = \pi \circ f(x) = 0_{B/\mathfrak{b}} = \mathfrak{b } \\
+        &\iff f(x) \in \mathfrak{b } \\
+        &\iff x \in f^{-1}(\mathfrak{b })
+    \end{align*}
+    Luego $f^{-1}(\mathfrak{b }) = \ker(\pi \circ f)$, y entonces $f^{-1}(\mathfrak{b})$ es ideal.
+
+    \item Si $f$ es sobreyectivo.
+  \end{enumerate}
+\end{proof}
+
+\newcommand{\rr}{\mathfrak{r}}
+
+\item Sea $A$ un anillo conmutativo. Se define el radical $\mathfrak{r}(I)$ de un ideal $I$ por $$\mathfrak{r}(I) = \{ b \in A : b^n \in I, \textit{ alg\'un } n\in \mathbb{N} \}.$$
+\begin{enumerate}
+    \item Muestre que $\mathfrak{r}(I)$ es un ideal que contiene a $I$.
+    \begin{proof}
+      Veamos absorción: para $r \in \rr(I)$ y $a \in A$, existe $n\in\N$ tal que $r^n \in I$, y como el anillo es conmutativo, tenemos $(ra)^n = r^n a^n$. Por absorción de $I$, y como $a^n \in I$, tenemos que $(ra)^n \in I$. Luego $ra \in \rr(I)$.
+
+      Luego, para $a,b \in \rr(I)$, tenemos que existen $m,n \in \N$ tal que $a^m, b^n \in I$. Luego 
+      \[ (a+b)^{m+n} = \sum_{i \leq m+n} \binom{m+n}{i} a^{m+n-i}(-b)^i \]
+    \end{proof}
+    \item Pruebe que $\mathfrak{r}(\mathfrak{r}(I)) = \mathfrak{r}(I)$.
+    \item Muestre que $\mathfrak{r}(I)=A$ si y solamente si $I=A$.
+    \item Muestre que $\mathfrak{r}(I+ J) = \mathfrak{r}(\mathfrak{r}(I) + \mathfrak{r}(J))$.
+    \item Pruebe que si $\mathfrak{r}(I) + \mathfrak{r}(J) = A$ entonces $I+ J= A$.
+\end{enumerate}
+
+
+
+
+\end{enumerate}
+
+
 \end{document}
