@@ -526,9 +526,50 @@ donde $\omega= \tfrac{1 + \sqrt{p}}{2}$ es un anillo?
     \item Pruebe que si $\mathfrak{r}(I) + \mathfrak{r}(J) = A$ entonces $I+ J= A$.
 \end{enumerate}
 
+\end{enumerate}
 
 
+\newpage
+\section{Ayudantía 8. Miércoles 6 de Mayo}
 
+\textit{En esta ayudantía consideraremos sólo anillos conmutativos con unidad.}
+
+\begin{enumerate}
+    
+\item Decida si las siguientes afirmaciones son verdaderas o falsas, justifique sus respuestas.
+\begin{enumerate}
+
+\item Sean $I_1, \cdots , I_n$ ideales de un anillo $A$ y sea $P$ un ideal primo de $A$ que contiene a $\bigcap_{i=1}^{n} I_i$. Entonces $P$ contiene al menos uno de los $I_1, \cdots , I_n$.
+\begin{proof}
+  Verdadero. Por contradicción, supongamos que $I_k \not\subset P$ para todo $k \in \{1,\dots,n\}$. Entonces para cada $k$ existe $x_k \in I_k \setminus P$. Consideremos 
+  \[ x = x_1 x_2 \cdots x_n. \]
+  Notemos que para cada $k$, $x$ es múltiplo de $x_k$, y por absorbencia $x \in I_k$. Luego $x \in \bigcap_{k=1}^n I_k \subset P$, y entonces 
+  \[ x_1 \cdots x_n \in P. \]
+  Como $P$ es un ideal primo, entonces existe $k \in \{1,\dots,n\}$ tal que $x_k \in P$. Contradicción, pues $x_k \in I_k \setminus P$.
+
+  Por lo tanto existe $k \in \{1,\dots,n\}$ tal que $I_k \subset P$.
+\end{proof}
+
+\item Sea $A$ un anillo y sea $I$ un ideal en $A$. $I$ es un ideal primo si y solo si $A/I$ es un cuerpo.
+
+\item Un anillo local, es decir que posee un solo ideal maximal no tiene elementos idempotentes distintos de $0$ o $1$. Un elemento $a$ de un anillo $A$ se dice idempotente si $a^2=a$.
+
+
+\item Sea $A$ un anillo no trivial y sea $x$ un elemento nilpotente, es decir existe $n \in \mathbb{N}$ tal que $x^n =0$. Entonces $1+x$ es nilpotente. 
+
+\item El nilradical de un anillo, definido como el conjunto de todos los elementos nilpotentes, coincide con la intersección de todos sus ideales primos.
+
+\item Sea $A$ un anillo y sea $A[[x]]$ el anillo de series formales $f=\sum_{n=0}^\infty a_nx^n$ con coeficientes en $A$. Un elemento $f$ es una unidad en $A[[x]]$ si y solo si $a_0$ es una unidad en A.
+\end{enumerate}
+
+\item Sea $A$ un anillo y $A[x]$ el anillo de polinomios con coeficientes en $A$. Sea $f=a_0+a_1x+ \cdots +a_nx^n \in A[x]$. Pruebe las siguientes afirmaciones.
+
+\begin{enumerate}
+    \item $f$ es una unidad en $A[x]$ si y solo si $a_0$ es una unidad en $A$ y $a_1, \cdots a_n$ son nilpotentes.
+    \item $f$ es nilpotente si y solo si $a_0, \cdots a_n$ son nilpotentes.
+    \item $f$ es un divisor de cero si y solo si existe $a \neq 0 \in A$ tal que $af =0$.
+    \item El radical de Jacobson de $A[x]$, que corresponde al conjunto de intersección de todos los ideales maximales es igual al nilradical.
+\end{enumerate}
 \end{enumerate}
 
 
