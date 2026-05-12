@@ -116,6 +116,8 @@
 \newcommand{\Ycal}{\mathcal{Y}}
 \newcommand{\Zcal}{\mathcal{Z}}
 
+\newcommand{\Nfrak}{\mathfrak{N}}
+
 \newcommand{\lam}{\lambda}
 \newcommand{\e}{\varepsilon}
 \newcommand{\w}{\omega}
@@ -156,6 +158,9 @@
 \newcommand{\Fix}{\mathrm{Fix}}
 \newcommand{\Norm}{\mathrm{Norm}}
 \newcommand{\gr}{\mathrm{gr}}
+\newcommand{\Char}{\mathrm{char}}
+\newcommand{\rad}{\mathrm{rad}}
+\newcommand{\Frac}{\mathrm{Frac}}
 
 %different bracket types
 \newcommand{\abs}[1]{\left| #1 \right|}
@@ -2932,8 +2937,359 @@ Ahora demostraremos Banach--Tarski:
   \end{enumerate}
 \end{proof}
 
-%\fecha{Clase 18.}
-%\fecha{Clase 19.}
+\fecha{Clase 18. Miércoles 6 de Mayo}
+
+
+\[ \wea{De ahora en adelante, todos los anillos son conmutativos con unidad.} \]
+
+\begin{definition}
+  Un anillo $R$ se dice: 
+  \begin{enumerate}[(1)]
+    \item \wea{Reducido} si el único elemento nilpotente es el 0.
+    \item \wea{Local} si tiene un único ideal maximal.
+    \item \wea{Dominio de integridad} si no tiene divisores del 0.
+  \end{enumerate}
+\end{definition}
+
+\begin{example}
+  Cualquier cuerpo es reducido, local (el único ideal maximal es $(0)$) y es dominio de integridad.
+\end{example}
+
+\begin{example}
+  $Z$ es dominio de integridad y reducido. No es un anillo local, ya que $p\Z$ es ideal maximal para todo $p$ primo.
+\end{example}
+
+\begin{example}
+  $\zmz 6$ es un anillo reducido, pero no es dominio de integridad.
+\end{example}
+
+\begin{definition}
+  Sea $R$ un anillo. El \wea{nilradical de $R$} es 
+  \begin{align*}
+      \Nfrak_R &= \sqrt{0} = \rad(0) \\
+      &= \{x \in R \colon x \text{ es nilpotente}\}
+  \end{align*}
+\end{definition}
+
+\begin{obs}
+  $\Nfrak_R$ es un ideal de $R$.
+\end{obs}
+
+\begin{proposition}
+  $R/\Nfrak_R$ es un anillo reducido.
+\end{proposition}
+\begin{proof}
+  Sea $a + \Nfrak_R$ nilpotente en $R/\Nfrak_R$. Entonces existe $k \geq 1$ tal que $a^k + \Nfrak_R = \Nfrak_R$. Luego $a^k \in \Nfrak_R = \rad(0)$, y entonces $a \in \rad(0)$. Por lo tanto $a + \Nfrak_R = \Nfrak_R = 0_{R/\Nfrak_R}$.
+\end{proof}
+
+\begin{definition}
+  Un ideal $I \subset R$ se dice \wea{primo} si 
+  \[ I \neq R \land \forall a \forall b \br{ab \in I \implies (a \in I \lor b \in I)} \]
+\end{definition}
+
+\begin{theorem}
+  $$\rad(0) = \bigcap_{\substack{I \subset R \\ \text{ideal primo}}} I.$$
+\end{theorem}
+
+\begin{obs}
+  Todo ideal maximal es primo.
+\end{obs}
+
+\begin{example}
+  Sea $R$ anillo, y sea $I \subset R$ ideal. Entonces $R/I$ es reducido si y solo si existe $J \subset R$ ideal tal que $I = \rad(J)$.
+\end{example}
+
+\newpage
+\subsection{Anillos locales}
+
+\begin{proposition}
+  $\znz{p^n}$ es anillo local para todo $p$ primo y $n \geq 1$.
+\end{proposition}
+
+\begin{proposition}
+  Sea $R$ un anillo no trivial. Son equivalentes: 
+  \begin{enumerate}[(1)]
+    \item $R$ es local.
+    \item $R \setminus R^\times$ es el ideal maximal de $R$.
+    \item $a \in R \implies (a \in R^\times \lor 1-a \in R^\times)$.
+  \end{enumerate}
+\end{proposition}
+\begin{proof}
+  \ \begin{itemize}
+    \item \boxed{(1) \implies (2)} Supongamos que $R$ es local. Sea $I$ el ideal maximal. Sea $a \in R \setminus R^\times$. Notemos que 
+    \[ (a) = \bigcap_{\substack{I \text{ ideal} \\ a \in I}} I = Ra = \{xa \colon x \in R\}. \]
+    Como $a \notin R^\times$, entonces $(a) \neq R$. Por lo tanto $(a) \subset I$, y entonces $a \in I$. Por lo tanto $R \setminus R^\times \subset I$.
+    Como $I \cap R^\times  = \varnothing$, entonces $I = R \setminus R^\times$.
+    \item \boxed{(1) \impliedby (2)} Ejercicio %% mejorar por pasos reversibles.
+    \item \boxed{(2) \iff (3)} Ejercicio. %% demostrar todos estos.
+  \end{itemize}
+\end{proof}
+
+\begin{obs}
+  Si $R$ es local, entonces el ideal maximal $R \setminus R^\times$ es el de Jacobson.
+\end{obs}
+
+¿Por qué se llaman ``anillos locales''?
+Hay 2 razones: 
+\begin{enumerate}[(1)]
+\item \wea{Anillos de gérmenes}. Consideremos 
+\[ \Ccal(\R) = \{f \in \R^\R \text{ continuas}\} \]
+y consideremos la relación de equivalencia $f \sim g \iff \exists V$ vecindad del 0 tal que $f|_V = g|_V$.
+Escribimos $\Gcal = \Ccal(\R)/{\sim}$ y observamos que es un anillo con la suma y multiplicación de funciones.
+\begin{obs}
+  $f \in \Gcal$ es invertible $\iff f(0) \neq 0$.
+\end{obs}
+Notemos que $\{f \in \Gcal \colon f(0) = 0\}$ es un ideal. Entonces $\Gcal$ es anillo local.
+
+\item \wea{Localizaciones}.
+\begin{definition}\footnote{El profesor solo definió el conjunto $S^{-1}R$ sin hablar de la relación de equivalencia. Toda la construcción formal de fracciones aparece más adelante al construir $\Frac(R)$, pero igual añadí lo necesario acá por completitud del apunte.}
+  Dado un anillo $R$ y $S \subset R \setminus \{0\}$ un conjunto cerrado por multiplicación (i.e., $(S,\c) \subset (R,\c)$ semigrupo conmutativo), consideramos la relación de equivalencia en $R \times S$ dada por
+  \[ (a,s) \sim (b,t) \iff \exists u \in S, u(at - bs) = 0. \]
+  Definimos $S^{-1}R = (R \times S)/{\sim}$.
+  \[ \frac{a}{b} = [(a,b)] \]
+  y definimos las operaciones 
+  \[ \frac{a}{s} + \frac{b}{t} = \frac{at + bs}{st}, \quad \frac{a}{s} \c \frac{b}{t} = \frac{ab}{st}. \]
+  Luego
+  \[ S^{-1}R = \set{\frac{a}{b} \colon a \in R, b \in S}. \]
+\end{definition}
+
+\begin{example}
+  $R = \Z$, $S = \{n \in \Z \colon 2 \nmid n\} = 1 + 2\Z$. Tenemos que 
+  \[ S^{-1}\Z = \set{\frac{a}{b} \in \Q \colon a,b \in \Z , 2 \nmid b.} \]
+\end{example}
+
+\begin{obs}
+  Si $R \setminus S$ es un ideal primo, entonces $S^{-1} R$ es un anillo local.
+\end{obs}
+\end{enumerate}
+
+
+\subsection{Dominios de Integridad}
+
+\begin{definition}
+  $R$ es \wea{dominio de integridad} (abreviado como \wea{DI}) si $\forall a,b \in R (ab = 0 \implies (a=0 \lor b=0))$.
+\end{definition}
+
+\begin{obs}
+  Si $R$ es DI $\implies R[x]$ es DI.
+\end{obs}
+
+\begin{proposition}
+  $R$ es DI $\iff (0)$ es primo.
+\end{proposition}
+
+\begin{obs}
+  $R$ es DI $\implies R$ es cancelativo.
+\end{obs}
+\begin{proof}
+  Sean $a,b,c \in R$ tales que $ab = ac$, entonces $a(b-c) = 0$, y entonces $a=0$ o $b=c$.
+\end{proof}
+
+\begin{theorem}
+  Sea $R$ un DI finito. Entonces $R$ es cuerpo.
+\end{theorem}
+\begin{proof}
+  Sea $a R \setminus \{0\}$. Definimos $\lam_a \colon R \to R$ dado por $\lam_a(x) = ax$.
+  Como $R$ es DI, $\lam_a$ es inyectiva. Como $\abs R < \oo$, entonces $\lam_a$ es sobreyectiva. Luego existe $x \in R$ tal que $ax = 1$, y entonces $a \in R^\times$.
+\end{proof}
+
+\begin{definition}
+  Sea $R$ anillo. La \wea{característica de $R$} es:
+  \begin{itemize}
+    \item Si $\gen{1} \leqslant (R,+)$ es finito, 
+    \[ \Char(R) = \min\set{n \in \N \colon \sum_n 1 = 0}. \]
+    \item Si $\gen{1} \leqslant (R,+)$ es infinito, $\Char(R) = 0$.
+  \end{itemize}
+\end{definition}
+
+\begin{proposition}
+  Si $R$ es DI, entonces $\Char(R)$ es primo o 0.
+\end{proposition}
+\begin{proof}
+  Sea $n > 0$ tal que $\Char(R) = n$. Si $n$ no es primo, entonces $n = pq$, con $1 < p,q < n$ enteros. Luego 
+  \[ 0 = \sum_{pq} 1 = \br{\sum_p 1} \br{\sum_q 1} \]
+  y entonces $\sum_p 1 = 0$ o $\sum_q 1 = 0$, por lo que $\Char(R) < n$. \(\to\gets\)
+\end{proof}
+
+Ahora, dado $R$ un DI, queremos encontrar algún cuerpo $K$ tal que $R \embed K$.
+
+\begin{definition}
+  Sea $R$ un DI. Consideramos la relación de equivalencia $\sim$ en $R \times R \setminus \{0\}$ dada por 
+  \[ (a,b) \sim (c,d) \iff ad = bc. \]
+  Definimos el \wea{cuerpo de fracciones de $R$} como 
+  \[ \Frac(R) = \frac{R \times (R \setminus \{0\})}{\sim}. \]
+\end{definition}
+
+\begin{obs}
+  $\sim$ es relación de equivalencia. Denotamos 
+  \[ [(a,b)]_\sim = \frac{a}{b}. \]
+\end{obs}
+
+\begin{definition}
+  En $\Frac(R)$, definimos 
+  \[ \frac{a}{b} + \frac{c}{d} = \frac{ad+bc}{bd}, \quad \frac{a}{b} \c \frac{c}{d} = \frac{ac}{bd}. \]
+\end{definition}
+
+\begin{obs}
+  Estas son operaciones bien definidas.
+\end{obs}
+
+\begin{theorem}
+  $(\Frac(R),+,\c)$ es cuerpo.
+\end{theorem}
+\begin{proof}
+  Las operaciones son cerradas, asociativas y conmutativas. El neutro es $0/1$ y la unidad es $1/1$.
+  El inverso multiplicativo de $a/b$ es $b/a$ (si $a/b \neq 0/1$). El inverso aditivo de $a/b$ es $(-a)/b$. Para la distributividad: 
+  \begin{align*}
+      \frac{a}{b} \br{\frac{c}{d} + \frac{e}{f}}
+      &= \frac{a}{b} \br{\frac{cf+de}{df}} \\
+      &= \frac{acf + ade}{bdf} \\
+      &= \frac{acf + ade}{bdf} \c \frac{1}{1} \\
+      &= \frac{acf + ade}{bdf} \c \frac{b}{b} \\
+      &= \frac{(acf + ade)b}{(bdf)b} \\
+      &= \frac{(acf)b + (ade)b}{(bdf)b} \\
+      &= \frac{(ac)(bf) + (ae)(bd)}{(bd)(bf)} \\
+      &= \frac{ac}{bd} + \frac{ae}{bf} \\
+      &= \frac{a}{b} \c \frac{c}{d} + \frac{a}{b} \c \frac{e}{f}
+  \end{align*}
+\end{proof}
+
+\begin{theorem}
+  [\wea{Propiedad Fundamental del Cuerpo de Fracciones}] Si $K$ es cuerpo y $R \embed K$ es un DI, entonces $\Frac(R) \embed K$.
+\end{theorem}
+
+\begin{obs}
+  $R \embed \Frac(R)$ por medio de $x \mapsto x/1$. i.e.: $\Frac(R)$ es el cuerpo más pequeño que contiene a $R$.
+\end{obs}
+\begin{proof}
+  Sea $\vphi \colon R \to K$ monomorfismo. Definimos $\tilde\vphi \colon \Frac(R) \to K$ dada por $\tilde\vphi(a/b) = \vphi(a) \vphi(b)^{-1}$. Esta función está bien definida: Si $a/b = c/d$, entonces $ad = bc$, por lo que 
+  \begin{align*}
+      \frac{a}{b} = \frac{c}{d}
+      &\iff ad = bc \\
+      &\implies \vphi(a)\vphi(d) = \vphi(b) \vphi(c) \\
+      &\implies \vphi(a)\vphi(b)^{-1} = \vphi(c)\vphi(d)^{-1} \\
+      &\implies \tilde\vphi\br{\frac{a}{b}} = \tilde\vphi\br{\frac{c}{d}}.
+  \end{align*}
+  $\tilde\vphi$ es inyectiva y homomorfismo. %% Me faltó escribir la demostración. Se hizo en ese orden.
+\end{proof}
+
+\begin{corollary}
+  Si $K$ es cuerpo, y $\Char(K) = 0$, entonces $\Q \embed K$.
+\end{corollary}
+
+\fecha{Clase 19. Lunes 11 de Mayo}
+
+\begin{theorem}
+  [\wea{Teorema Chino del Resto (Versión Clásica)}]
+  Sean $n_1,\dots, n_k,a_1,a_k$ enteros con $n_i > 1$, $0 \leq a_i < n_i$.
+  Sea $N = n_1 \cdots n_k$. Si $\gcd(n_i,n_j) = 1$ cuando $i \neq j$, entonces existe un único $x$ tal que $0 \leq x < N$ y $x \equiv a_i \bmod n_i$ para todo $i$.
+\end{theorem}
+
+\begin{definition}
+  Sea $R$ un anillo e $I,J \subset R$ ideales. Decimos que $I$ y $J$ son \wea{coprimos} si $I + J = (1)$.
+\end{definition}
+
+\begin{theorem}
+  [\wea{Teorema Chino del Resto (Versión Moderna)}]
+  Sea $R$ un DI e $I_1, \dots, I_n$ ideales coprimos. Entonces 
+  \[ \frac{A}{(I_1 \cdots I_n)} \simeq \frac{A}{I_1} \times \dots \times \frac{A}{I_n} \]
+  donde $I_1 \cdots I_n$ es el ideal generado por elementos de la forma $a_1a_2 \cdots a_n$ con $a_i \in I_i$.
+\end{theorem}
+
+\begin{example}
+  Si tomamos $R = \Z$, si tenemos $n_1,\dots,n_k > 1$ son coprimos de a pares, entonces los ideales $(n_1), \dots, (n_k)$ son coprimos de a pares. Luego 
+  \[ \znz N = \znz{(n_1 \cdots n_k)} \simeq \znz{n_1} \times \dots \times \znz{n_k}. \]
+\end{example}
+
+\begin{proposition}
+  Sea $R$ un DI e $I$ un ideal. $I$ es ideal primo $\iff \forall A,B \subset R$ ideales, $$(AB) \subset I \implies A \subset I \lor B \subset I.$$
+\end{proposition}
+
+\begin{proposition}
+  $a \mid b \iff (b) \subset (a)$.
+\end{proposition}
+
+\begin{definition}
+  Sea $a \in R \setminus R^\times$. Decimos que $a$ es \wea{primo} si $\forall b,c \in R$, $$a \mid bc \implies a \mid b \lor a \mid c.$$
+\end{definition}
+
+\begin{definition}
+  Un ideal $I \subset R$ se dice \wea{principal} si $\exists a \in R$ tal que $I = (a)$.
+\end{definition}
+
+\begin{proposition}
+  $a$ es primo $\iff (a)$ es primo.
+\end{proposition} %% demostrar como ejercicio personal
+
+\begin{proposition}
+  Sea $R$ anillo conmutativo con unidad e $I \ubset R$ un ideal. Si $I$ es primo, entonces $R/I$ es DI.
+\end{proposition}
+
+\newpage %% mdframed bad break. arreglar
+\begin{exercise}
+  Si $I$ es ideal maximal, entonces es ideal primo.
+\end{exercise}
+\begin{proof}
+  Por contradicción, supongamos que $I$ es maximal, pero no es primo. Entonces existen $a,b \in R$ tales que $ab \in I$, pero $a,b \notin I$. Como $I$ es maximal, tenemos que 
+  \[ (a,I) = R \]
+  Luego $1 \in (a,I)$, y entonces existen $x \in R$ e $y \in I$ tales que 
+  \[ 1 = ax + y. \]
+  \[ \implies b = b (ax + y) = \underbrace{abx}_{\in I} + \underbrace{by}_{\in I} \in I \]
+\end{proof}
+
+\begin{exercise}
+  Describir ideales primos en términos de ideales coprimos.
+\end{exercise}
+
+\begin{definition}
+  Sea $a \in R \setminus R^\times$. Decimos que \wea{irreducible} si 
+  \[ a = bc \implies b \in R^\times \lor c \in R^\times. \]
+\end{definition}
+
+\begin{definition}
+  Sea $R$ un DI. Un ideal $I \neq R$ se dice \wea{irreducible} si $\forall J,J'$ ideales, 
+  \[ I = J \cap J' \implies I=J \lor I=J'. \]
+\end{definition}
+
+\begin{obs}
+  Para DI no es cierto que $a$ irreducible $\iff (a)$ irreducible. Por ejemplo, con $R = \Z$ consideramos $a = 4$. No es irreducible, ya que $4 = 2 \c 2$, y $2 \notin \Z^\times$. Pero $(4) = 4\Z$ es irreducible.
+\end{obs}
+
+\begin{proposition}
+  Los ideales primos son ideales irreducibles.
+\end{proposition}
+
+\begin{proposition}
+  Sea $R$ un DI y $a \in R$. Si $a$ es primo, entonces es irreducible.
+\end{proposition}
+
+\begin{definition}
+  Un DI $R$ se dice \wea{dominio de ideales principales} (abreviado como \wea{PID} o \wea{DIP}) si todo ideal es principal.
+\end{definition}
+
+\begin{example}
+  Sea $R$ un PID y sea $a \in R$. $a$ es irreducible $\iff (a)$ es maximal.
+\end{example} %% demostrar
+
+\begin{corollary}
+  Si $R$ es PID, entonces son equivalentes: 
+  \begin{enumerate}[(1)]
+    \item $a$ es irreducible.
+    \item $a$ es primo.
+    \item $(a)$ es maximal.
+  \end{enumerate}
+\end{corollary}
+
+\begin{obs}
+  En un DI algunas implicancias fallan. Por ejemplo:
+  \begin{itemize}
+    \item $x \in \Z[x]$ es irreducible y primo, pero $(x)$ no es maximal, ya que $\Z[x]/(x) \simeq \Z$ no es cuerpo.
+    \item En $\Z[\sqrt{-5}] = \{a + bi \sqrt{5} \in \C \colon a,b \in \Z\}$, 3 es irreducible pero no es primo, pues 
+    \[ 6 = 2 \ 3 = (1+i\sqrt5)(1-i\sqrt5). \]
+    Notemos que $\forall z,z' \in \C$, $\abs{zz'} = \abs z \c \abs{z'}$. Si $z = a+bi$, entonces $\abs z = \sqrt{a^2+b^2}$. Si $u \in \Z[i\sqrt5]$ es unidad, entonces $\abs u = 1$, y entonces $u \in \{1,-1\}$. Luego 3 no puede dividir a $1+i\sqrt5$ ni a $1 - i \sqrt5$. Por lo tanto 3 no es primo. %% demostrar que 3 es irreducible. Hint: use la norma
+  \end{itemize}
+\end{obs}
+
 %\fecha{Clase 20.}
 %\fecha{Clase 21.}
 %\fecha{Clase 22.}

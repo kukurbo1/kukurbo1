@@ -148,6 +148,7 @@
 \newcommand{\gen}[1]{\left\langle #1 \right\rangle}
 \newcommand{\matr}[1]{\begin{pmatrix}#1\end{pmatrix}}
 
+\newcommand{\Chi}[1]{\chi_{\raisebox{-.5ex}{$\scriptstyle #1$}}}
 \newcommand{\znz}[1]{\frac{\Z}{#1 \Z}}
 \newcommand{\zmz}[1]{\Z/ #1 \Z}
 
@@ -2145,17 +2146,198 @@ Si $x \in E_i \cap F_j$, entonces $c_i = d_j$. Luego
 \subsection{Riemann Integrable vs Lebesgue Integrable}
 
 \begin{theorem}
-  Sea $[a,b]$ un intervalo cerrado. Entonces 
+  Sea $f \colon [a,b] \to \R$.
   \begin{enumerate}[(a)]
-    \item $f$ es Riemann integrable si y solo si es continua en casi todo punto.
-    \item Si $f$ es Riemann integrable, entonces es Lebesgue interable y las integrales coinciden.
+    \item $f$ es Riemann integrable si y solo si es continua a.e. en $[a,b]$.
+    \item Si $f$ es Riemann integrable, entonces es Lebesgue integrable, y su integral de Lebesgue es igual a su integral de Riemann.
   \end{enumerate}
 \end{theorem}
+\fecha{Clase 18. Miércoles 6 de Mayo}
+\begin{proof}
+  Escribimos $P = \{p_i\}_{i=0}^N$ con $a = p_0 \leq p_1 \leq \dots \leq p_N = b$.
+  Para todo $i$ escribimos 
+  \[ I_i = [p_i, p_{i+1}], \quad M_i = \sup_{x \in I_i} f(x), \quad m_i = \inf_{x \in I_i} f(x) \]
+  Luego
+  \begin{align*}
+      U(f,P) &= \sum_{i=0}^{N-1} M_i \abs{p_{i+1} - p_i}, \\
+      I(f,P) &= \sum_{i=0}^{N-1} m_i \abs{p_{i+1} - p_i}, \\
+      \phi^*(f,P) &= \sum_{i=0}^{N-1} M_i \Chi{I_i}, \\
+      \phi_*(f,P) &= \sum_{i=1}^{N-1} m_i \Chi{I_i}.
+  \end{align*}
+  $\phi^*$ y $\phi_*$ son funciones simples medibles. Sus integrales de Lebesgue son 
+  \begin{align*}
+      \int_{[a,b]} \phi^* \d\lam &= U(f,P), \\
+      \int_{[a,b]} \phi_* \d\lam &= I(f,P).
+  \end{align*}
+  Además $\phi_* \leq f \leq \phi^*$.
+
+  \begin{claim}
+    $P \subseteq Q \implies U(f,P) \geq U(f,Q) \land I(f,P) \leq I(f,Q)$.
+    En particular, para $P_1,P_2$ tenemos 
+    \[ U(f,P_i) \geq U(f,P_1 \cup P_2) \quad\land\quad I(f,P_i) \leq I(f,P_1 \cup P_2). \]
+  \end{claim}
+
+  \begin{claim}
+    Si $f$ es Riemann integrable, entonces existe $P_n$ tal que 
+    \[ U(f,P_n) - I(f,P_n) < \frac{1}{n}. \]
+  \end{claim}
+  Por la primera afirmación, podemos asumir $P_{n+1} \subseteq P_n$. Luego 
+  \[ \phi^*(f,P_n) \geq \phi^*(f,P_{n+1}), \quad \phi_*(f,P_n) \leq \phi_*(f,P_{n+1}). \]
+  Como $f$ es acotada, existen constantes $c,k$ tales que 
+  \[ c \leq \phi_* \leq \phi^* \leq k \]
+  Tenemos también que $c,k$ son Lebesgue integrables en $[a,b]$. Escribimos 
+  \[ \phi_n^* = \phi^*(f,P_n). \]
+  La sucesión $(\phi_n^*)_n$ es decreciente y acotada, por lo tanto converge. En particular 
+  \[ \lim_{n\to\oo} \phi_n^*(x) = \phi^*(x). \]
+  Por convergencia dominada 
+  \[ \lim_{n\to\oo} U(f,P_n) = \lim_{n\to\oo} \int_{[a,b]} \phi_n^* \d\lam = \int_{[a,b]} \phi^* \d\lam \]
+  Similarmente $(\phi_n)_*(x) \xrightarrow{n\to\oo} \phi_*(x)$, y entonces
+  \[ \lim_{n\to\oo} I(f,P_n) = \lim_{n\to\oo} \int_{[a,b]} (\phi_n)_* \d\lam = \int_{[a,b]} \phi_* \d\lam \]
+  Luego
+  \[ \int_{[a,b]} (\phi^* - \phi_*) \d\lam = 0. \]
+  Además $(\phi_n)_* \leq (\phi_n)^*$, por lo que $\phi_* \leq \phi^*$. Por lo tanto $\phi^* - \phi_* = 0$ a.e.
+
+  Tomemos $x$ tal que $\phi^*(x) = \phi_*(x)$, entonces $\forall \e>0$, $\exists n_0$ tal que para todo $n \geq n_0$:
+  \[ \abs{\phi_n^*(x) - (\phi_n)_*(x)} < \e. \]
+  Si $x \notin P_n$, entonces $x \in [p_i^n,p_{i+1}^n]$. Luego 
+  \[ \abs{\sup_{I_i^n} f - \int_{I_i^n} f} < \e. \]
+  Existe $\delta = \min\{p_{i+1}^n - x, x - p_i^n\}$ tal que
+  \[ \abs{x-y} < \delta \implies \abs{f(x)-f(y)} \leq \abs{\sup_{I_i} f - \int_{I_i} f} < \e. \]
+  Por otro lado, $\bigcup_{i \in \N} P_i$ es numerable, y por lo tanto es de medida 0. Entonces $f$ es continua en el complemento.
+
+  Como $(\phi_n)_* \leq f \leq (\phi_n)^*$, entonces $f = \phi_* = \phi^*$ a.e.. Como $\phi_*$ es limite de medibles, es medible. Por lo tanto $f$ es medible. Luego 
+  \[ \int (\phi_n)_* \d\lam \leq \int f \d\lam \leq \int_n^* \d\lam \]
+  y tomando $n\to\oo$ obtenemos 
+  \[ \int \phi_* \d\lam \leq \int f\d\lam \leq \int \phi^* \d\lam. \]
+\end{proof}
+
+\newpage
+\subsection{Convergencia de Funciones}
+
+\begin{definition}
+  Para todo $n \in \N$ sean $f,f_n \colon X \to \R$ medibles con $(X,\Acal,\mu)$ un espacio de medida.
+  Decimos que \wea{$f_n \to f$ en medida} si $\forall \e>0$ 
+  \[ \lim_{n\to\oo} \mu\{x \in X \colon \abs{f_n(x) - f(x)} > \e\} = 0 \]
+\end{definition}
+
+\begin{obs}
+  \ 
+  \begin{enumerate}[(1)]
+    \item Se puede dar la misma definición con $f \colon X \to Y$ con $Y$ espacio métrico y \( \sigma \)-álgebra de Borel.
+    \item Convergencia a.e. y en medida no son lo mismo. Por ejemplo $f_n = \Chi{[n,\oo)}$, tenemos que $f_n(x) \to 0$ a.e., pero si $\e<1$, entonces 
+    \[ \lam\{x \colon f_n > \e\} = \oo. \]
+    $f_n$ converge a.e., pero no en medida.
+  \end{enumerate}
+\end{obs}
+
+\begin{proposition}
+  Si $X$ es de medida finita, $\{f_n \colon X \to \R\}_n$ son medibles con $f_n \to f$ a.e., entonces $f_n \to f$ en medida.
+\end{proposition}
+\begin{proof}
+  Queremos mostrar que $\forall \e>0$, 
+  \[ \lim_{n\to\oo} \mu\{x \in X \colon \abs{f_n(x) - f(x)} > \e\} = 0. \]
+  Tomemos 
+  \[ A_n = \{x \in X \colon \abs{f_n(x) - f(x)} > \e\}, \quad B_n = \bigcup_{k \geq n} A_k. \]
+  \[\implies \bigcap_{n\in\N} B_n = \bigcap_{n \in \N} \bigcup_{k \geq n} A_k = \limsup A_n.\]
+  Por la definición 
+  \[ B_n \supseteq B_{n+1} \]
+  \[\implies \bigcap_{k=1}^n B_k = B_n.\]
+  Queremos mostrar que $\lim_{n\to\oo} \mu(B_n) = \mu\br{\bigcap_{n\in\N} B_n}$.
+  \begin{claim}
+    \[ \bigcap_{n\in\N} B_n \subseteq \{x \in X \colon f_n(x) \not\to f(x)\}. \]
+  \end{claim}
+  Si $f_n \not\to f(x)$, entonces $\exists \e>0$ tal que $\forall n$, $\exists k \geq n$ tal que 
+  \[ \abs{f_k(x) - f(x)} > \e_0. \]
+  Luego $\mu\br{\bigcap_{n\in\N} B_n} = 0$, y entonces $\lim_{n\to\oo} \mu(B_n) = 0$. Notemos que, como $A_n \subseteq B_n$, entonces $\mu(A_n) \leq \mu(B_n)$, y entonces 
+  \[ \lim_{n\to\oo} \mu(A_n) \leq \lim_{n\to\oo} \mu(B_n) = 0 \]
+  \[ \implies \lim_{n\to\oo} \mu(A_n) = 0. \]
+\end{proof}
+
+\begin{proposition}
+  Si $(X,\Acal,\mu)$ es un espacio de medida y $f_n,f$ son funciones medibles tales que $f_n \to f$ en medida, entonces existe una subsucesión $f_{n_k}$ tal que $f_{n_k} \to f$ a.e.
+\end{proposition}
+\begin{proof}
+  Como $f_n \to f$ en medida, entonces $\forall k > 0, \exists n_k$ tal que 
+  \[ \mu\underbrace{\set{x \in X \colon \abs{f_{n_k} - f(x)} > \frac{1}{k}}}_{\eqcolon A_k} \leq \frac{1}{2^k}. \]
+  Además podemos elegir $n_{k+1} \geq n_k$.
+  \begin{claim}
+    Si $x \notin \bigcap_{n\in\N} \bigcup_{k \geq n} A_k = \limsup_{k\to\oo} A_k$, entonces $f_{n_k}(x) \to f(x)$.
+  \end{claim}
+  Si $x \notin \limsup A_k$, entonces existe $n \in \N$ tal que $\forall k \geq n$, $x \notin A_k$. Esto es si y solo si $\exists n \in \N$,$ \forall k\geq n$ 
+  \[ \abs{f_{n_k}(x) - f(x)} < \frac{1}{k} \]
+  Nos falta ver que 
+  \[ \mu(\limsup A_k) = 0. \]
+  Notemos que 
+  \[ \mu(\limsup A_k) = \mu\br{\bigcap_{n \in \N} \bigcup_{k \geq n} A_n} \leq \mu\br{\bigcup_{k \geq n} A_k} \leq \sum_{k \geq n} \mu(A_k) \leq \sum_{k \geq n} \frac{1}{2^k} = \frac{1}{2^{n-1}}, \quad \forall n \in \N \]
+  \[ \implies \mu(\limsup A_k) = 0. \]
+\end{proof}
+
+\begin{theorem}
+  [\wea{Egoroff}]
+  Sea $(X,\Acal,\mu)$ espacio de medida con $\mu$ medida finita $(\mu(X) < \oo$), y sea $f_n \to f$ a.e.. Entonces $\forall \e> 0,\exists B \subseteq X$ tal que $\mu(B) < \e$ y $f_n \to f$ uniformemente en $X \setminus B$.
+\end{theorem}
+
+\fecha{Clase 19. Lunes 11 de Mayo}
+
+\subsection{Teorema de Lusin}
+Nuestro objetivo ahora es demostrar el siguiente teorema:
+\begin{theorem}
+  [\wea{Lusin}]
+  Sea $X$ localmente compacto y Hausdorff con una \( \sigma \)-álgebra $\Acal$ que contiene a los borelianos. Supona que $\mu$ es regular en $A$ y $\sigma$-finita. Si $A \in \Acal$ es de medida finita, y $f \olon X \to \R$ es medible, entonces $\forall \e>0,\exists K \subseteq A$ compacto tal que $\mu(A \setminus K) < \e$ y $f|_K$ es continua. Además, $\exists g \colon X \to \R$ con soporte compacto y $f=g$ en $K$, $\sup_X \abs g \leq \sup_K \abs f$.
+\end{theorem}
+
+Antes de demostrar el teorema, necesitamos algunos preliminares.
+
+\begin{definition}
+  $(X,\t)$ es \wea{localmente compacto} si $\forall p \in X$, $\exists U \in \t$ tal que $p \in U$ y $\bar U$ es compacto.
+\end{definition}
+
+\begin{definition}
+  Sea $X$ un espacio topológico Hausdorff y $(X,\Acal,\mu)$ espacio de medida tal que $\B(X) \subseteq \Acal$. $\mu$ se dice \wea{regular} si 
+  \begin{enumerate}[(1)]
+    \item $\forall K$ compacto, $\mu(K) < \oo$.
+    \item $\forall A \in \Acal$, $\mu(A) = \inf\{\mu(U) \colon A \subseteq U \in \t\}$.
+    \item $U \in \t \implies \mu(U) = \sup\{\mu(K) \colon K \subseteq U \text{ compacto}\}$.
+  \end{enumerate}
+\end{definition}
+
+En el contexto anterior se puede tomar $X^* \supseteq X$ tal que $X^*$ es compacto y normal. Hoy asumiremos que $X$ es normal.
+
+\begin{proposition}
+  Si $X$ es Hausdorff y $\mu$ es $\sigma$-finita y regular, entonces $\forall A \in \Acal$, 
+  \[ \mu(A) = \sup\{\mu(K) \colon K \subseteq A \text{ compacto}\}. \]
+\end{proposition}
+
+\begin{proposition}
+  Si $X$ es normal y localmente compacto, $F$ compacto y $U$ es abierto, entonces existe $V$ abierto tal que 
+  \[ F \subseteq V \subseteq \bar V \subseteq U \]
+  con $\bar V$ compacto.
+\end{proposition}
+
+\newcommand{\simple}[4]{\sum_{#1 = 1}^{#2} {#3}_{#1} \Chi{{#4}_{#1}}}
+\begin{proof}
+  [\dem{Lusin}]
+  Tomemos primero $f$ simple. 
+  \[ f = \sum_{i=1}^N x_i \Chi{A_i} \]
+  con $A_i$ disjuntos de a pares. Como $\mu$ es regular y $\mu(A) < \oo$, entonces existe $K_i \subseteq A_i \cap A$ tal que 
+  \[ \mu(K_i) \geq \mu(A_i \cap A) + \frac\e2 \]
+  Luego $K \coloneqq \bigcup_{i=1}^n K_i$ es compacto. 
+  \[ f|_{K_1}(x) = \simple{i}{n}{c}{A_i \cap K_1}(x) = \simple{i}{n}{c}{K_i} \]
+  Esta función es continua. Además, existe $\hat K$ compacto tal que $\hat K \subseteq A \setminus \bigcup_{i=1}^n A_i$. 
+  \[ \frac{\e}{2^{n+1}} + \mu(\hat K) \geq \mu\br{A \setminus \bigcup_{i=1}^n A_i} \]
+\end{proof}
 
 
+\subsection{Espacios Lp y Lp} %% cambiar notacion
 
-%\fecha{Clase 18.}
-%\fecha{Clase 19.}
+\begin{definition}
+  Dado $(X,\Acal,\mu)$ espacio de medida, decimos que $f \in \Lcal^p$ si $\abs f^p$ es integrable, para $p \in [1,\oo)$.
+\end{definition}
+
+\begin{proposition}
+  $\Lcal^p$ es $\R$-espacio vectorial.
+\end{proposition}
+
 %\fecha{Clase 20.}
 %\fecha{Clase 21.}
 %\fecha{Clase 22.}

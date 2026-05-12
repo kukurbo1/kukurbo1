@@ -572,5 +572,79 @@ donde $\omega= \tfrac{1 + \sqrt{p}}{2}$ es un anillo?
 \end{enumerate}
 \end{enumerate}
 
+\newpage
+\section{Ayudantía 9. Lunes 11 de Mayo}
+
+\newcommand{\p}{\mathfrak{p}}
+\begin{problem}
+Si $\p \subseteq R$ es primo y $\p \cap S = \varnothing$, entonces $S^{-1} \p$ es primo.
+\end{problem}
+\begin{proof}
+  Primero veamos que no es el anillo completo. Para esto, supongamos que $1/1 \in S^{-1}\p$. Luego existen $p \in \p$ y $s \in S$ con $1/1 = p/s$. Luego existe $u \in S$ tal que $u(s-p) = 0$, i.e.: $us = up$.
+
+  Como $u,s \in S$, entonces $us \in S$. Pero $us = up \in \p$, por lo que $us \in \p \cap S$, y entonces $\p \cap S \neq \varnothing$. \(\to\gets\)
+
+  Por lo tanto $S^{-1} \p$ es un ideal propio. Veamos que es primo:
+  Sean $a/s, b/t \in S^{-1} R$ tales que $ab/st \in S^{-1} \p$. Entonces existen $p \in \p$ y $u \in S$ tal que
+  \[ \frac{ab}{st} = \frac{p}{u}. \]
+  Luego existe $v \in S$ tal que 
+  \[ v(abu - stp) = 0 \]
+  \[ \implies vabu = vstp \in \p \]
+  Como $\p$ es primo y $vu \in S$ (por lo que $vu \notin \p$) entonces $ab \in \p$, luego $a \in \p$ o $b \in \p$. Entonces $a/s \in S^{-1}\p$ o $b/t \in S^{-1} \p$. Por lo tanto $S^{-1} \p$ es primo.
+\end{proof}
+
+\begin{enumerate}
+    \item  Sea $K$ un cuerpo y consideremos el anillo de polinomios $R = K[x,y]$. Sea $\mathfrak{m} = (x,y)$ el ideal generado por las variables $x$ e $y$. Definimos el conjunto $S = R \setminus \mathfrak{m}$.
+
+\begin{enumerate}
+    \item Demuestre que $S$ es un conjunto multiplicativamente cerrado.
+    \begin{proof}
+      Consideremos $\mathrm{ev}_{(0,0)} \colon K[x,y] \to K$ dado por $f(x,y) \mapsto f(0,0)$. Este es un homomorfismo de anillos, y su kernel es $\mathrm m$. Es sobreyectivo, y entonces 
+      \[ K[x,y]/{\mathrm{m}} \simeq K. \]
+      Luego $\mathrm{m}$ es maximal, y entonces es ideal primo. Luego $R \setminus \mathrm{m}$ es multiplicativamente cerrado.
+    \end{proof}
+    \item Describa intuitivamente cuáles son los elementos invertibles en la localización $S^{-1}R$.
+    \begin{proof}
+      Notemos que 
+      \begin{align*}
+          (x,y) &= \{p(x,y) \in K[x,y] \colon p(0,0) = 0\} \\
+          \implies S &= \{p(x,y) \in K[x,y] \colon p(0,0) \neq 0\}.
+      \end{align*}
+      Luego 
+      \[ S^{-1}R = \set{\frac{p(x,y)}{q(x,y)} \colon p,q \in K[x,y] \land q(0,0) \neq 0}. \]
+      Entonces 
+      \[ (S^{-1}R)^\times = \set{\frac{p(x,y)}{q(x,y)} \colon p,q \in K[x,y] \land p(0,0) \neq 0 \neq q(0,0)}. \]
+      También podemos escribirlo de la forma 
+      \begin{align*}
+          (S^{-1}R)^\times &= \set{\frac{p}{q} \colon p,q \in S}.
+      \end{align*}
+    \end{proof}
+    \item Demuestre que el anillo localizado $S^{-1}R$ tiene un \textit{único} ideal maximal.
+    \begin{proof}
+      Sabemos que el ideal maximal sería $S^{-1}R \setminus (S^{-1}R)^\times$. Luego 
+      \begin{align*}
+          \frac{p}{q} \in S^{-1} R \setminus (S^{-1} R)^\times
+          &\iff \frac{p}{q} \in S^{-1} R \land \frac{p}{q} \notin (S^{-1}R)^\times \\
+          &\iff \frac{p}{q} \in S^{-1} R \land \frac{p}{q} \notin 
+      \end{align*}
+      
+    \end{proof}
+    \item Identifique explícitamente dicho ideal maximal en términos de los ideales de $R$.
+\end{enumerate}
+
+
+\item 
+Sea $R = \mathbb{Z}[x]$ el anillo de polinomios con coeficientes enteros. Consideremos el conjunto multiplicativamente cerrado $S = \{2^n : n \in \mathbb{N} \cup \{0\}\}$.
+
+\begin{enumerate}
+    \item Describa explícitamente el anillo $S^{-1}R$ (identifíquelo como un anillo de polinomios sobre un subanillo de $\mathbb{Q}$).
+    \item Sea $I = (2x, 4) \subseteq R$ un ideal. Calcule el ideal localizado $S^{-1}I$.
+    \item Determine todos los elementos de $R$ que se anulan bajo el morfismo natural en $S^{-1}(R/I)$.
+    \item Decida si el morfismo natural $S^{-1}R / S^{-1}I \to S^{-1}(R/I)$ es un isomorfismo.
+    \item Determine todos los ideales primos de $S^{-1}R$.
+    \item Explique la correspondencia entre los ideales primos encontrados en el punto anterior y los ideales primos de $R$ que no intersecan a $S$.
+\end{enumerate}
+\end{enumerate}
+
 
 \end{document}
