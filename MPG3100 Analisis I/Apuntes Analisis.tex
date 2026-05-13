@@ -2328,17 +2328,197 @@ En el contexto anterior se puede tomar $X^* \supseteq X$ tal que $X^*$ es compac
 \end{proof}
 
 
-\subsection{Espacios Lp y Lp} %% cambiar notacion
+\subsection{Espacios \texorpdfstring{$\mathcal{L}^p$}{LLp} y \texorpdfstring{$L^p$}{Lp}} %% cambiar notacion
 
 \begin{definition}
-  Dado $(X,\Acal,\mu)$ espacio de medida, decimos que $f \in \Lcal^p$ si $\abs f^p$ es integrable, para $p \in [1,\oo)$.
+  Dado $(X,\Acal,\mu)$ espacio de medida y $p \in [1,\oo)$. Definimos el conjunto 
+  \[ \Lcal^p = \{f \colon X \to \R \mid \abs{f}^p \text{ es integrable}\}. \]
 \end{definition}
 
 \begin{proposition}
-  $\Lcal^p$ es $\R$-espacio vectorial.
+  $\Lcal^p$ es $\R$-espacio vectorial para todo $p \in [1,\oo)$.
 \end{proposition}
 
-%\fecha{Clase 20.}
+\fecha{Clase 20. Miércoles 13 de Mayo}
+
+\begin{definition}
+  \[ \norm{f}_p = \br{\int_X \abs{f}^p \d\mu}^{1/p}. \]
+\end{definition}
+
+\begin{definition}
+  Decimos que $N$ es \wea{localmente nulo para $\mu$} si 
+  \[ \forall A \br{A \in \Acal \land \mu(A) < \oo \implies \mu(N \cap A) = 0}. \]
+\end{definition}
+
+\begin{obs}
+  Si $\mu$ es finita o $\sigma$-finita, entonces localmente nulo $\iff$ nulo.
+\end{obs}
+
+Nuestro objetivo ahora es definir $\norm{f}_\oo$. Si $f$ es acotada, nos gustaría tener
+\[ \norm{f}_\oo = \sup_X \abs{f}. \]
+Si $f$ es acotada y $M > \sup_X \abs f (x)$, entonces 
+\[ C_M(f) = \{x \in X \colon f(x) > M\} \]
+es vacío.
+
+\begin{definition}
+  La norma $\oo$ es 
+  \[ \norm{f}_\oo = \inf\{M \colon C_M(f) \text{ es localmente nulo}\}. \]
+  $\Lcal^\oo$ es el conjunto de funciones $f$ medibles con $\abs{f}_\oo$ finita.
+\end{definition}
+
+Ahora queremos mostrar que $\norm{f}_p$ es seminorma en $\Lcal^p$ para $p \in [1,\oo]$. Para esto, necesitamos
+\begin{itemize}
+  \item $\norm{\a f}_p = \abs{\a} \cdot \norm{f}_p$.
+  \item $\norm{f+g}_p \leq \norm{f}_p + \norm{g}_p$.
+\end{itemize}
+
+\begin{definition}
+  $p$ y $q$ se dicen \wea{conjugados} si $p,q \in (1,\oo)$ y 
+  \[ \frac1p + \frac1q = 1. \]
+  Si $p = 1$, su conjugado es $\oo$.
+\end{definition}
+
+\newpage
+\begin{proposition}
+  [Desigualdad de Young]
+  Si $p,q$ son conjugados y $p,q \in (1,\oo)$, entonces $\forall x,y>0$ 
+  \[ xy \leq \frac{x^p}{p} + \frac{y^q}{q}. \]
+\end{proposition}
+\begin{proof}
+  Si $u = x^p, v=y^q$, entonces queremos mostrar
+  \[ u^{1/p} v^{1/q} \leq \frac{u}{p} + \frac{v}{q} \]
+  Si dividimos por $v$, entonces es equivalente a demostrar 
+  \[ u^{1/p} v^{1/q-1} \leq \frac{u/v}{p} + \frac{1}{q}. \]
+  Si tomamos $t = u/v$, entonces queremos demostrar que
+  \[ t^{1/p} \leq \frac{t}{p} + \frac{1}{q}. \]
+  Para demostrar esto, consideremos la función
+  \[ f(t) = t^{1/p} - \frac{t}{p} - \frac{1}{q}. \]
+  Luego 
+  \[ f'(t) = \frac{1}{p} t^{1/p - 1} - \frac{1}{p} = \frac{1}{p}(t^{1/p-1} - 1) \]
+  Tenemos un punto crítico en $t=1$, y en particular es un máximo, y $f(1) = 0$.
+\end{proof}
+
+\begin{proposition}
+  [Desigualdad de Hölder]
+  Si $f \in \Lcal^p$ y $g \in \Lcal^q$ con $p,q$ conjugados, entonces $fg \in \Lcal^1(X,\Acal,\mu)$ y 
+  \[ \norm{fg}_1 \leq \norm{f}_p \norm{g}_p. \]
+\end{proposition}
+\begin{proof}
+  De la desigualdad previa 
+  \[ \abs{fg}(x) \leq \frac{\abs{f}^p(x)}{p} + \frac{\abs{g}^p(x)}{q} \implies \abs{fg} \in \Lcal^1. \]
+  Tomemos 
+  \[ \tilde f = \frac{f}{\norm{f}_p} \in \Lcal^p, \quad \tilde g = \frac{g}{\norm{g}_q} \in \Lcal^q. \]
+  Entonces 
+  \[ \int_X \abs{\tilde f \tilde g} \d\mu \leq \frac{\norm{\tilde f}_p^p}{p} + \frac{\norm{\tilde g}_q^q}{q}. \]
+  Notemos que 
+  \[ \norm{\tilde f}_p = 1 \]
+  y entonces 
+  \[ \int_X \abs{\tilde f \tilde g} \d\mu \leq \frac{1}{p} + \frac{1}{q} = 1. \]
+  Pero 
+  \[ \int_X \abs{\tilde f \tilde g} \d\mu = \frac{1}{\norm{f}_p \norm{g}_q} \int_X \abs{fg} \d\mu = \frac{\norm{fg}_1}{\norm{f}_p \norm{g}_q} \leq 1 \]
+  \[\implies \norm{fg}_1 \leq \norm{f}_p \norm{g}_q.\]
+\end{proof}
+
+\begin{proposition}
+  [Desigualdad de Minkowski]
+  Si $f,g \in \Lcal^p$, entonces 
+  \[ \norm{f+g}_p \leq \norm{f}_p + \norm{g}_p. \]
+\end{proposition}
+\begin{proof}
+  \begin{align*}
+    \norm{f+g}_p^p &= \int_X \abs{f+g}^p \d\mu \\
+    &= \int_X \abs{f+g} \abs{f+g}^{p-1} \d\mu \\
+    &\leq \int_X (\abs f + \abs g) \abs{f+g}^{p-1} \d\mu \\
+    &= \int \abs f \abs{f+g}^{p-1} \d\mu + \int_X \abs g \abs{f+g}^{p-1} \d\mu \\
+    &= \norm{f(f+g)^{p-1}}_1 + \norm{g(f+g)^{p-1}} \\
+    &\stackrel{Holder}{\leq} \norm{f}_p \norm{(f+g)^{p-1}}_q + \norm{g}_p \norm{(f+g)^{p-1}}_q \\
+    \implies \norm{f+g}_p^p &\leq \norm{f}_p \norm{f+g}_q^{p/q} + \norm{g}_p \norm{f+g}_q^{p/q} \\
+    \implies \norm{f+g}_p &= \norm{f+g}_p^{p-p/q} \leq \norm{f}_p + \norm{g}_p.
+  \end{align*}
+\end{proof}
+
+Por lo tanto $\norm{\ \cdot \ }_p$ es seminorma para $p \in (1,\oo)$. Si $p = 1$ o $p = \oo$, falta ver que Hölder funciona.
+
+\begin{obs}
+  Consideremos el conjunto 
+  \begin{align*}
+      A &= \{x \in X \colon \abs{f(x)} > \norm{f}_\oo\} \\
+      &= \bigcup_{n \in \N} \set{x \in X \colon \abs{f(x)} > \norm{f}_\oo + \frac{1}{n}}.
+  \end{align*}
+  Este conjunto es localmente nulo.
+\end{obs}
+
+Tomemos $g \in \Lcal^1$ y $f \in \Lcal^\oo$. Queremos mostrar que 
+\[ \int_X \abs{fg} \d\mu \leq \norm{f}_\oo \norm{g}_1 \]
+Vemos que $\forall x \notin A$, 
+\[ \abs{fg}(x) \leq \norm{f}_\oo \abs{g(x)}. \]
+Si $A$ es nulo, entonces 
+\[ \int_X \abs{fg} \d\mu = \int_{X \setminus A} \abs{gf} \leq \norm{f}_oo \int_X \abs{g} \]
+Si $f,g \in \Lcal^\oo$, entonces 
+\[ A_f = \{x \in X \colon \abs{f(x)} > \norm{f}_\oo\} \]
+es localmente nulo. 
+\[ A_g = \{x \in X \colon \abs{g}(x) > \norm{g}_\oo\} \]
+es localmente nulo. Luego $A_f \cup A_g$ es localmente nulo, y entonces $\forall x \in (A_f \cup A_g)^c$ tenemos 
+\begin{align*}
+    \abs{f(x) + g(x)} &\leq \norm{f}_\oo + \norm{g}_\oo \\
+    \implies \norm{f+g}_\oo &\leq \norm{f}_\oo + \norm{g}_\oo.
+\end{align*}
+y entonces $\norm{\ \cdot \ }$ es seminorma.
+
+Para lograr tener un espacio normado, tomamos la relación de equivalencia: $f \sim g$ si y solo si $f=g$ a.e.
+
+\begin{definition}
+  $L^p = \Lcal^p/{\sim}$.
+\end{definition}
+
+\begin{proposition}
+  $L^p$ es un $\R$-espacio vectorial.
+\end{proposition}
+
+\begin{definition}
+  $\{f_n\}_{n\in\N}$ es \wea{de Cauchy en medida} si 
+  \[ \forall \e>0, \forall \eta > 0, \exists n_0 \in \N, \forall n,m \geq n_0, \quad \mu\{x \in X \colon \abs{f_n(x) - f_m(x)} > \eta\} < \e. \]
+\end{definition}
+
+\begin{theorem}
+  $L^p$ es un espacio de Banach (normado y completo).
+\end{theorem}
+La idea de la demostración es:
+\begin{enumerate}[(1)]
+  \item Si $f_n$ es de Cauchy en $L^p$, entonces existe una subsucesión que es de Cauchy en medida.
+  \item (Ejercicio en la guía) Si $\{f_n\}$ es de Cauchy en medida, entonces tiene una subsucesión convergente en medida y a.e.
+  \item Usar Fatou para ver que el límite de la subsucesión está en $L^p$ y converge en $L^p$.
+  \item Usar que la sucesión es de Cauchy para ver que toda sucesión converge.
+\end{enumerate}
+\begin{proof}
+  Supongamos que $\{f_n\}_{n\in\N}$ es de Cauchy en $L^p$, entonces $\forall \delta > 0$, $\exists n_0 \in \N$ tal que si $m,n \geq n_0$, entonces 
+  \[ \norm{f_n - f_m}_p < \delta. \]
+  Dijemos $\eta > 0$. 
+  \[ A_{n,m}^\eta \coloneqq \{x \in X \colon \abs{f_n(x) - f_m(x)}^p > \eta^p\}. \]
+  Luego 
+  \[ \int_{A_{n,m}^\eta} \abs{f_n - f_m} \d\mu \leq \int_X \abs{f_n - f_m}^p(x) \d\mu < \delta^p. \]
+  Además tenemos la siguiente desigualdad (Chebyshev): 
+  \[ \eta^p \mu(A_{n,m}^\eta) \leq \int_X \abs{f_n - f_m}^p \d\mu. \]
+  Luego $\mu(A_{n,m}^\eta) < \delta^p/\eta^p$ tomando $\delta = \e^{1/p} \eta^p$.
+  Luego 
+  \[ \mu(A_{n,m}^\eta) < \e. \]
+  Asumimos el paso 2: %% demostrar
+  existe una subsucesión $\{f_{n_k}\}$ tal que $f_{n_k} \to f$ en medida y a.e.
+
+  Ahora, $\forall \e>0$, si $k,j \geq n_0$, entonces 
+  \[ \int_X \abs{f_{n_k} - f_{n_j}}^p < \e. \]
+  Por Fatou, tenemos que 
+  \[ \int_X \abs{f - f_{n_j}(x)}^p = \int_X \liminf_{k \to \oo} \abs{f_{n_k} - f_{n_j}}^p \leq \liminf_{k\to\oo} \int_X \abs{f_{n_k} - f_{n_j}}^p < \e^p \]
+  Luego $\forall \e>0$, $\forall j \geq k_0$ 
+  \[ \int_X \abs{f - f_{n_j}}^p \d\mu < \e^p. \]
+  Luego $f_{n_k} \to f$ en $L^p$. Falta ver que $f \in L^p$. 
+  \[ \norm{f_{n_k}}_p \leq \norm{f_{n_k} - f_{n_j}}_p + \norm{f_{n_j}}_{L^p} \leq \e + \norm{f_{n_j}}_{L^p}. \]
+  Por Fatou 
+  \[ \norm{f}_p \leq \e + \norm{f_{n_j}}_{L^p} < \oo \] 
+  \[ \implies f \in L^p. \]
+  Paso 4: Ejercicio %% no olvidar
+\end{proof}
+
 %\fecha{Clase 21.}
 %\fecha{Clase 22.}
 %\fecha{Clase 23.}

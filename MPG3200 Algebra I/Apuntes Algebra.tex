@@ -3268,11 +3268,11 @@ Ahora, dado $R$ un DI, queremos encontrar algún cuerpo $K$ tal que $R \embed K$
 \end{definition}
 
 \begin{example}
-  Sea $R$ un PID y sea $a \in R$. $a$ es irreducible $\iff (a)$ es maximal.
+  Sea $R$ un DIP y sea $a \in R$. $a$ es irreducible $\iff (a)$ es maximal.
 \end{example} %% demostrar
 
 \begin{corollary}
-  Si $R$ es PID, entonces son equivalentes: 
+  Si $R$ es DIP, entonces son equivalentes: 
   \begin{enumerate}[(1)]
     \item $a$ es irreducible.
     \item $a$ es primo.
@@ -3290,7 +3290,58 @@ Ahora, dado $R$ un DI, queremos encontrar algún cuerpo $K$ tal que $R \embed K$
   \end{itemize}
 \end{obs}
 
-%\fecha{Clase 20.}
+\fecha{Clase 20. Miércoles 13 de Mayo}
+
+\begin{definition}
+  Un DI $R$ se dice \wea{dominio de factorización única} (abreviado \wea{DFU} o \wea{UFD}) si todo $a \in R \setminus (R^\times \cup \{0\})$ se escribe de manera única (salvo unidades) como producto de irreducibles. i.e.: $\exists b_1,\dots,b_k \in R$ irreducibles tal que 
+  \[ a = b_1 \cdots b_k \]
+  y además si $\exists c_1,\dots,c_\ell \in R$ irreducibles tales que 
+  \[ a = b_1 \cdots b_k = c_1 \cdots c_\ell \]
+  entonces $k = \ell$ y salvo permutación, $(b_i) = (c_i)$.
+\end{definition}
+
+\begin{example}
+  $\Z[\sqrt{-5}]$ no es DFU
+\end{example}
+
+\begin{example}
+  $\Z$ es DFU
+\end{example}
+
+\begin{exercise}
+  Mostrar que $\Z[x]$ es DFU.
+\end{exercise}
+
+\begin{proposition}
+  Sea $R$ un DFU y $a \in R$ irreducible. Entonces $a$ es primo.
+\end{proposition}
+
+\begin{theorem}
+  Todo DIP es DFU.
+\end{theorem}
+
+\begin{definition}
+  Un anillo $R$ se dice \wea{Noetheriano} si toda secuencia ascendente de ideales $(I_n)_{n \geq 1}$ se estabiliza. i.e.: Si $I_n \subset I_{n+1}$ para todo $n \geq 1$, entonces existe $n_0$ tal que $I_n = I_{n_0}$ para todo $n \geq n_0$.
+\end{definition}
+
+\begin{proposition}
+  Todo DIP es Noetheriano.
+\end{proposition}
+
+\begin{definition}
+  Sea $R$ un DI y $S \subset R$ finito.
+  \begin{itemize}
+    \item Decimos que $a \in R$ es \wea{máximo común divisor de $S$} (abreviado como \wea{gcd}) si $\forall b \in R$ 
+    \[ \forall b \in R (\forall s \in S (b \mid s) \implies b \mid a). \]
+    \item Decimos que $a \in R$ es \wea{máximo común múltiplo de $S$} (abreviado como \wea{lcm}) si 
+    \[ \forall b \in R (\forall s \in S(s \mid b) \implies a \mid b). \]
+  \end{itemize}
+\end{definition}
+
+\begin{example}
+  $d$ es gcd de $\{a,b\}$ si y solo si $(a) + (b) = (d)$. $m$ es lcm de $\{a,b\}$ si y solo si $(m) = (a) \cap (b)$.
+\end{example} %% demostrar
+
 %\fecha{Clase 21.}
 %\fecha{Clase 22.}
 %\fecha{Clase 23.}
@@ -3302,5 +3353,16 @@ Ahora, dado $R$ un DI, queremos encontrar algún cuerpo $K$ tal que $R \embed K$
 %\fecha{Clase 29.}
 %\fecha{Clase 30.}
 
+
+\newpage
+% Aquí pondré todas las equivalencias raras de tipos de anillos
+\begin{theorem}
+  Tenemos las siguientes equivalencias de anillos:
+  \begin{itemize}
+    \item DI $\implies$ DFU.
+    \item DIP $\implies$ DFU.
+    \item 
+  \end{itemize}
+\end{theorem}
 
 \end{document}
