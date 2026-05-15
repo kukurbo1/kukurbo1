@@ -970,6 +970,134 @@ Sea $(X,\M,\mu)$ un espacio de medida, y sea $f \colon X \to [0,\oo]$ medible.
   \end{enumerate}
 \end{proof}
 
+\newpage
+\section{Ayudantía 8. Miércoles 12 de Mayo}
 
+\subsection{Problema 1}
+Si $(X,\M,\mu)$ es un espacio de medida, $\{f_n\}_{n\in\N}, f$ medibles y 
+\[ \int_X \abs{f_n - f} \d\mu \to 0 \]
+(i.e.: $f_n \xrightarrow{L^1} f)$, entonces muestre que $f_n \xrightarrow{\mu} f$.
+
+\begin{proof}
+  Consideremos
+  \[ E_{n,\e} = \{x \in X \colon \abs{f_n(x) - f(x)} \geq \e\}. \]
+  Queremos ver que $\lim_{n\to\oo} \mu(E_{n,\e}) = 0$ para todo $\e>0$.
+  Notemos que 
+  \begin{align*}
+      \mu(E_{n,\e}) &= \int_{E_{n,\e}} \d\mu \\
+      &= \frac1\e \int_{E_{n,\e}} \e \d\mu \\
+      &\leq \frac1\e \int_{E_{n,\e}} \abs{f_n - f} \d\mu \\
+      &\leq \frac1\e \int \abs{f_n - f} \d\mu \xrightarrow{n\to\oo} 0.
+  \end{align*}
+\end{proof}
+
+\newpage
+\subsection{Problema 2}
+
+Sea $(\Omega,\M,\mu)$ espacio de medida y $\{f_n \colon X \to \R\}_{n\geq1}$ una sucesión tal que existe $M>0$ que cumple 
+\[ \int_X \abs{f_n}^2 \d\mu \leq M \]
+para todo $n \in \N$. Muestre que $\ds \frac1n f_n \to 0$ a.e.
+
+\begin{proof}
+  Notemos que 
+  \[ \int \abs{\frac{1}{n} f_n}^2 \d\mu = \frac{1}{n^2} \int \abs{f_n}^2 \d\mu \leq \frac{M}{n^2}. \]
+  Definimos 
+  \[ g_n = \sum_{n=1}^N \abs{\frac{1}{n} f_n}^2 \]
+  Por convergencia monótona 
+  \[ \lim_{n\to\oo} g_n = \int \sum_{n=1}^\oo \abs{\frac{1}{n} f_n}^2 \d\mu \eqqcolon g. \]
+  Luego por convergencia dominada, tenemos que 
+  \[ \sum_{n=1}^\oo \int \abs{\frac{1}{n} f_n}^2 \d\mu \leq \sum_{n=1}^\oo \frac{M}{n^2} < \oo. \]
+  Luego $\ds \sum_{n=1}^\oo \abs{\frac{1}{n} f_n}^2$ es finita a.e., y entonces $\ds \frac{1}{n} f_n \xrightarrow{n\to\oo} 0$ a.e.
+\end{proof}
+
+\newpage
+\subsection{Problema 3}
+Sea $(X,\M,\mu)$ un espacio de medida finita. Considere $\{f_n\}_n$ medibles tal que $\norm{f_n}_2 = 1$ y $\abs{f_n(x)} \leq M < \oo$ a.e. para todo $n \in \N$.
+
+Si $\{\b_n\}_n \in \R^\N$ es tal que $\sum_n \b_n f_n$ converge a.e., muestre que $\b_n \to 0$.
+
+\begin{proof}
+  Notemos que 
+  \[ \b_n^2 = (\b_n \norm{f}_2)^2 = \int (\b_n f_n)^2 \d\mu. \]
+  Sea $\delta > 0$. Por Egorov, existe $B \in \M$ tal que $\mu(B^c) < \delta$ y $\b_n f_n \to 0$ uniformemente en $B$, pues $\sum_n \b_n f_n$ converge a.e. Luego 
+  \begin{align*}
+      \b_n^2 &= \int (\b_n f_n)^2 \d\mu \\
+      &= \int_B (\b_n f_n)^2 \d\mu + \int_{B^c} (\b_n f_n)^2 \d\mu \\
+      &\leq \int_B (\b_n f_n)^2 \d\mu + \int_{B^c} \b_n^2 M^2 \d\mu \\
+      &= \int_B (\b_n f_n)^2 \d\mu + \b_n^2 M^2 \int_{B^c} 1 \d\mu \\
+      &= \int_B (\b_n f_n)^2 \d\mu + \b_n^2 M^2 \mu(B^c) \\
+      &< \int_B (\b_n f_n)^2 \d\mu + \b_n^2 M^2 \delta \\
+      \implies (1-M^2\delta)\b_n^2 &\leq \int_B (\b_n f_n)^2 \d\mu \\
+      \implies \b_n^2 &\leq \frac{1}{1-M^2\delta} \int_B (\b_n f_n)^2 \d\mu \xrightarrow{n\to\oo} 0
+  \end{align*}
+  Esto tomando $\delta < 1/M^2$.
+\end{proof}
+
+\newpage
+\subsection{Problema 4}
+
+Suponga $(X,\M,\mu)$ finito. Para $f,g \colon X \to \R$ medibles 
+\[ \rho(f,g) = \int_X \frac{\abs{f-g}}{1 + \abs{f-g}} \d\mu. \]
+Muestre que $\rho$ es una métrica en el espacio de funciones medibles, identificando funciones a.e.. Además $f_n \to f$ en la métrica $\rho$ si y solo si $f_n \xrightarrow{\mu} f$.
+
+\begin{proof}
+  Para ver que es métrica:
+  \begin{itemize}
+    \item Si $\rho(f,g) = 0$, entonces 
+    \[ \rho(f,g) = 0 \iff \frac{\abs{f-g}}{1 + \abs{f-g}} = 0 \text{ a.e.} \iff \abs{f-g} = 0 \text{ a.e.} \iff f = g \text{ a.e.} \]
+    \item $\rho(f,g) = \rho(g,f)$ claramente.
+    \item Notemos que para $A,B,C >0$ con $A \leq B + C$, siempre tenemos 
+    \[ \frac{A}{1+A} \leq \frac{B}{1+B} + \frac{C}{1+C}. \]
+  \end{itemize}
+  Veamos que $f_n \to f$ en $\rho$ si y solo si $f_n \xrightarrow{\mu} f$.
+  \begin{itemize}
+    \item \boxed{\impliedby} Supongamos que $f_n \xrightarrow{\mu} f$. Consideramos el conjunto
+    \[ E_{n,\e} = \{x \in X \colon \abs{f_n(x) - f(x)} \geq \e\}. \]
+    Como $f_n$ converge en medida a $f$, tenemos que 
+    \[ \mu(E_{n,\e}) \xrightarrow{n\to\oo} 0. \]
+    Luego 
+    \begin{align*}
+        \rho(f_n,f)
+        &= \int \frac{\abs{f_n - f}}{1 + \abs{f_n - f}} \d\mu \\
+        &= \int_{E_{n,\e}} \frac{\abs{f_n - f}}{1 + \abs{f_n - f}} \d\mu + \int_{E_{n,\e}^c} \frac{\abs{f_n - f}}{1 + \abs{f_n - f}} \d\mu \\
+        &\leq \int_{E_{n,\e}} 1 \d\mu + \int_{E_{n,\e}^c} \frac{\e}{1 + \abs{f_n - f}} \d\mu \\
+        &= \mu(E_{n,\e}) + \e \int_{E_{n,\e}^c} \frac{1}{1 + \abs{f_n - f}} \d\mu \\
+        &\leq \mu(E_{n,\e}) + \e \int_{E_{n,\e}^c} 1 \d\mu \\
+        &= \mu(E_{n,\e}) + \e \underbrace{\mu(X)}_{<\oo}
+    \end{align*}
+    Luego $\rho(f_n,f) \to 0$.
+
+    \item \boxed{\implies} Supongamos que $\rho(f_n,f) \xrightarrow{n\to\oo} 0$. Luego para $\e>0$ tomamos $\ds \tilde\e = \frac{\e}{1-\e}$ y entonces
+    \begin{align*}
+      &\mu\set{x \colon \abs{f_n - f} \geq \tilde\e} \\
+      &= \mu\set{x \colon \abs{f_n - f} \geq \frac{\e}{1-\e}} \\
+      &= \mu\set{x \colon \abs{f_n - f} \geq \e + \e \abs{f_n - f}} \\
+      &= \mu\set{x \colon \frac{\abs{f_n - f}}{1 + \abs{f_n - f}} \geq \e} \\
+      &\leq \frac{1}{\e} \int \frac{\abs{f_n - f}}{1 + \abs{f_n - f}} \d\mu.
+    \end{align*} %% arreglar detalles y concluir
+  \end{itemize}
+\end{proof}
+
+\newpage
+\subsection{Problema 5}
+
+A modo de resumen: ¿Qué implica qué? Considere también si alguna otra hipótesis permite deducir alguna de las implicancias (por ejemplo, $\mu(X) < \oo$).
+
+\begin{enumerate}[(i)]
+  \item $f_n \to f$ a.e.
+  \item $f_n \xrightarrow{\mu} f$.
+  \item $\ds \int_X \abs{f_n - f} \d\mu \to 0$
+  \item $\ds \int_X f_n \d\mu \to \int_X f \d\mu$.
+\end{enumerate}
+
+\begin{proof}
+  \ \begin{itemize}
+    \item \boxed{(ii) \not\implies (i)} Consideremos $f_n = \Chi{[n,\oo)}$, tenemos que $f_n \to 0$ a.e., pero para $\e = 1/2 > 0$ tenemos 
+    \[ \mu\{x \in X \colon \abs{f_n - f} \geq 1/2\} = \mu\{x \in X \colon \abs{\Chi{[n,\oo)}} \geq 1/2\} = \mu[n,\oo) = \oo \neq 0 \]
+    y entonces no converge en medida.
+    \item \boxed{(ii) \not\implies (iii)} Consideramos $f_n = n \Chi{[0,1/n]}$.
+    \item 
+  \end{itemize}
+\end{proof}
 
 \end{document}
